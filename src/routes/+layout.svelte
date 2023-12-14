@@ -5,14 +5,6 @@
 
 <NavBar />
 
-<main class="container h-full mx-auto px-4 sm:p-4">
+<main class="container h-full mx-auto flex justify-center relative">
     <slot />
 </main>
-
-<style>
-    * {
-        padding: 0;
-        margin: 0;
-        border: border-box;
-    }
-</style>

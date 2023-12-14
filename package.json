@@ -33,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"obra-icons-svelte": "^1.10.0",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-i18n": "^4.0.0"
 	}

@@ -10,6 +10,10 @@
     import QrCodeAdvancedOptions from "$lib/QrCode/components/QrCodeAdvancedOptions.svelte";
     import QrCodeDownload from "$lib/QrCode/components/QrCodeDownload.svelte";
 
+    export let defaultContent: string;
+
+    $: console.log(defaultContent);
+
     type QrCodeData = {
         type: string;
         url: string;
@@ -21,8 +25,8 @@
     };
 
     let options: Options = {
+        image: undefined,
         data: qrCodeData.url,
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
         width: 500,
         height: 500,
         dotsOptions: {
@@ -32,35 +36,40 @@
         imageOptions: {
             crossOrigin: "anonymous",
             margin: 20
+        },
+        cornersSquareOptions: {},
+        cornersDotOptions: {},
+        backgroundOptions: {
+            color: "transparent"
+        },
+        qrOptions: {
+            typeNumber: 0,
+            errorCorrectionLevel: "Q",
+            mode: "Byte",
         }
     };
 
-    console.log(options);
 </script>
 
-<main>
-    <div class="left">
-        <QrCodeContent />
+<div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
+    <section class="mb-48 sm:mb-0 ">
+        <QrCodeContent bind:options />
         <ButtonSave />
-        <QrCodeGeneralStyle />
-        <QrCodeBorder />
-        <QrCodePoint />
-        <QrCodeAddImage />
-        <QrCodeAdvancedOptions />
-    </div>
+        <QrCodeGeneralStyle bind:dotsOptions={options.dotsOptions} />
+        <QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} />
+        <QrCodePoint bind:cornersDotOptions={options.cornersDotOptions} />
+        <QrCodeAddImage bind:qrImage={options.image} />
+        <QrCodeAdvancedOptions bind:qrOptions={options.qrOptions} />
+    </section>
 
-    <div class="fixed bottom-0 border-black">
-        <QrCodeDownload {options}  />
-    </div>
-</main>
+    <section class="grid grid-rows-1 fixed bottom-0 border-black sm:relative">
+        <div class="sm:fixed sm:w-[240px] lg:w-[320px]">
+            <QrCodeDownload {options}  />
+        </div>
+    </section>
+</div>
 
 
 <style>
-    * {
-        background-color: #E2E8F0;
-    }
 
-    .left{
-        margin-bottom: 30vh;
-    }
 </style>
