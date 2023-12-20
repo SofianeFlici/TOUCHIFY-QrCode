@@ -1,0 +1,172 @@
+{
+  "title": "QR Code Generator",
+  "description": "Une application simple pour générer des QR Codes stylisés",
+  "back": "Retour",
+  "data": {
+    "title": "Contenu du QR Code",
+    "url": {
+      "name": "URL"
+    },
+    "email": {
+      "name": "Email",
+      "address": "Adresse email",
+      "subject": "Sujet"
+    },
+    "phone": {
+      "name": "Téléphone"
+    },
+    "sms": {
+      "name": "SMS",
+      "number": "Numéro de téléphone",
+      "message": "Message"
+    },
+    "contact": {
+      "name": "Contact",
+      "firstname": "Prénom",
+      "lastname": "Nom",
+      "company": "Société",
+      "job": "Fonction",
+      "phone": "Téléphone",
+      "email": "Email",
+      "url": "Site internet"
+    },
+    "event": {
+      "name": "Evénement",
+      "summary": "Titre",
+      "start": "Date de début",
+      "end": "Date de fin"
+    },
+    "geo": {
+      "name": "Géolocalisation",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "wifi": {
+      "name": "Wi-Fi",
+      "ssid": "Nom du réseau",
+      "auth": "Authentification",
+      "password": "Mot de passe",
+      "hidden": "Réseau caché"
+    }
+  },
+  "options": {
+    "title": "Style général"
+  },
+  "dots": {
+    "type": {
+      "label": "Style",
+      "square": "Carré",
+      "rounded": "Arrondi",
+      "extra-rounded": "Très arrondi",
+      "dots": "Points",
+      "classy": "Classy",
+      "classy-rounded": "Classy arrondi"
+    },
+    "color": {
+      "label": "Couleur"
+    }
+  },
+  "background": {
+    "color": {
+      "label": "Couleur de fond"
+    }
+  },
+  "corners": {
+    "dot": {
+      "title": "Point des coins",
+      "type": {
+        "label": "Style",
+        "undefined": "Aucun",
+        "dot": "Point",
+        "square": "Carré"
+      },
+      "color": {
+        "label": "Couleur"
+      }
+    },
+    "square": {
+      "title": "Bordure des coins",
+      "type": {
+        "label": "Style",
+        "undefined": "Aucun",
+        "dot": "Point",
+        "square": "Carré",
+        "extra-rounded": "Très arrondi"
+      },
+      "color": {
+        "label": "Couleur"
+      }
+    }
+  },
+  "image": {
+    "title": "Ajouter une image",
+    "hide": {
+      "label": "Cacher le fond"
+    },
+    "size": {
+      "label": "Taille de l'image"
+    },
+    "margin": {
+      "label": "Marge de l'image"
+    }
+  },
+  "qr": {
+    "title": "Options avancées",
+    "type": {
+      "label": "Numéro de type"
+    },
+    "level": {
+      "label": "Niveau de correction"
+    },
+    "mode": {
+      "label": "Mode"
+    }
+  },
+  "download": {
+    "title": "Téléchargement",
+    "button": "Télécharger",
+    "format": {
+      "label": "Format"
+    }
+  },
+  "saved": {
+    "title": "Mes QR Codes",
+    "add": "Ajouter un QR Code",
+    "empty": "Aucun QR Code n'est sauvegardé sur ce périphérique.",
+    "created": "Créé le {date, date, short}"
+  },
+  "view": {
+    "load": "Modifier",
+    "delete": "Supprimer"
+  },
+  "menu": {
+    "save": "Sauvegarder",
+    "list": "Mes QR Codes"
+  },
+  "ui": {
+    "lang": {
+      "switch": "Changer de langue",
+      "flag": "Drapeau de la langue courante",
+      "en": "Anglais",
+      "fr": "Français"
+    },
+    "file": {
+      "load": "Déposez ou cliquer pour ajouter un fichier"
+    },
+    "color": {
+      "transparent": "Transparent"
+    },
+    "gradient": {
+      "use": "Utiliser un dégradé",
+      "linear": "Linéaire",
+      "radial": "Radial"
+    },
+    "worker": {
+      "close": "Fermer",
+      "reload": {
+        "message": "Une nouvelle version de l'application est disponible. Cliquez sur le bouton Recharger pour mettre à jour.",
+        "button": "Recharger"
+      }
+    }
+  }
+}

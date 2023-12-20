@@ -11,9 +11,9 @@
     import QrCodeDownload from "$lib/QrCode/components/QrCodeDownload.svelte";
     import type { QrCodeData } from "$lib/QrCode/qrcode.data";
 
-    export let defaultContent: string;
+    let data: string = "https://touchify.io";
 
-
+    $: console.log('+page.svelte data = ', data );
 
     export let dataContent:QrCodeData;
 
@@ -22,7 +22,7 @@
 
     let options: Options = {
         image: undefined,
-        data: "tests",
+        data: data,
         width: 500,
         height: 500,
         dotsOptions: {
@@ -45,11 +45,15 @@
         }
     };
 
+    $: options.data = data;
+
+    $: console.log('+page.svelte options = ', options.data);
+
 </script>
 
 <div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
     <section class="mb-48 sm:mb-0 ">
-        <QrCodeContent bind:dataContent={dataContent} />
+        <QrCodeContent bind:data={data} />
         <ButtonSave />
         <QrCodeGeneralStyle bind:dotsOptions={options.dotsOptions} />
         <QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} />
@@ -60,7 +64,7 @@
 
     <section class="grid grid-rows-1 fixed bottom-0 border-black sm:relative">
         <div class="sm:fixed sm:w-[240px] lg:w-[320px]">
-            <QrCodeDownload {options}  />
+            <QrCodeDownload bind:options />
         </div>
     </section>
 </div>

@@ -43,6 +43,7 @@ export type QrCodeDataContact = {
     phone?: number;
     email?: string;
     url?: string;
+    jobTitle?: string;
     icon: typeof IconContactBook;
 };
 
@@ -92,5 +93,83 @@ export function ListQrCodeDataType(): QrCodeData[]{
             subject: "Test",
             icon: IconEmail,
         },
+
+        {
+            type: "Phone",
+            number: 123456789,
+            icon: IconPhone,
+        },
+        {
+            type: "Contact",
+            firstname: "John",
+            lastname: "Doe",
+            company: "Touchify",
+            jobTitle: "Developer",
+            phone: 123456789,
+            email: "example@mail.com",
+            url: "https://touchify.io",
+            icon: IconContactBook,
+        },
+        {
+            type: "Wifi",
+            ssid: "Touchify",
+            password: "123456789",
+            typeWifi: "WPA",
+            icon: IconWifi,
+        },
+        {
+            type: "Event",
+            title: "Touchify",
+            dstart: "2021-05-20T10:00:00",
+            dend: "2021-05-20T12:00:00",
+            icon: IconCalendarCheck,
+        },
+        {
+            type: "Geo",
+            latitude: 48.8534,
+            longitude: 2.3488,
+            icon: IconLocationMarker,
+        },
+
+        {
+            type: "SMS",
+            number: "123456789",
+            message: "Hello World",
+            icon: IconMessage,
+        }
     ];    
+}
+
+
+
+export function generateVCard(firstName: string, lastName: string, company: string, jobTitle: string, email: string, phone: string, website: string) {
+    return `BEGIN:VCARD\nVERSION:3.0\nFN:${firstName} ${lastName}\nORG:${company}\nTITLE:${jobTitle}\nEMAIL:${email}\nTEL:${phone}\nURL:${website}\nEND:VCARD`;
+}
+
+export function generateWifi(ssid: string, password: string, typeWifi: string) {
+    return `WIFI:S:${ssid};T:${typeWifi};P:${password};;`;
+}
+
+export function generateEvent(title: string, dstart: string, dend: string) {
+    return `BEGIN:VEVENT\nSUMMARY:${title}\nDTSTART:${dstart}\nDTEND:${dend}\nEND:VEVENT`;
+}
+
+export function generateGeo(latitude: string, longitude: string) {
+    return `geo:${latitude},${longitude}`;
+}
+
+export function generateSms(number: string, message: string) {
+    return `SMSTO:${number}:${message}`;
+}
+
+export function generatePhone(number: string) {
+    return `tel:${number}`;
+}
+
+export function generateEmail(email: string, subject: string) {
+    return `mailto:${email}?subject=${subject}`;
+}
+
+export function generateUrl(url: string) {
+    return  url;
 }

@@ -3,7 +3,6 @@
     import type { Options } from "qr-code-styling";
     import Card from "$lib/components/Card.svelte";
     import InputRadioButton from "$lib/components/InputRadioButton.svelte";
-    export let classNames: string = "default";
 
     export let options: Options;
 
@@ -21,6 +20,8 @@
     $: if (qrCode) {
         qrCode.update(options);
     }
+
+    $: console.log('QrCodeDownload.svelte options = ', options.data);
 
     let styles = ["JPEG", "PNG", "SVG", "WEBP"];
     let defaultStyle = "SVG";

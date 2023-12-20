@@ -3,7 +3,7 @@
 </script>
 
 <div class="flex items-center">
-    <input type="text" bind:value={value} class="bg-gray-200 rounded p-2 m-1 w-20"/>
+    <input type="text" bind:value={value} class="bg-slate-100 rounded p-2 m-1 w-20"/>
     <input type="color" bind:value={value} class="input-color bg-gray-500" />
 </div>
 
