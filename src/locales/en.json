@@ -1,0 +1,172 @@
+{
+  "title": "QR Code Generator",
+  "description": "A simple application that generates stylized QR Codes",
+  "back": "Back",
+  "data": {
+    "title": "QR Code content",
+    "url": {
+      "name": "URL"
+    },
+    "email": {
+      "name": "Email",
+      "address": "Email address",
+      "subject": "Subject"
+    },
+    "phone": {
+      "name": "Phone"
+    },
+    "sms": {
+      "name": "Text message",
+      "number": "Phone number",
+      "message": "Message"
+    },
+    "contact": {
+      "name": "Contact",
+      "firstname": "First name",
+      "lastname": "Last name",
+      "company": "Company",
+      "job": "Job title",
+      "phone": "Phone",
+      "email": "Email",
+      "url": "Website"
+    },
+    "event": {
+      "name": "Event",
+      "summary": "Title",
+      "start": "Start date",
+      "end": "End date"
+    },
+    "geo": {
+      "name": "Geolocation",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "wifi": {
+      "name": "Wi-Fi",
+      "ssid": "Network name",
+      "auth": "Authentication",
+      "password": "Password",
+      "hidden": "Hidden network"
+    }
+  },
+  "options": {
+    "title": "General style"
+  },
+  "dots": {
+    "type": {
+      "label": "Style",
+      "square": "Square",
+      "rounded": "Rounded",
+      "extra-rounded": "Extra rounded",
+      "dots": "Dots",
+      "classy": "Classy",
+      "classy-rounded": "Classy rounded"
+    },
+    "color": {
+      "label": "Color"
+    }
+  },
+  "background": {
+    "color": {
+      "label": "Background color"
+    }
+  },
+  "corners": {
+    "dot": {
+      "title": "Corners dot",
+      "type": {
+        "label": "Style",
+        "undefined": "None",
+        "dot": "Dot",
+        "square": "Square"
+      },
+      "color": {
+        "label": "Color"
+      }
+    },
+    "square": {
+      "title": "Corners square",
+      "type": {
+        "label": "Style",
+        "undefined": "None",
+        "dot": "Dot",
+        "square": "Square",
+        "extra-rounded": "Extra rounded"
+      },
+      "color": {
+        "label": "Color"
+      }
+    }
+  },
+  "image": {
+    "title": "Image options",
+    "hide": {
+      "label": "Hide background dots"
+    },
+    "size": {
+      "label": "Image size"
+    },
+    "margin": {
+      "label": "Image margin"
+    }
+  },
+  "qr": {
+    "title": "Advanced options",
+    "type": {
+      "label": "Type number"
+    },
+    "level": {
+      "label": "Correction level"
+    },
+    "mode": {
+      "label": "Mode"
+    }
+  },
+  "download": {
+    "title": "Download",
+    "button": "Download",
+    "format": {
+      "label": "Format"
+    }
+  },
+  "saved": {
+    "title": "My QR Codes",
+    "add": "Add a QR Code",
+    "empty": "No QR Codes saved on this device.",
+    "created": "Created on {date, date, short}"
+  },
+  "view": {
+    "load": "Modify",
+    "delete": "Delete"
+  },
+  "menu": {
+    "save": "Save QR Code",
+    "list": "My QR Codes"
+  },
+  "ui": {
+    "lang": {
+      "switch": "Switch language",
+      "flag": "Current flag",
+      "en": "English",
+      "fr": "French"
+    },
+    "file": {
+      "load": "Drop or click to add a file"
+    },
+    "color": {
+      "transparent": "Transparent"
+    },
+    "gradient": {
+      "use": "Use gradient",
+      "linear": "Linear",
+      "radial": "Radial"
+    },
+    "worker": {
+      "close": "Close",
+      "reload": {
+        "message": "A new version of the application is available. Click on the reload button to update.",
+        "button": "Reload"
+      }
+    }
+  }
+}
