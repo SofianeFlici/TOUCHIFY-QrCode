@@ -21,7 +21,12 @@
     $: if (qrCode) {
         qrCode.update(options);
     }
-
+    function download() {
+        qrCode.download({
+            name: "qrcode",
+            extension: defaultStyle,
+        });
+    }
     $: console.log('QrCodeDownload.svelte options = ', options.data);
 
     let styles = ["JPEG", "PNG", "SVG", "WEBP"];
@@ -41,7 +46,7 @@
             {/each}  
         </div>
     
-        <button class="bg-slate-800 text-white text-sm py-2 rounded w-full mt-2">
+        <button class="bg-slate-800 text-white text-sm py-2 rounded w-full mt-2" on:click={download}>
             {$_('download.button')}
         </button>
     </Card>

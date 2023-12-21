@@ -55,7 +55,7 @@
     <section class="mb-48 sm:mb-0 ">
         <QrCodeContent bind:data={data} />
         <ButtonSave />
-        <QrCodeGeneralStyle bind:dotsOptions={options.dotsOptions} />
+        <QrCodeGeneralStyle bind:dotsOptions={options.dotsOptions} bind:backgroundOptions={options.backgroundOptions} />
         <QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} />
         <QrCodePoint bind:cornersDotOptions={options.cornersDotOptions} />
         <QrCodeAddImage bind:qrImage={options.image} />

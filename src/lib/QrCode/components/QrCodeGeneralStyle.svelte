@@ -6,11 +6,12 @@
     import { _ } from 'svelte-i18n';
 
     export let dotsOptions: Options["dotsOptions"];
+    export let backgroundOptions: Options["backgroundOptions"];
     
     let style = ["square", "rounded", "dots"] as const;
     let transparent = true;
     let degrade = false;
-
+    let value = "#000000";
 </script>
 
 <Card>
@@ -32,7 +33,9 @@
         </div>
         {#if !transparent}
             <div>
-                <InputColor bind:value = {dotsOptions.color}/>
+                {#if backgroundOptions}
+                <InputColor bind:value = {backgroundOptions.color}/>
+                {/if}
             </div>
             <input type="checkbox" value="degrade"on:click={() => degrade = !degrade} checked={degrade} class="m-1" />{$_('ui.gradient.use')}
             {/if}
