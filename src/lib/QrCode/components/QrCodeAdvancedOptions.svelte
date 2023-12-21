@@ -2,6 +2,7 @@
     import Card from "$lib/components/Card.svelte";
     import InputRadioButton from "$lib/components/InputRadioButton.svelte";
 	import type { Options } from "qr-code-styling";
+    import { _ } from 'svelte-i18n';
 
     export let qrOptions: Options["qrOptions"];
     
@@ -13,8 +14,8 @@
 <Card>
     {#if qrOptions}
         <div class="flex flex-col">
-            <h2 class="font-semibold m-1 mb-2">Options avancées</h2>
-            <p class="font-semibold text-sm m-1">Numéro de type</p>
+            <h2 class="font-semibold m-1 mb-2">{$_('qr.title')}</h2>
+            <p class="font-semibold text-sm m-1">{$_('qr.type.label')}</p>
             <div>
                 <input type="number" bind:value={qrOptions.typeNumber} min="0" max="40"  class="text-black text-sm rounded mt-3 mb-3 border bg-slate-100 p-2 placeholder-black w-44" />
             </div>

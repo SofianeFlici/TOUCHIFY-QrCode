@@ -3,6 +3,7 @@
     import type { Options } from "qr-code-styling";
     import Card from "$lib/components/Card.svelte";
     import InputRadioButton from "$lib/components/InputRadioButton.svelte";
+    import { _ } from 'svelte-i18n';
 
     export let options: Options;
 
@@ -41,7 +42,7 @@
         </div>
     
         <button class="bg-slate-800 text-white text-sm py-2 rounded w-full mt-2">
-            Télécharger
+            {$_('download.button')}
         </button>
     </Card>
 </div>

@@ -5,8 +5,7 @@
     import { generateVCard, generateEmail, generatePhone, generateSms, generateWifi, generateUrl, generateGeo, generateEvent } from "../qrcode.data";
     import InputContent from "$lib/components/inputContent.svelte";
 
-    // import "./../../i18n.js";
-    // import { _ } from "svelte-i18n";
+    import { _ } from 'svelte-i18n';
     
     
     let defaultContent = "URL";
@@ -79,7 +78,7 @@
 </script>
 
 <Card>
-    <h1 class="font-semibold mb-2">kkk</h1>
+    <h1 class="font-semibold mb-2">{$_('data.title')}</h1>
     <input type="button" value={defaultContent} class="mb-2 self-start justify-start text-sm" on:click={() => visible = !visible} />
     <div>
         {#if visible == true}
@@ -93,57 +92,57 @@
             <InputContent bind:value={inputUrlContent} />
         {/if}
         {#if defaultContent == "Email"}
-            <label for="email" class='font-semibold'>Adresse email</label>
+            <label for="email" class='font-semibold'>{$_('data.email.address')}</label>
             <InputContent bind:value={inputEmailContent} />
-            <label for="email" class='font-semibold'>Sujet</label>
+            <label for="email" class='font-semibold'>{$_('data.email.subject')}</label>
             <InputContent bind:value={inputEmailSubject} />
         {/if}
         {#if defaultContent == "SMS"}
-            <label for ="sms" class='font-semibold'>Numéro de téléphone</label>
+            <label for ="sms" class='font-semibold'>{$_('data.sms.number')}</label>
             <InputContent bind:value={inputSmsNumber} />
-            <label for ="sms" class='font-semibold'>Message</label>
+            <label for ="sms" class='font-semibold'>{$_('data.sms.message')}</label>
             <InputContent bind:value={inputSmsMessage} />
         {/if}
         {#if defaultContent == "Phone"}
             <InputContent bind:value={inputPhone} />
         {/if}
         {#if defaultContent == "Wifi"}
-            <label for="wifi" class='font-semibold'>Nom du réseau</label>
+            <label for="wifi" class='font-semibold'>{$_('data.wifi.ssid')}</label>
             <InputContent bind:value={inputWifiName} />
-            <label for="wifi" class='font-semibold'>Authentification</label>
+            <label for="wifi" class='font-semibold'>{$_('data.wifi.auth')}</label>
             <InputContent bind:value={inputWifiAuth} />
-            <label for="wifi" class='font-semibold'>Mot de passe</label>
+            <label for="wifi" class='font-semibold'>{$_('data.wifi.password')}</label>
             <InputContent bind:value={inputWifiPassword} />
             <input type="checkbox" class="text-black text-sm rounded mt-3 mb-3 border bg-slate-100 w-full p-2 placeholder-black" />
         {/if}
         {#if defaultContent == "Contact"}
-            <label for="contact" class='font-semibold'>Prénom</label>
+            <label for="contact" class='font-semibold'>{$_('data.contact.firstname')}</label>
             <InputContent bind:value={inputVCardFirstName} />
-            <label for="contact" class='font-semibold'>Nom</label>
+            <label for="contact" class='font-semibold'>{$_('data.contact.lastname')}</label>
             <InputContent bind:value={inputVCardLastName} />
-            <label for="contact" class='font-semibold'>Entreprise</label>
+            <label for="contact" class='font-semibold'>{$_('data.contact.company')}</label>
             <InputContent bind:value={inputVCardCompany} />
-            <label for="contact" class='font-semibold'>Profession</label>
+            <label for="contact" class='font-semibold'>{$_('data.contact.job')}</label>
             <InputContent bind:value={inputVCardJob} />
-            <label for="contact" class='font-semibold'>Email</label>
+            <label for="contact" class='font-semibold'>{$_('data.contact.email')}</label>
             <InputContent bind:value={inputVCardEmail} />
-            <label for="contact" class='font-semibold'>Téléphone</label>
+            <label for="contact" class='font-semibold'>{$_('data.contact.phone')}</label>
             <InputContent bind:value={inputVCardPhone} />
-            <label for="contact" class='font-semibold'>Site web</label>
+            <label for="contact" class='font-semibold'>{$_('data.contact.url')}</label>
             <InputContent bind:value={inputVCardWebsite} />
         {/if}
         {#if defaultContent == "Geo"}
-            <label for="geo" class='font-semibold'>Latitude</label>
+            <label for="geo" class='font-semibold'>{$_('data.geo.latitude')}</label>
             <InputContent bind:value={inputGeoLatitude} />
-            <label for="geo" class='font-semibold'>Longitude</label>
+            <label for="geo" class='font-semibold'>{$_('data.geo.longitude')}</label>
             <InputContent bind:value={inputGeoLongitude} />
         {/if}
         {#if defaultContent == "Event"}
-            <label for="event" class='font-semibold'>Titre de l'évènement</label>
+            <label for="event" class='font-semibold'>{$_('data.event.summary')}</label>
             <InputContent bind:value={inputEventTitle} />
-            <label for="event" class='font-semibold'>Date de début</label>
+            <label for="event" class='font-semibold'>{$_('data.event.start')}</label>
             <InputContent nameType="date" bind:value={inputEventStartDate} />
-            <label for="event" class='font-semibold'>Date de fin</label>
+            <label for="event" class='font-semibold'>{$_('data.event.end')}</label>
             <InputContent nameType="date" bind:value={inputEventEndDate} />
         {/if}
     {/if}
