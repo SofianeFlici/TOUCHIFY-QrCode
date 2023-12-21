@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import { locale } from 'svelte-i18n';
     import fr_icon from "$assets/trad/france_icon.png";
     import uk_icon from "$assets/trad/kindgom_gb_gbr_icon.png";
@@ -7,7 +8,15 @@
         $locale = newLocale;
         localStorage.setItem('locale', newLocale);
     }
+    
+    onMount(() => {
+      const storedLocale = localStorage.getItem('locale');
+      if (storedLocale) {
+        $locale = storedLocale;
+      }
+    });    
 </script>
+
   
   {#if $locale === 'en'}
   <button on:click={() => changeLocale('fr')}>

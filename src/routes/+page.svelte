@@ -54,7 +54,7 @@
 <div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
     <section class="mb-48 sm:mb-0 ">
         <QrCodeContent bind:data={data} />
-        <ButtonSave />
+        <ButtonSave data={options}/>
         <QrCodeGeneralStyle bind:dotsOptions={options.dotsOptions} bind:backgroundOptions={options.backgroundOptions} />
         <QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} />
         <QrCodePoint bind:cornersDotOptions={options.cornersDotOptions} />
