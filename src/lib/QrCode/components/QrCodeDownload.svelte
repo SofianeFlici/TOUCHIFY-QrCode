@@ -8,13 +8,13 @@
     export let options: Options;
 
     let qrCode: any;
-    let qrCodeElement: HTMLElement;
+    let qrCodeElement: HTMLElement; // HTMLElement | null = null;
 
     onMount(async () => {
         const { default: QRCodeStyling } = await import("qr-code-styling");
-        qrCode = new QRCodeStyling(options);
-        if (qrCodeElement) {
-            qrCode.append(qrCodeElement);
+        qrCode = new QRCodeStyling(options); // QRCodeStyling(options);
+        if (qrCodeElement) { // qrCodeElement = document.querySelector(".qr-preview");
+            qrCode.append(qrCodeElement); // qrCodeElement && qrCode.append(qrCodeElement); 
         }
     });
 

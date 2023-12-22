@@ -1,62 +1,19 @@
-import Dexie, { type Table } from 'dexie';
+import Dexie from 'dexie';
+import type { Options } from "qr-code-styling"; // Assurez-vous que c'est le bon type pour vos données
 
-// Définissez une interface qui correspond à la structure de vos données
-export interface QRCodeOptions {
-    id: string; // Un identifiant unique pour chaque enregistrement
-    width: number;
-    height: number;
-    color: string; // Exemple: color de dotsOptions
-    background: string; // Exemple: background de dotsOptions
-    dotsOptions: {
-        color: string;
-        background: string;
-        type: 'rounded' | 'square';
-    };
-    cornersSquareOptions: {
-        color: string;
-        background: string;
-    };
-    cornersDotOptions: {
-        color: string;
-        background: string;
-        type: 'dot' | 'square';
-    };
-    cornersType: 'dot' | 'square';
-    cornersAlwaysSquare: boolean;
-    image: string;
-    imageOptions: {
-        crossOrigin: string;
-        margin: number;
-        imageSize: number;
-        hideBackgroundDots: boolean;
-    };
-    backgroundImage: string;
-    backgroundImageOptions: {
-        crossOrigin: string;
-        ratio: number;
-        url: string;
-    };
-    qrOptions: {
-        errorCorrectionLevel: 'L' | 'M' | 'Q' | 'H';
-        maskPattern: number;
-        scale: number;
-        width: number;
-        height: number;
-        typeNumber: number;
-        quality: number;
-    };
-}
-
-// Extension de Dexie pour intégrer TypeScript
-export class MyDatabase extends Dexie {
-    qrcodeOptions!: Table<QRCodeOptions>;
+class MyListDatabase extends Dexie {
+	[x: string]: any;
+    options: Dexie.Table<Options, number>; // Précisez ici le type de vos données et le type de la clé primaire
 
     constructor() {
-        super('myDatabase');
+        super("MyList");
         this.version(1).stores({
-            qrcodeOptions: 'id, width, height, color, background, dotsOptions, cornersSquareOptions, cornersDotOptions, cornersType, cornersAlwaysSquare, image, imageOptions, backgroundImage, backgroundImageOptions, qrOptions' 
+            options: '++id, data, width, height, backgroundOptions, cornersDotOptions, cornersSquareOptions, dotsOptions, imageOptions, qrOptions'
         });
+
+        this.options = this.table("options");
     }
 }
 
-export const db = new MyDatabase();
+const db = new MyListDatabase();
+export default db;
