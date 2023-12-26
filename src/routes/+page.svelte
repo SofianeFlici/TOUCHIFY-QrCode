@@ -9,16 +9,16 @@
     import QrCodeAddImage from "$lib/QrCode/components/QrCodeAddImage.svelte";
     import QrCodeAdvancedOptions from "$lib/QrCode/components/QrCodeAdvancedOptions.svelte";
     import QrCodeDownload from "$lib/QrCode/components/QrCodeDownload.svelte";
-    import type { QrCodeData } from "$lib/QrCode/qrcode.data";
+    // import type { QrCodeData } from "$lib/QrCode/qrcode.data";
 
     let data: string = "https://touchify.io";
 
     $: console.log('+page.svelte data = ', data );
 
-    export let dataContent:QrCodeData;
+    // export let dataContent:QrCodeData;
 
 
-    let qrCodeData: QrCodeData = dataContent;
+    // let qrCodeData: QrCodeData = dataContent;
 
     let options: Options = {
         image: undefined,

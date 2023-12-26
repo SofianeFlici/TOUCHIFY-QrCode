@@ -2,7 +2,7 @@
     export let classNames:string = "default";
 </script>
 
-<div class="m-4 {classNames}">
+<div class="m-4 {classNames} dark:bg-black">
     <slot />
 </div>
 
