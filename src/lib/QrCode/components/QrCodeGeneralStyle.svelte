@@ -41,13 +41,27 @@
 						<InputColor bind:value={backgroundOptions.color} />
 					{/if}
 				</div>
-				<input
-					type="checkbox"
-					value="degrade"
-					on:click={() => (degrade = !degrade)}
-					checked={degrade}
-					class="m-1"
-				/>{$_('ui.gradient.use')}
+				<div>
+					<input
+						type="checkbox"
+						value="degrade"
+						on:click={() => (degrade = !degrade)}
+						checked={degrade}
+						class="m-1"
+					/>{$_('ui.gradient.use')}
+				</div>
+			{/if}
+			{#if degrade && !transparent}
+				<div>
+					{#if backgroundOptions}
+						<InputColor />
+					{/if}
+				</div>
+				<div>
+					{#if backgroundOptions}
+						<InputColor />
+					{/if}
+				</div>
 			{/if}
 		</div>
 	{/if}
