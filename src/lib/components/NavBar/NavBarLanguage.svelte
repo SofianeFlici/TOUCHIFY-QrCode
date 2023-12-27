@@ -35,10 +35,10 @@
 {/if}
 
 {#if isOpen}
-  <div class="flex flex-col fixed top-14 right-4 justify-between w-36 rounded-md">
+  <div class="flex flex-col fixed top-14 bg-slate-500 right-4 justify-between w-36 rounded-md">
     {#each lang as { id, name, img }}
-    <div class="flex row bg-slate-500">
-      <button class="flex w-100 " on:click={() => { changeLocale(id); isOpen = false; }}>
+    <div class="flex row  w-4/6">
+      <button class="flex w-full justify-between m-2" on:click={() => { changeLocale(id); isOpen = false; }}>
         <img src={img} alt={name} class="w-7 h-7" />
         {name}
       </button>
