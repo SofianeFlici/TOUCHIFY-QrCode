@@ -4,17 +4,18 @@
 	import type { Options } from 'qr-code-styling';
 	import { _ } from 'svelte-i18n';
 	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
+	import InputGradient from '$lib/components/InputGradient.svelte';
 	export let dotsOptions: Options['dotsOptions'];
 	export let backgroundOptions: Options['backgroundOptions'];
 
 	let style = ['square', 'rounded', 'dots', 'classy', 'classy-rounded', 'extra-rounded'] as const;
 	let transparent = true;
-	let degrade = false;
+	let gradient = false;
 </script>
 
 <Card>
 	{#if dotsOptions}
-		<div class="flex flex-col">
+		<div class="flex flex-col ">
 			<h2 class="font-semibold m-1 mb-2">{$_('options.title')}</h2>
 			<p class="font-semibold m-1">{$_('dots.type.label')}</p>
 			<InputRadioButtons
@@ -45,23 +46,16 @@
 					<input
 						type="checkbox"
 						value="degrade"
-						on:click={() => (degrade = !degrade)}
-						checked={degrade}
+						on:click={() => (gradient = !gradient)}
+						checked={gradient}
 						class="m-1"
 					/>{$_('ui.gradient.use')}
 				</div>
 			{/if}
-			{#if degrade && !transparent}
-				<div>
-					{#if backgroundOptions}
-						<InputColor />
-					{/if}
-				</div>
-				<div>
-					{#if backgroundOptions}
-						<InputColor />
-					{/if}
-				</div>
+			{#if gradient && !transparent && backgroundOptions}
+			<div class='flex'>
+				<InputGradient bind:color1={backgroundOptions.gradient} bind:color2={backgroundOptions.gradient} />
+			</div>
 			{/if}
 		</div>
 	{/if}

@@ -8,6 +8,7 @@
 	export let cornersSquareOptions: Options['cornersSquareOptions'];
 
 	let types = [undefined,'dot', 'square', 'extra-rounded'] as const;
+	$: console.log('cornersSquareOptions = ', cornersSquareOptions);
 </script>
 
 <Card>

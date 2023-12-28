@@ -2,7 +2,6 @@
 	import Card from '$lib/components/Card.svelte';
 	import InputRadioButton from '$lib/components/InputRadioButton.svelte';
 	import { ListQrCodeDataType } from '../qrcode.data';
-	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
 	import {
 		generateVCard,
 		generateEmail,
@@ -139,18 +138,24 @@
 			/>
 		{/if}
 		{#if defaultContent == 'Contact'}
+		<div class="flex">
 			<label for="contact" class="font-semibold">{$_('data.contact.firstname')}</label>
 			<InputContent bind:value={inputVCardFirstName} />
 			<label for="contact" class="font-semibold">{$_('data.contact.lastname')}</label>
 			<InputContent bind:value={inputVCardLastName} />
+		</div>
+		<div class="flex">
 			<label for="contact" class="font-semibold">{$_('data.contact.company')}</label>
 			<InputContent bind:value={inputVCardCompany} />
 			<label for="contact" class="font-semibold">{$_('data.contact.job')}</label>
 			<InputContent bind:value={inputVCardJob} />
+		</div>
+		<div class="flex">
 			<label for="contact" class="font-semibold">{$_('data.contact.email')}</label>
 			<InputContent bind:value={inputVCardEmail} />
 			<label for="contact" class="font-semibold">{$_('data.contact.phone')}</label>
 			<InputContent bind:value={inputVCardPhone} />
+		</div>
 			<label for="contact" class="font-semibold">{$_('data.contact.url')}</label>
 			<InputContent bind:value={inputVCardWebsite} />
 		{/if}

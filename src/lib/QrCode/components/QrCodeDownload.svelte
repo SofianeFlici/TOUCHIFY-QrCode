@@ -35,7 +35,7 @@
 </script>
 
 <div
-	class="flex border-y-2 border-gray-400 bg-slate-300 shadow sm:flex-col sm:bg-transparent sm:border-hidden"
+	class="flex border-y-2 border-gray-400 bg-slate-300  sm:flex-col sm:bg-transparent sm:border-hidden"
 >
 	<div class="mr-0 w-2/6 shrink-0 sm:w-full sm:p-2">
 		<div

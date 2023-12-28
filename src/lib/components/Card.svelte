@@ -1,8 +1,7 @@
 <script lang="ts">
-    export let classNames:string = "default";
 </script>
 
-<div class="m-4 {classNames} dark:bg-black">
+<div class="m-4 rounded shadow-lg p-2 bg-white dark:bg-slate-700 dark:text-slate-200 ">
     <slot />
 </div>
 
