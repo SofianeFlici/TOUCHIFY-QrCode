@@ -12,6 +12,10 @@
 	// import type { QrCodeData } from "$lib/QrCode/qrcode.data";
 
 	let data: string = 'https://touchify.io';
+	let blobUrl: string;
+	let blob: Blob | null = null;
+
+	$: console.log('+page.svelte blob = ', blob);
 
 	$: console.log('+page.svelte data = ', data);
 
@@ -45,29 +49,27 @@
 			mode: 'Byte'
 		}
 	};
-
+	$: console.log('+page.svelte blobUrl = ', blobUrl);
 	$: options.data = data;
-
-	$: console.log('+page.svelte options = ', options.data);
 </script>
 
 <div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
 	<section class="mb-48 sm:mb-0">
 		<QrCodeContent bind:data />
-		<ButtonSave data={options} />
+		<ButtonSave data={options} {blob} />
 		<QrCodeGeneralStyle
 			bind:dotsOptions={options.dotsOptions}
 			bind:backgroundOptions={options.backgroundOptions}
 		/>
 		<QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} />
 		<QrCodePoint bind:cornersDotOptions={options.cornersDotOptions} />
-		<QrCodeAddImage bind:qrImage={options.image} />
+		<QrCodeAddImage bind:blobUrl bind:blob/>
 		<QrCodeAdvancedOptions bind:qrOptions={options.qrOptions} />
 	</section>
 
 	<section class="grid grid-rows-1 fixed bottom-0 border-black sm:relative">
 		<div class="sm:fixed sm:w-[240px] lg:w-[320px]">
-			<QrCodeDownload bind:options />
+			<QrCodeDownload bind:options bind:blobUrl />
 		</div>
 	</section>
 </div>

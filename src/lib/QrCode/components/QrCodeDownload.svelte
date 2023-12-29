@@ -6,13 +6,14 @@
 	import { _ } from 'svelte-i18n';
 
 	export let options: Options;
-
+	export let blobUrl:string;
 	let qrCode: any;
 	let qrCodeElement: HTMLElement; // HTMLElement | null = null;
 
 	onMount(async () => {
+		const opts = Object.assign({}, options);
 		const { default: QRCodeStyling } = await import('qr-code-styling');
-		qrCode = new QRCodeStyling(options); // QRCodeStyling(options);
+		qrCode = new QRCodeStyling(opts); // QRCodeStyling(options);
 		if (qrCodeElement) {
 			// qrCodeElement = document.querySelector(".qr-preview");
 			qrCode.append(qrCodeElement); // qrCodeElement && qrCode.append(qrCodeElement);
@@ -20,7 +21,9 @@
 	});
 
 	$: if (qrCode) {
-		qrCode.update(options);
+		const opts = Object.assign({}, options);
+		opts.image = blobUrl;
+		qrCode.update(opts);
 	}
 	function download() {
 		qrCode.download({
@@ -35,11 +38,11 @@
 </script>
 
 <div
-	class="flex border-y-2 border-gray-400 bg-slate-300  sm:flex-col sm:bg-transparent sm:border-hidden"
+	class="flex border-y-2 border-gray-400 bg-slate-300  sm:flex-col sm:bg-transparent sm:border-hidden dark:bg-slate-600 dark:border-none"
 >
 	<div class="mr-0 w-2/6 shrink-0 sm:w-full sm:p-2">
 		<div
-			class="qr-preview m-4 bg-white aspect-square p-2 rounded sm:m-2"
+			class="qr-preview m-4 bg-white aspect-square p-4 rounded sm:m-2"
 			bind:this={qrCodeElement}
 		></div>
 	</div>

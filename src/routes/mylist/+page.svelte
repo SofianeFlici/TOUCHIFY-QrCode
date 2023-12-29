@@ -23,22 +23,6 @@
 	onMount(async () => {
 		try {
 			data = await db.options.toArray();
-			//-------------- Recupération d'un seul QRCode ----------------------------------------------
-
-			// maintenant que j'ai mes objets avec les options je peux les afficher dans le qr code
-			// je récupère le qr code
-			// const { default: QRCodeStyling } = await import("qr-code-styling");
-			// je crée une nouvelle instance de qr code
-			// let qrCode = new QRCodeStyling(data[0]);
-			// je récupère l'élément html qui contiendra le qr code
-			// let qrCodeElement = document.querySelector(".qr-preview");
-			// je lui ajoute le qr code
-			// qrCode.append(qrCodeElement);
-			// je met à jour le qr code
-			// qrCode.update(data[0]);
-
-			//-------------------------------------------------------------------------------------
-
 			//-------------- Recupération de tous les QRCode ----------------------------------------------
 			const { default: QRCodeStyling } = await import('qr-code-styling');
 			qrList = data.map((options) => {
@@ -61,18 +45,18 @@
 	}
 </script>
 
-<div class="mt-5">
+<div class="mt-5 flex justify-center flex-col  w-5/6 sm:w-full">
 	<a
 		href="/"
-		class="rounded border p-2 border-gray-500 hover:border-gray-700 text-gray-500 hover:text-gray-700 font-semibold py-2"
+		class="w-16 p-1 h-9 text-small flex items-center sm:ml-48 rounded border sm:p-2 border-gray-500 hover:border-gray-700 text-gray-500 hover:text-gray-700 font-semibold sm:py-2"
 	>
 		{$_('back')}
 	</a>
 	<div
-		class="mt-2 flex border-y-2 border-gray-400 bg-slate-300 shadow sm:flex-col sm:bg-transparent sm:border-hidden"
+		class="mt-2 border-y-2 items-center flex-col-reverse flex border-gray-400 bg-slate-300  sm:w-full sm:bg-transparent sm:border-hidden"
 	>
 		{#each qrList as qr, i}
-			<div class="mt-2">
+			<div class="mt-2 flex justify-center">
 				<QrListCard>
 					<a href={`/qr?id=${qr.options.id}`}>{qr.options.data}</a>
 				</QrListCard>
