@@ -33,8 +33,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"dexie": "^3.2.4",
 		"obra-icons-svelte": "^1.10.0",
 		"qr-code-styling": "^1.6.0-rc.1",
-		"svelte-i18n": "^4.0.0"
+		"svelte-i18n": "^4.0.0",
+		"svelte-navigator": "^3.2.2",
+		"svelte-routing": "^2.10.0"
 	}
 }
