@@ -50,6 +50,8 @@
 	}
 
 	async function deleteBlobUrl() {
+		const urlParams = new URLSearchParams(window.location.search);
+		id = urlParams.get('id') as string;
 		if (blobUrl) {
 			URL.revokeObjectURL(blobUrl);
 		}
@@ -61,6 +63,27 @@
 			console.error('Failed to delete image:', error);
 		}
 	}
+
+	async function destroy() {
+	if (qrCode) {
+		try {
+			const urlParams = new URLSearchParams(window.location.search);
+			const idParam = urlParams.get('id');
+			if (idParam) {
+				const id = parseInt(idParam);
+				const opts = await db.options.get(id);
+				if (opts && opts.image) {
+					await db.images.delete(opts.image); // Supprimer l'entrée image d'abord
+				}
+				await db.options.delete(id); // Ensuite, supprimer l'entrée options
+				console.log(`Deleted options and image for id: ${id}`);
+			}
+		} catch (error) {
+			console.error('Failed to delete options or image:', error);
+		}
+	}
+}
+
 </script>
 
 
@@ -91,7 +114,7 @@
 						</button>
 						<button
 							class="bg-transparent ml-4 p-2 rounded border border-gray-500 hover:border-gray-700 text-gray-500 hover:text-gray-700 font-semibold py-2 dark:text-white dark:font-normal dark:bg-slate-950 dark:border-none dark:hover:bg-slate-900 dark:hover:text-white"
-						on:click={deleteBlobUrl}>
+						on:click={destroy}>
 							{#if $_('view.delete') == 'Supprimer'}
 								{$_('view.delete')}
 							{:else}
