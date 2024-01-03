@@ -8,9 +8,9 @@ class MyListDatabase extends Dexie {
     constructor() {
         super("MyList");
         this.version(3).stores({
-            options: '++id, data, width, height, backgroundOptions, cornersDotOptions, cornersSquareOptions, dotsOptions, imageOptions, qrOptions, backgroundOptions, cornersDotOptions, cornersSquareOptions, dotsOptions, imageOptions, qrOptions, backgroundOptions, cornersDotOptions, cornersSquareOptions, dotsOptions, imageOptions, qrOptions, backgroundOptions, cornersDotOptions, cornersSquareOptions, dotsOptions, imageOptions, qrOptions, backgroundOptions, cornersDotOptions, cornersSquareOptions, dotsOptions, imageOptions, qrOptions, backgroundOptions, cornersDotOptions, cornersSquareOptions, dotsOptions, imageOptions, qrOptions, backgroundOptions, cornersDotOptions, cornersSquareOptions, dotsOptions, imageOptions, qrOptions, backgroundOptions, cornersDotOptions, cornersSquareOptions, dotsOptions, imageOptions, qrOptions, backgroundOptions, cornersDotOptions, cornersSquareOptions, dotsOptions, imageOptions, qrOptions',
-            images:'++id,image',
-            types:'++id,type'
+            options: '++id',
+            images:'++id',
+            types:'++id'
         });
         this.options = this.table("options");
         this.images = this.table("images");
