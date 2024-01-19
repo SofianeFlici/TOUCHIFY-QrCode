@@ -11,6 +11,7 @@ class MyListDatabase extends Dexie {
             options: '++id',
             images:'++id',
             types:'++id'
+
         });
         this.options = this.table("options");
         this.images = this.table("images");

@@ -1,14 +1,41 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
 	import InputColor from '$lib/components/InputColor.svelte';
-	import InputRadioButton from '$lib/components/InputRadioButton.svelte';
 	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
 	import type { Options } from 'qr-code-styling';
 	import { _ } from 'svelte-i18n';
+	import InputGradient from '$lib/components/InputGradient.svelte';
 
 	export let cornersDotOptions: Options['cornersDotOptions'];
 
 	let types = [undefined, 'square', 'dot'] as const;
+
+	let cornersDotGradient: boolean = false;
+	let gradientType: string = 'linear';
+	let rotation: number = 0;
+	let cornersDotColor: string = '#000000';
+	let cornersDotColor2: string = '#ffffff';
+
+	function toggleCornersDotGradient() {
+		cornersDotGradient = !cornersDotGradient;
+	}
+
+	$: if (cornersDotGradient && gradientType && cornersDotOptions) {
+		let type = gradientType;
+		let rotate = rotation;
+		cornersDotOptions.gradient = {
+			type: type,
+			rotation: rotate,
+			colorStops: [
+				{ offset: 0, color: cornersDotColor },
+				{ offset: 1, color: cornersDotColor2 }
+			]
+		};
+	} else {
+		if (cornersDotOptions) {
+			cornersDotOptions.gradient = undefined;
+		}
+	}
 </script>
 
 <Card>
@@ -23,7 +50,27 @@
 			></InputRadioButtons>
 			<div>
 				<p class="font-semibold m-1">{$_('corners.dot.color.label')}</p>
-				<InputColor bind:value={cornersDotOptions.color} />
+				<!------------------------------- Use gradient for corner dots color ------------------------------------>
+				<input
+					type="checkbox"
+					value="gradient"
+					on:click={() => toggleCornersDotGradient()}
+					checked={cornersDotGradient}
+					class="m-1"
+				/>
+				{$_('ui.gradient.use')}
+				{#if !cornersDotGradient}
+					<InputColor bind:value={cornersDotOptions.color} />
+				{/if}
+				{#if cornersDotGradient}
+					<InputGradient
+						bind:gradientType
+						bind:rotation
+						bind:color1={cornersDotColor}
+						bind:color2={cornersDotColor2}
+					/>
+				{/if}
+				<!-- ------------------------------------------------------------------------------------------ -->
 			</div>
 		</div>
 	{/if}

@@ -9,56 +9,41 @@
 	import QrCodeAddImage from '$lib/QrCode/components/QrCodeAddImage.svelte';
 	import QrCodeAdvancedOptions from '$lib/QrCode/components/QrCodeAdvancedOptions.svelte';
 	import QrCodeDownload from '$lib/QrCode/components/QrCodeDownload.svelte';
+	import QrCodeDefinedChoice from '$lib/QrCode/components/QrCodeDefinedChoice.svelte';
 	import db from '$lib/db';
-	// import type { QrCodeData } from "$lib/QrCode/qrcode.data";
 
 	let id: string = '';
+	let defaultContent = 'URL';
 
 	onMount(async () => {
 		const urlParams = new URLSearchParams(window.location.search);
 		id = urlParams.get('id') as string;
-		console.log('urlParams.get(id) = ', urlParams.get('id'));
 
 		if (id) {
 			try {
 				// Récupération des données de la table 'options'
-				const optionsData: Options = await db.options.get(parseInt(id));
-				console.log('optionsData:', optionsData);
+				const optionsData: Options | undefined = await db.options.get(parseInt(id));
+				if (optionsData) {
+					options = optionsData;
+				}
 
 				if (optionsData && optionsData.image) {
 					// Récupération des données de la table 'images'
-					const {blob} = await db.images.get(optionsData.image);
-					console.log('imageData:', blob);
+					const { blob } = await db.images.get(optionsData.image);
 					blobUrl = URL.createObjectURL(blob);
 				}
-				options = optionsData;
+				// options = optionsData;
 
-				// Utilisation des données récupérées
-				// Ici, vous pouvez assigner les données à des variables de composant ou les utiliser directement
-				// ...
 			} catch (error) {
 				console.error('Failed to load options or images:', error);
 			}
-			console.log('id = ', id);
 		}
 	});
-
-	// const urlParams = new URLSearchParams(window.location.search);
-	// if(urlParams.get('id')){
-	// 	console.log('urlParams.get(id) = ', urlParams.get('id'));
-	// }
 
 	let data: string = 'https://touchify.io';
 	let blobUrl: string;
 	let blob: Blob | null = null;
-
-	$: console.log('+page.svelte blob = ', blob);
-
-	$: console.log('+page.svelte data = ', data);
-
-	// export let dataContent:QrCodeData;
-
-	// let qrCodeData: QrCodeData = dataContent;
+	('');
 
 	let options: Options = {
 		image: undefined,
@@ -86,21 +71,21 @@
 			mode: 'Byte'
 		}
 	};
-	$: console.log('+page.svelte blobUrl = ', blobUrl);
 	$: options.data = data;
 </script>
 
 <div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
 	<section class="mb-48 sm:mb-0">
-		<QrCodeContent bind:data />
-		<ButtonSave data={options} {blob} {id}/>
+		<QrCodeDefinedChoice bind:options={options} />
+		<QrCodeContent bind:data bind:defaultContent={defaultContent} />
+		<ButtonSave data={options} {blob} {id} {defaultContent} />
 		<QrCodeGeneralStyle
 			bind:dotsOptions={options.dotsOptions}
 			bind:backgroundOptions={options.backgroundOptions}
 		/>
 		<QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} />
 		<QrCodePoint bind:cornersDotOptions={options.cornersDotOptions} />
-		<QrCodeAddImage bind:blobUrl bind:blob />
+		<QrCodeAddImage bind:blobUrl={options.image} bind:blob bind:imageOptions={options.imageOptions} />
 		<QrCodeAdvancedOptions bind:qrOptions={options.qrOptions} />
 	</section>
 
@@ -110,6 +95,3 @@
 		</div>
 	</section>
 </div>
-
-<style>
-</style>

@@ -10,6 +10,6 @@
 
 <NavBar />
 
-<main class={`container h-full mx-auto flex justify-center relative`}>
+<main class={`max-w-screen-lg h-full mx-auto flex justify-center relative`}>
 	<slot />
 </main>

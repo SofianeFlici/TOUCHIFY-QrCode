@@ -23,7 +23,7 @@
 		try {
 			let opts = await db.options.get(parseInt(id));
 			if (opts && opts.image) {
-				const { blob } = await db.images.get(opts.image);
+				const { blob } = await db.images.get(opts.options.image);
 				if (blob) {
 					blobUrl = URL.createObjectURL(blob);
 					opts = Object.assign({}, opts, { image: blobUrl });
@@ -33,7 +33,7 @@
 			if (opts) {
 				const { default: QRCodeStyling } = await import('qr-code-styling');
 				qrCode = {
-					qr: new QRCodeStyling(opts),
+					qr: new QRCodeStyling(opts.options),
 					options: opts
 				};
 				if (qrCodeElement) {
@@ -97,7 +97,7 @@
 			class=" sm:w-6/6 flex flex-col justify-center content-center items-center align-middle shrink-0 sm:p-2"
 		>
 			{#if qrCode}
-				<p class="bg-white rounded">{qrCode.options.data}</p>
+				<p class="bg-white rounded">{qrCode.options.options.data}</p>
 				<div
 					class="qr-preview bg-white aspect-square p-2 rounded w-2/6 sm:w-4/6 shadow mt-2 mb-2"
 					bind:this={qrCodeElement}

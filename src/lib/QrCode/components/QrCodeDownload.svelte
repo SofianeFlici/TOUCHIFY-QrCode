@@ -6,7 +6,7 @@
 	import { _ } from 'svelte-i18n';
 
 	export let options: Options;
-	export let blobUrl:string;
+	export let blobUrl: string;
 	let qrCode: any;
 	let qrCodeElement: HTMLElement; // HTMLElement | null = null;
 
@@ -15,14 +15,15 @@
 		const { default: QRCodeStyling } = await import('qr-code-styling');
 		qrCode = new QRCodeStyling(opts); // QRCodeStyling(options);
 		if (qrCodeElement) {
-			// qrCodeElement = document.querySelector(".qr-preview");
 			qrCode.append(qrCodeElement); // qrCodeElement && qrCode.append(qrCodeElement);
 		}
 	});
 
 	$: if (qrCode) {
 		const opts = Object.assign({}, options);
-		opts.image = blobUrl;
+		if(blobUrl){
+			opts.image = blobUrl;
+		}
 		qrCode.update(opts);
 	}
 	function download() {
@@ -31,14 +32,13 @@
 			extension: defaultStyle
 		});
 	}
-	$: console.log('QrCodeDownload.svelte options = ', options.data);
 
 	let styles = ['JPEG', 'PNG', 'SVG', 'WEBP'];
 	let defaultStyle = 'SVG';
 </script>
 
 <div
-	class="flex border-y-2 border-gray-400 bg-slate-300  sm:flex-col sm:bg-transparent sm:border-hidden dark:bg-slate-600 dark:border-none"
+	class="flex border-y-2 border-gray-400 bg-slate-300 sm:flex-col sm:bg-transparent sm:border-hidden dark:bg-slate-600 dark:sm:bg-slate-900 dark:border-none"
 >
 	<div class="mr-0 w-2/6 shrink-0 sm:w-full sm:p-2">
 		<div
@@ -49,10 +49,7 @@
 
 	<Card>
 		<div class="col-auto rounded">
-			<InputRadioButtons
-				bind:value={defaultStyle}
-				text={(styles) => styles}
-				options={styles}
+			<InputRadioButtons bind:value={defaultStyle} text={(styles) => styles} options={styles}
 			></InputRadioButtons>
 		</div>
 
