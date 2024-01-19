@@ -11,6 +11,7 @@
 	import QrCodeDownload from '$lib/QrCode/components/QrCodeDownload.svelte';
 	import QrCodeDefinedChoice from '$lib/QrCode/components/QrCodeDefinedChoice.svelte';
 	import db, { type QrCodeItem } from '$lib/db';
+	import type { QrCodeData } from '$lib/QrCode/qrcode.data';
 
 	let id: string = '';
 	let defaultContent = 'URL';
@@ -25,6 +26,8 @@
 				const item: QrCodeItem | undefined = await db.options.get(parseInt(id));
 				if (item) {
 					options = item.options;
+					data = item.data;
+					defaultContent = item.type;
 
 					if (item.image) {
 						blob = item.image;
@@ -37,12 +40,12 @@
 		}
 	});
 
-	let data: string = 'https://touchify.io';
+	let data: QrCodeData = {};
 	let blob: Blob | null = null;
 
 	let options: Options = {
 		image: undefined,
-		data: data,
+		data: "",
 		width: 500,
 		height: 500,
 		dotsOptions: {
@@ -66,14 +69,13 @@
 			mode: 'Byte'
 		}
 	};
-	$: options.data = data;
 </script>
 
 <div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
 	<section class="mb-48 sm:mb-0">
 		<QrCodeDefinedChoice bind:options={options} />
-		<QrCodeContent bind:data bind:defaultContent={defaultContent} />
-		<ButtonSave data={options} {blob} {id} {defaultContent} />
+		<QrCodeContent bind:data bind:options bind:defaultContent />
+		<ButtonSave {data} {options} {blob} {id} {defaultContent} />
 		<QrCodeGeneralStyle
 			bind:dotsOptions={options.dotsOptions}
 			bind:backgroundOptions={options.backgroundOptions}

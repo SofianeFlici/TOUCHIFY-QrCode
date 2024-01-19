@@ -1,10 +1,12 @@
 import Dexie from 'dexie';
 import type { Options } from 'qr-code-styling';
+import type { QrCodeData } from './QrCode/qrcode.data';
 
 export type QrCodeItem = {
 	id?: number;
 	type: string;
 	date: Date;
+	data: QrCodeData;
 	image?: Blob | null;
 	options: Options;
 };

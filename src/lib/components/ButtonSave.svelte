@@ -3,8 +3,10 @@
 	import type { Options } from 'qr-code-styling';
 	import db from '$lib/db';
 	import { IconBookmark, IconServer } from 'obra-icons-svelte';
+	import type { QrCodeData } from '$lib/QrCode/qrcode.data';
 
-	export let data: Options;
+	export let data: QrCodeData;
+	export let options: Options;
 	export let blob: Blob | null = null;
 	export let id: string | null;
 	export let defaultContent: string;
@@ -17,7 +19,8 @@
 		const item = {
 			type: defaultContent,
 			date: new Date(),
-			options: data,
+			data: data,
+			options: options,
 			image: blob
 		};
 
