@@ -6,7 +6,7 @@
 	import { _ } from 'svelte-i18n';
 
 	export let options: Options;
-	export let blobUrl: string;
+
 	let qrCode: any;
 	let qrCodeElement: HTMLElement; // HTMLElement | null = null;
 
@@ -19,13 +19,8 @@
 		}
 	});
 
-	$: if (qrCode) {
-		const opts = Object.assign({}, options);
-		if(blobUrl){
-			opts.image = blobUrl;
-		}
-		qrCode.update(opts);
-	}
+	$: if (qrCode) qrCode.update(options);
+	
 	function download() {
 		qrCode.download({
 			name: 'qrcode',
