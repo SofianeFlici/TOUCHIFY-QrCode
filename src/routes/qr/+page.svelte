@@ -1,43 +1,38 @@
 <script lang="ts">
 	import db from '$lib/db';
 	import { onMount } from 'svelte';
-	import type { Options } from 'qr-code-styling';
+	import type { default as QRCodeStyling, Options } from 'qr-code-styling';
 	import Card from '$lib/components/Card.svelte';
 	import { _ } from 'svelte-i18n';
 
-	let id: string = '';
-	type QrCode = {
-		qr: any;
-		options: Options;
-	};
+	let id: number;
 
-	export let options: Options;
 	let qrCodeElement: HTMLElement | null = null;
-	let qrCode: QrCode | null = null;
-	let blobUrl: string = '';
+	let qrCode: QRCodeStyling | null = null;
+	let qrOptions: Options | null = null;
 
 	onMount(async () => {
 		const urlParams = new URLSearchParams(window.location.search);
-		id = urlParams.get('id') as string;
-
+		const idParam = urlParams.get('id') as string;
+		if (!idParam) {
+			return;
+		}
+		
+		id = parseInt(idParam);
+		
 		try {
-			let opts = await db.options.get(parseInt(id));
-			if (opts && opts.image) {
-				const { blob } = await db.images.get(opts.options.image);
-				if (blob) {
-					blobUrl = URL.createObjectURL(blob);
-					opts = Object.assign({}, opts, { image: blobUrl });
-				}
+			const item = await db.options.get(id);
+			if (item?.image) {
+				item.options.image = URL.createObjectURL(item.image);
 			}
 
-			if (opts) {
+			if (item) {
 				const { default: QRCodeStyling } = await import('qr-code-styling');
-				qrCode = {
-					qr: new QRCodeStyling(opts.options),
-					options: opts
-				};
+				qrOptions = item.options;
+				qrCode = new QRCodeStyling(item.options);
+				
 				if (qrCodeElement) {
-					qrCode.qr.append(qrCodeElement);
+					qrCode.append(qrCodeElement);
 				}
 			}
 		} catch (error) {
@@ -46,15 +41,13 @@
 	});
 
 	$: if (qrCodeElement && qrCode) {
-		qrCode.qr.append(qrCodeElement);
+		qrCode.append(qrCodeElement);
 	}
 
 	async function edit() {
 		if (qrCode) {
-			const urlParams = new URLSearchParams(window.location.search);
-			const idParam = urlParams.get('id');
 			try {
-				window.location.href = `/?id=${idParam}`;
+				window.location.href = `/?id=${id}`;
 			} catch (error) {
 				console.error('Failed to send id :', error);
 			}
@@ -64,14 +57,7 @@
 	async function destroy() {
 		if (qrCode) {
 			try {
-				const urlParams = new URLSearchParams(window.location.search);
-				const idParam = urlParams.get('id');
-				if (idParam) {
-					const id = parseInt(idParam);
-					const opts = await db.options.get(id);
-					if (opts && opts.image) {
-						await db.images.delete(opts.image); // Supprimer l'entrée image d'abord
-					}
+				if (id) {
 					await db.options.delete(id); // Ensuite, supprimer l'entrée options
 					console.log(`Deleted options and image for id: ${id}`);
 				}
@@ -96,8 +82,8 @@
 		<div
 			class=" sm:w-6/6 flex flex-col justify-center content-center items-center align-middle shrink-0 sm:p-2"
 		>
-			{#if qrCode}
-				<p class="bg-white rounded">{qrCode.options.options.data}</p>
+			{#if qrCode && qrOptions}
+				<p class="bg-white rounded">{qrOptions.data}</p>
 				<div
 					class="qr-preview bg-white aspect-square p-2 rounded w-2/6 sm:w-4/6 shadow mt-2 mb-2"
 					bind:this={qrCodeElement}

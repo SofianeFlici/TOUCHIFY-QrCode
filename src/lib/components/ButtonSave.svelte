@@ -3,67 +3,42 @@
 	import type { Options } from 'qr-code-styling';
 	import db from '$lib/db';
 	import { IconBookmark, IconServer } from 'obra-icons-svelte';
-	import { darkMode } from '$lib/utils/darkMode';
+	import type { QrCodeData } from '$lib/QrCode/qrcode.data';
 
-	export let data: Options;
+	export let data: QrCodeData;
+	export let options: Options;
 	export let blob: Blob | null = null;
 	export let id: string | null;
 	export let defaultContent: string;
 
-	$:console.log('buttonSave defaultContent', defaultContent);
-
-	let object = {
-	}
-
-	let color = "blue";
-	
-	$: if (darkMode) {
-		color = "white";
-	}
+	$: console.log('buttonSave defaultContent', defaultContent);
 
 	async function saveOptions() {
+		const numericId = id ? parseInt(id) : null;
 
-		const numericId = id !== '' ? parseInt(id) : null;
-
-		object = {
-			Type: defaultContent,
+		const item = {
+			type: defaultContent,
 			date: new Date(),
-			options: data,
+			data: data,
+			options: options,
 			image: blob
-		}
+		};
 
 		try {
 			if (numericId) {
 				// Obtenir les options existantes.
-				const opts = await db.options.get(numericId);
-				if (!opts) {
+				const dbItem = await db.options.get(numericId);
+				if (!dbItem) {
 					console.error(`No options found with id: ${numericId}`);
 					return;
 				}
 
-				// Si un blob est fourni, mettez à jour l'image existante ou créez-en une nouvelle si nécessaire.
-				if (blob) {
-					let imageId = opts.image;
-					if (typeof imageId === 'number') {
-						// Mise à jour de l'image existante.
-						await db.images.update(imageId, { blob });
-					} else {
-						imageId = await db.images.add({ blob });
-						data.image = imageId;
-					}
-				}
-
 				// Mettez à jour les options avec les nouvelles données.
-				await db.options.update(numericId, data);
+				await db.options.update(numericId, item);
 				console.log('Options updated successfully');
 			} else {
-				// Aucun ID n'est fourni, ajoutez une nouvelle image si un blob est fourni.
-				if (blob) {
-					const imageId = await db.images.add({ blob });
-					data.image = imageId;
-				}
 				// Ajoutez de nouvelles options.
-				await db.options.add(object);
+				await db.options.add(item);
 				console.log('Options saved successfully');
 			}
 		} catch (error) {

@@ -3,7 +3,7 @@
 	import Moon_Icon from '$assets/darkMode/moon_icon.png';
 	import Sun_Icon from '$assets/darkMode/sun_icon.png';
 	import { onMount } from 'svelte';
-	import { toggleDarkMode, isDarkMode } from '$lib/utils/darkMode';
+	import { toggleDarkMode, isDarkMode } from '$lib/utils/darkmode';
 	let checked = false;
 
 	onMount(() => {

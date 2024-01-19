@@ -10,7 +10,8 @@
 	import QrCodeAdvancedOptions from '$lib/QrCode/components/QrCodeAdvancedOptions.svelte';
 	import QrCodeDownload from '$lib/QrCode/components/QrCodeDownload.svelte';
 	import QrCodeDefinedChoice from '$lib/QrCode/components/QrCodeDefinedChoice.svelte';
-	import db from '$lib/db';
+	import db, { type QrCodeItem } from '$lib/db';
+	import type { QrCodeData } from '$lib/QrCode/qrcode.data';
 
 	let id: string = '';
 	let defaultContent = 'URL';
@@ -22,32 +23,29 @@
 		if (id) {
 			try {
 				// Récupération des données de la table 'options'
-				const optionsData: Options | undefined = await db.options.get(parseInt(id));
-				if (optionsData) {
-					options = optionsData;
-				}
+				const item: QrCodeItem | undefined = await db.options.get(parseInt(id));
+				if (item) {
+					options = item.options;
+					data = item.data;
+					defaultContent = item.type;
 
-				if (optionsData && optionsData.image) {
-					// Récupération des données de la table 'images'
-					const { blob } = await db.images.get(optionsData.image);
-					blobUrl = URL.createObjectURL(blob);
+					if (item.image) {
+						blob = item.image;
+						options.image = URL.createObjectURL(item.image);
+					}
 				}
-				// options = optionsData;
-
 			} catch (error) {
 				console.error('Failed to load options or images:', error);
 			}
 		}
 	});
 
-	let data: string = 'https://touchify.io';
-	let blobUrl: string;
+	let data: QrCodeData = {};
 	let blob: Blob | null = null;
-	('');
 
 	let options: Options = {
 		image: undefined,
-		data: data,
+		data: "",
 		width: 500,
 		height: 500,
 		dotsOptions: {
@@ -71,14 +69,13 @@
 			mode: 'Byte'
 		}
 	};
-	$: options.data = data;
 </script>
 
 <div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
 	<section class="mb-48 sm:mb-0">
 		<QrCodeDefinedChoice bind:options={options} />
-		<QrCodeContent bind:data bind:defaultContent={defaultContent} />
-		<ButtonSave data={options} {blob} {id} {defaultContent} />
+		<QrCodeContent bind:data bind:options bind:defaultContent />
+		<ButtonSave {data} {options} {blob} {id} {defaultContent} />
 		<QrCodeGeneralStyle
 			bind:dotsOptions={options.dotsOptions}
 			bind:backgroundOptions={options.backgroundOptions}
@@ -91,7 +88,7 @@
 
 	<section class="grid grid-rows-1 fixed bottom-0 border-black sm:relative">
 		<div class="sm:fixed sm:w-[240px] lg:w-[320px]">
-			<QrCodeDownload bind:options bind:blobUrl />
+			<QrCodeDownload bind:options />
 		</div>
 	</section>
 </div>
