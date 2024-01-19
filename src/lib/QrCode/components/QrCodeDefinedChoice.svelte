@@ -98,9 +98,9 @@
 		<p class="font-semibold m-1">...</p>
 		<div>
 			{#each style as item}
-				<button class="m-1 border bg-slate-200" on:click={() => (styleSelected = item)}
-					>{item}</button
-				>
+				<button class="m-1 px-2 py-1 rounded bg-slate-200 dark:bg-slate-800" on:click={() => (styleSelected = item)}>
+					{item}
+				</button>
 			{/each}
 		</div>
 	</div>

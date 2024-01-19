@@ -3,7 +3,6 @@
 	import type { Options } from 'qr-code-styling';
 	import db from '$lib/db';
 	import { IconBookmark, IconServer } from 'obra-icons-svelte';
-	import { darkMode } from '$lib/utils/darkMode';
 
 	export let data: Options;
 	export let blob: Blob | null = null;
@@ -15,15 +14,8 @@
 	let object = {
 	}
 
-	let color = "blue";
-	
-	$: if (darkMode) {
-		color = "white";
-	}
-
 	async function saveOptions() {
-
-		const numericId = id !== '' ? parseInt(id) : null;
+		const numericId = id ? parseInt(id) : null;
 
 		object = {
 			Type: defaultContent,
