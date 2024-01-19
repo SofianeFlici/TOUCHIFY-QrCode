@@ -23,6 +23,7 @@
 	onMount(async () => {
 		try {
 			data = await db.options.toArray();
+			console.log('mylist data =', data);
 			//-------------- Recupération de tous les QRCode ----------------------------------------------
 			const { default: QRCodeStyling } = await import('qr-code-styling');
 			qrList = data.map((options) => {
@@ -34,7 +35,6 @@
 			console.error('Failed to load options:', error);
 		}
 	});
-	console.log('qrList = ', qrList);
 
 	$: if (qrCodeElement.length > 0) {
 		qrList.forEach((qrCode, i) => {
@@ -45,21 +45,28 @@
 	}
 </script>
 
-<div class="mt-5 flex justify-center flex-col  w-5/6 sm:w-full">
-	<a
-		href="/"
-		class="w-16 p-1 h-9 text-small flex items-center sm:ml-48 rounded border sm:p-2 border-gray-500 hover:border-gray-700 text-gray-500 hover:text-gray-700 font-semibold sm:py-2"
-	>
+<div class="bg-red-400 h-52 w-full mt-4">
+	<a href="/" class="border-slate-800 border-2 rounded-md text-slate-800 text-sm font-semibold p-2">
 		{$_('back')}
 	</a>
-	<div
-		class="mt-2 border-y-2 items-center flex-col-reverse flex border-gray-400 bg-slate-300  sm:w-full sm:bg-transparent sm:border-hidden"
-	>
+	<div class="bg-yellow-400 mt-4">
 		{#each qrList as qr, i}
-			<div class="mt-2 flex justify-center">
-				<QrListCard>
-					<a href={`/qr?id=${qr.options.id}`}>{qr.options.data}</a>
-				</QrListCard>
+			<div class="mt-2 bg-blue-400">
+				<div class="w-full bg-white rounded flex">
+					<div class="flex-col px-4 py-1">
+						<a class="text-sm font-semibold" href={`/qr?id=${qr.options.id}`}
+							>{qr.options.options.data}</a
+						>
+						<p class="text-xs mt-2 mb-2">
+							{qr.options.Type} · {qr.options.date.toLocaleDateString()}
+						</p>
+					</div>
+
+					<div class="flex justify-end content-end">
+						<p>Edit</p>
+						<p>Delete</p>
+					</div>
+				</div>
 			</div>
 		{/each}
 	</div>

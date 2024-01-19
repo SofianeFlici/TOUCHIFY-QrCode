@@ -2,6 +2,7 @@
 	import Card from '$lib/components/Card.svelte';
 	import InputRadioButton from '$lib/components/InputRadioButton.svelte';
 	import { ListQrCodeDataType } from '../qrcode.data';
+
 	import {
 		generateVCard,
 		generateEmail,
@@ -16,7 +17,7 @@
 
 	import { _ } from 'svelte-i18n';
 
-	let defaultContent = 'URL';
+	export let defaultContent = 'URL';
 
 	let visible = false;
 
@@ -81,8 +82,6 @@
 			break;
 	}
 
-	$: console.log('QrCodeContent.svelte, variable =', inputUrlContent);
-
 	function selectedType(data_type: any) {
 		defaultContent = data_type.type;
 		visible = false;
@@ -97,12 +96,19 @@
 		class="mb-2 self-start justify-start text-sm"
 		on:click={() => (visible = !visible)}
 	/>
-	<div>
+	<div class="grid grid-cols-4 gap-2">
 		{#if visible == true}
 			{#each data_types as data_type}
-				<InputRadioButton on:click={() => selectedType(data_type)}
-					>{data_type.type}</InputRadioButton
-				>
+				<InputRadioButton on:click={() => selectedType(data_type)}>
+					<div class="flex flex-col justify-center items-center">
+						<p
+							class="mb-2 mt-2 h-14 justify-around flex flex-col align-middle items-center text-center text-black dark:text-slate-300 dark:hover:dark:text-slate-300"
+						>
+							<svelte:component this={data_type.icon} size={16} />
+							{data_type.type}
+						</p>
+					</div>
+				</InputRadioButton>
 			{/each}
 		{/if}
 	</div>
@@ -138,26 +144,54 @@
 			/>
 		{/if}
 		{#if defaultContent == 'Contact'}
-		<div class="flex">
-			<label for="contact" class="font-semibold">{$_('data.contact.firstname')}</label>
-			<InputContent bind:value={inputVCardFirstName} />
-			<label for="contact" class="font-semibold">{$_('data.contact.lastname')}</label>
-			<InputContent bind:value={inputVCardLastName} />
+		<div class="max-w-md mx-auto">
+			<div class="flex flex-wrap -mx-2">
+				<!-- Prénom -->
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="firstname" class="block font-semibold">{$_('data.contact.firstname')}</label>
+					<input type="text" bind:value={inputVCardFirstName} id="firstname" class="form-input mt-1 block w-full" />
+				</div>
+				<!-- Nom -->
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="lastname" class="block font-semibold">{$_('data.contact.lastname')}</label>
+					<input type="text" bind:value={inputVCardLastName} id="lastname" class="form-input mt-1 block w-full"/>
+				</div>
+			</div>
+			<div class="flex flex-wrap -mx-2">
+				<!-- Société -->
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="company" class="block font-semibold">{$_('data.contact.company')}</label>
+					<input type="text" bind:value={inputVCardCompany} id="company" class="form-input mt-1 block w-full" />
+				</div>
+				<!-- Fonction -->
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="job" class="block font-semibold">{$_('data.contact.job')}</label>
+					<input type="text" bind:value={inputVCardJob} id="job" class="form-input mt-1 block w-full"/>
+				</div>
+			</div>
+			<div class="flex flex-wrap -mx-2">
+				<!-- Email -->
+				<div class="w-full px-2 mb-4">
+					<label for="email" class="block font-semibold">{$_('data.contact.email')}</label>
+					<input type="email" bind:value={inputVCardEmail} id="email" class="form-input mt-1 block w-full" />
+				</div>
+			</div>
+			<div class="flex flex-wrap -mx-2">
+				<!-- Téléphone -->
+				<div class="w-full px-2 mb-4">
+					<label for="phone" class="block font-semibold">{$_('data.contact.phone')}</label>
+					<input type="tel" bind:value={inputVCardPhone} id="phone" class="form-input mt-1 block w-full" />
+				</div>
+			</div>
+			<div class="flex flex-wrap -mx-2">
+				<!-- Site internet -->
+				<div class="w-full px-2 mb-4">
+					<label for="website" class="block font-semibold">{$_('data.contact.url')}</label>
+					<input type="url" bind:value={inputVCardWebsite} id="website" class="form-input mt-1 block w-full" />
+				</div>
+			</div>
 		</div>
-		<div class="flex">
-			<label for="contact" class="font-semibold">{$_('data.contact.company')}</label>
-			<InputContent bind:value={inputVCardCompany} />
-			<label for="contact" class="font-semibold">{$_('data.contact.job')}</label>
-			<InputContent bind:value={inputVCardJob} />
-		</div>
-		<div class="flex">
-			<label for="contact" class="font-semibold">{$_('data.contact.email')}</label>
-			<InputContent bind:value={inputVCardEmail} />
-			<label for="contact" class="font-semibold">{$_('data.contact.phone')}</label>
-			<InputContent bind:value={inputVCardPhone} />
-		</div>
-			<label for="contact" class="font-semibold">{$_('data.contact.url')}</label>
-			<InputContent bind:value={inputVCardWebsite} />
+		
 		{/if}
 		{#if defaultContent == 'Geo'}
 			<label for="geo" class="font-semibold">{$_('data.geo.latitude')}</label>
