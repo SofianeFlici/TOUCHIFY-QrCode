@@ -8,49 +8,54 @@
 
 	export let options: Options;
 
-	let blob: Blob | null = null;
-	let blobUrl: string = '';
+	$:console.log("definedChoice option data =", options.data);
 
 	let style = ['none', 'facebook', 'instagram', 'youtube'];
 	let styleSelected = 'none';
 
-	async function loadSvg(svgPath: string) {
-    try {
-        const response = await fetch(svgPath);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const svgText = await response.text();
-        const blob = new Blob([svgText], { type: 'image/svg+xml' });
+	$: if (styleSelected === 'none')
+		options = {
+			data: options.data,
+			image: undefined,
+			dotsOptions: {
+				color: '#000000',
+				type: 'square'
+			},
+			imageOptions: {
+				crossOrigin: 'anonymous',
+				margin: 20
+			},
+			cornersSquareOptions: {
+				color: '#000000'
+			},
+			backgroundOptions: {
+				color: '#ffffff'
+			}
+		};
 
-        await db.images.add({ blob }); // Assurez-vous que cette opération est valide
-        return URL.createObjectURL(blob);
-    } catch (error) {
-        console.error("Erreur lors du chargement du SVG :", error);
-        // Gérer l'erreur ou la renvoyer
-        throw error;
-    }
-}
-
-
-	$: {
-		if (styleSelected === 'facebook')
-			loadSvg(facebook).then((url) => {
-				blobUrl = url;
-			});
-		options.data = 'https://www.facebook.com/';
-		options.image = blobUrl;
-		options.dotsOptions.color = '#4267b2';
-		options.dotsOptions.type = 'square';
-		options.imageOptions.crossOrigin = 'anonymous';
-		options.imageOptions.margin = 20;
-		options.cornersSquareOptions.color = '#4267b2';
-		options.backgroundOptions.color = '#ffffff';
-	}
-
+	$: if (styleSelected === 'facebook')
+		options = {
+			data: options.data,
+			image: facebook,
+			dotsOptions: {
+				color: '#4267b2',
+				type: 'square'
+			},
+			imageOptions: {
+				crossOrigin: 'anonymous',
+				margin: 20
+			},
+			cornersSquareOptions: {
+				color: '#4267b2'
+			},
+			backgroundOptions: {
+				color: '#ffffff'
+			}
+		};
+	
 	$: if (styleSelected === 'instagram')
 		options = {
-			data: 'https://www.instagram.com/',
+			data: options.data,
 			image: instagram,
 			dotsOptions: {
 				color: '#e1306c',
@@ -94,11 +99,13 @@
 
 <Card>
 	<div class="flex flex-col">
-		<h2 class="font-semibold m-1 mb-2">Vous avez un style ?</h2>
-		<p class="font-semibold m-1">...</p>
+		<h2 class="font-semibold m-1 mb-2">Modèle de QrCode :</h2>
 		<div>
 			{#each style as item}
-				<button class="m-1 px-2 py-1 rounded bg-slate-200 dark:bg-slate-800" on:click={() => (styleSelected = item)}>
+				<button
+					class="m-1 px-2 py-1 rounded bg-slate-200 dark:bg-slate-800"
+					on:click={() => (styleSelected = item)}
+				>
 					{item}
 				</button>
 			{/each}

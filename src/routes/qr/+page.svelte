@@ -4,12 +4,16 @@
 	import type { default as QRCodeStyling, Options } from 'qr-code-styling';
 	import Card from '$lib/components/Card.svelte';
 	import { _ } from 'svelte-i18n';
+	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
 
 	let id: number;
 
 	let qrCodeElement: HTMLElement | null = null;
 	let qrCode: QRCodeStyling | null = null;
 	let qrOptions: Options | null = null;
+
+	let styles = ['JPEG', 'PNG', 'SVG', 'WEBP'];
+	let defaultStyle = 'SVG';
 
 	onMount(async () => {
 		const urlParams = new URLSearchParams(window.location.search);
@@ -42,6 +46,16 @@
 
 	$: if (qrCodeElement && qrCode) {
 		qrCode.append(qrCodeElement);
+	}
+
+	function download() {
+		if (!qrCode) {
+			return;
+		}
+		qrCode.download({
+			name: 'qrcode',
+			extension: defaultStyle
+		});
 	}
 
 	async function edit() {
@@ -107,6 +121,17 @@
 							{/if}
 						</button>
 					</div>
+				</Card>
+
+				<Card>
+					<div class="col-auto rounded">
+						<InputRadioButtons bind:value={defaultStyle} text={(styles) => styles} options={styles}
+						></InputRadioButtons>
+					</div>
+			
+					<button class="bg-slate-800 text-white text-sm py-2 rounded w-full mt-2" on:click={download}>
+						{$_('download.button')}
+					</button>
 				</Card>
 			{/if}
 		</div>
