@@ -8,7 +8,7 @@
 
 	export let options: Options;
 
-	$:console.log("definedChoice option data =", options.data);
+	$: console.log('definedChoice option data =', options.data);
 
 	let style = ['none', 'facebook', 'instagram', 'youtube'];
 	let styleSelected = 'none';
@@ -28,8 +28,14 @@
 			cornersSquareOptions: {
 				color: '#000000'
 			},
+			cornersDotOptions: {},
 			backgroundOptions: {
 				color: '#ffffff'
+			},
+			qrOptions: {
+				typeNumber: 0,
+				errorCorrectionLevel: 'Q',
+				mode: 'Byte'
 			}
 		};
 
@@ -48,11 +54,17 @@
 			cornersSquareOptions: {
 				color: '#4267b2'
 			},
+			cornersDotOptions: {},
 			backgroundOptions: {
 				color: '#ffffff'
+			},
+			qrOptions: {
+				typeNumber: 0,
+				errorCorrectionLevel: 'Q',
+				mode: 'Byte'
 			}
 		};
-	
+
 	$: if (styleSelected === 'instagram')
 		options = {
 			data: options.data,
@@ -68,8 +80,14 @@
 			cornersSquareOptions: {
 				color: '#e1306c'
 			},
+			cornersDotOptions: {},
 			backgroundOptions: {
 				color: '#ffffff'
+			},
+			qrOptions: {
+				typeNumber: 0,
+				errorCorrectionLevel: 'Q',
+				mode: 'Byte'
 			}
 		};
 
@@ -88,8 +106,14 @@
 			cornersSquareOptions: {
 				color: '#ff0000'
 			},
+			cornersDotOptions: {},
 			backgroundOptions: {
 				color: '#ffffff'
+			},
+			qrOptions: {
+				typeNumber: 0,
+				errorCorrectionLevel: 'Q',
+				mode: 'Byte'
 			}
 		};
 

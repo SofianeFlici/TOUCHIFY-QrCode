@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let value: string;
+    export let value: string | undefined;
     export let options: readonly string[] = [];
     export let text: (option:string) => string = (option:string) => option;
 </script>

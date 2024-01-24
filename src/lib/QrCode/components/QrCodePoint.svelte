@@ -2,16 +2,18 @@
 	import Card from '$lib/components/Card.svelte';
 	import InputColor from '$lib/components/InputColor.svelte';
 	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
-	import type { Options } from 'qr-code-styling';
+	import type { GradientType, Options } from 'qr-code-styling';
 	import { _ } from 'svelte-i18n';
 	import InputGradient from '$lib/components/InputGradient.svelte';
 
 	export let cornersDotOptions: Options['cornersDotOptions'];
 
-	let types = [undefined, 'square', 'dot'] as const;
+	$: console.log('cornersDotOptionddddddds', cornersDotOptions);
+
+	let types = ['', 'square', 'dot'] as const;
 
 	let cornersDotGradient: boolean = false;
-	let gradientType: string = 'linear';
+	let gradientType: GradientType = 'linear';
 	let rotation: number = 0;
 	let cornersDotColor: string = '#000000';
 	let cornersDotColor2: string = '#ffffff';

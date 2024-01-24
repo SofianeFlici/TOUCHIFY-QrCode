@@ -63,7 +63,7 @@
 <Card>
 	<div class="flex flex-col">
 		<h2 class="font-semibold m-2 mb-4">Ajouter une image</h2>
-		{#if blobUrl == ''}
+		{#if blobUrl == '' || blobUrl == undefined}
 			<button
 				type="button"
 				class="bg-slate-100 rounded border dark:border-slate-500 h-32 flex flex-col justify-center items-center m-1 dark:bg-slate-600"
@@ -75,7 +75,7 @@
 				<p class="text-slate-400 mt-2">{$_('ui.file.load')}</p>
 			</button>
 		{/if}
-		{#if blobUrl != ''}
+		{#if blobUrl != '' && blobUrl != undefined}
 			<div class="flex flex-col">
 				<div class="flex">
 					<img src={blobUrl} alt="" class="m-4 h-16 w-16 shadow rounded dark:bg-slate-300 p-2" />

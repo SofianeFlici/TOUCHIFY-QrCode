@@ -69,6 +69,8 @@
 			mode: 'Byte'
 		}
 	};
+
+	$: console.log('page.svelte cornersDotOptions =', options);
 </script>
 
 <div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
