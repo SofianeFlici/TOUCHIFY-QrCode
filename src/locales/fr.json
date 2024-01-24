@@ -136,7 +136,7 @@
     "created": "Créé le {date, date, short}"
   },
   "view": {
-    "load": "Modifier",
+    "load": "Editer",
     "delete": "Supprimer"
   },
   "menu": {

@@ -10,7 +10,7 @@
 
 	$: console.log('cornersDotOptionddddddds', cornersDotOptions);
 
-	let types = ['', 'square', 'dot'] as const;
+	let types = [undefined, 'square', 'dot'] as const;
 
 	let cornersDotGradient: boolean = false;
 	let gradientType: GradientType = 'linear';
