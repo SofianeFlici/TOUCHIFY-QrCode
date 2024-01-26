@@ -168,5 +168,6 @@
         "button": "Reload"
       }
     }
-  }
+  },
+  "scan": "Scan QR Code"
 }

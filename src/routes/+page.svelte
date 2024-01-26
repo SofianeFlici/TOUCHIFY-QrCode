@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import QrCodeContent from '$lib/QrCode/components/QrCodeContent.svelte';
 	import QrCodeGeneralStyle from '$lib/QrCode/components/QrCodeGeneralStyle.svelte';
-	import ButtonSave from '$lib/components/ButtonSave.svelte';
 	import QrCodeBorder from '$lib/QrCode/components/QrCodeBorder.svelte';
 	import QrCodePoint from '$lib/QrCode/components/QrCodePoint.svelte';
 	import QrCodeAddImage from '$lib/QrCode/components/QrCodeAddImage.svelte';
@@ -45,7 +44,7 @@
 
 	let options: Options = {
 		image: undefined,
-		data: "",
+		data: '',
 		width: 500,
 		height: 500,
 		dotsOptions: {
@@ -75,22 +74,26 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
 	<section class="mb-48 sm:mb-0">
-		<QrCodeDefinedChoice bind:options={options} />
+		<QrCodeDefinedChoice bind:options />
 		<QrCodeContent bind:data bind:options bind:defaultContent />
-		<ButtonSave {data} {options} {blob} {id} {defaultContent} />
 		<QrCodeGeneralStyle
 			bind:dotsOptions={options.dotsOptions}
 			bind:backgroundOptions={options.backgroundOptions}
 		/>
+
 		<QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} />
 		<QrCodePoint bind:cornersDotOptions={options.cornersDotOptions} />
-		<QrCodeAddImage bind:blobUrl={options.image} bind:blob bind:imageOptions={options.imageOptions} />
+		<QrCodeAddImage
+			bind:blobUrl={options.image}
+			bind:blob
+			bind:imageOptions={options.imageOptions}
+		/>
 		<QrCodeAdvancedOptions bind:qrOptions={options.qrOptions} />
 	</section>
 
 	<section class="grid grid-rows-1 fixed bottom-0 border-black sm:relative">
 		<div class="sm:fixed sm:w-[240px] lg:w-[320px]">
-			<QrCodeDownload bind:options />
+			<QrCodeDownload bind:options {data} {blob} {id} {defaultContent} />
 		</div>
 	</section>
 </div>

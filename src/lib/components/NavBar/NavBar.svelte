@@ -2,6 +2,7 @@
     import logo from "$assets/logo/9043004_scan_qr_code_icon.svg";
     import ToggleDarkMode from "./toggleDarkMode.svelte";
     import NavBarLanguage from "./NavBarLanguage.svelte";
+    import {_} from "svelte-i18n";
 
 </script>
 
@@ -11,6 +12,11 @@
         <a href="/" class="text-white px-2 font-bold py-1">QR Code Generator</a>
     </div>
     <div class="flex">
+        <div class="flex mr-6 text-xs items-center">
+            <a href="/" class="text-white px-2 font-bold py-1 hover:text-slate-800 dark:hover:text-slate-600">{$_("saved.add")}</a>
+            <a href="/" class="text-white px-2 font-bold py-1 hover:text-slate-800 dark:hover:text-slate-600">{$_("scan")}</a>
+            <a href="/mylist" class="text-white px-2 font-bold py-1 hover:text-slate-800 dark:hover:text-slate-600">{$_("saved.title")}</a>
+        </div>
         <ToggleDarkMode />
         <NavBarLanguage />
     </div>

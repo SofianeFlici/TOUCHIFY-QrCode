@@ -168,5 +168,6 @@
         "button": "Recharger"
       }
     }
-  }
+  },
+  "scan":"Scanner un QR Code"
 }

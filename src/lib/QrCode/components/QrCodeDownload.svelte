@@ -3,12 +3,53 @@
 	import type { Options } from 'qr-code-styling';
 	import Card from '$lib/components/Card.svelte';
 	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
+	import { IconBookmark, IconDownload } from 'obra-icons-svelte';
+	import db from '$lib/db';
+	import type { QrCodeData } from '$lib/QrCode/qrcode.data';
 	import { _ } from 'svelte-i18n';
 
 	export let options: Options;
 
 	let qrCode: any;
 	let qrCodeElement: HTMLElement; // HTMLElement | null = null;
+
+	export let data: QrCodeData;
+	export let blob: Blob | null = null;
+	export let defaultContent: string;
+	export let id: string | null;
+
+	async function saveOptions() {
+		const numericId = id ? parseInt(id) : null;
+
+		const item = {
+			type: defaultContent,
+			date: new Date(),
+			data: data,
+			options: options,
+			image: blob
+		};
+
+		try {
+			if (numericId) {
+				// Obtenir les options existantes.
+				const dbItem = await db.options.get(numericId);
+				if (!dbItem) {
+					console.error(`No options found with id: ${numericId}`);
+					return;
+				}
+
+				// Mettez à jour les options avec les nouvelles données.
+				await db.options.update(numericId, item);
+				console.log('Options updated successfully');
+			} else {
+				// Ajoutez de nouvelles options.
+				await db.options.add(item);
+				console.log('Options saved successfully');
+			}
+		} catch (error) {
+			console.error('Failed to save options:', error);
+		}
+	}
 
 	onMount(async () => {
 		const opts = Object.assign({}, options);
@@ -20,7 +61,7 @@
 	});
 
 	$: if (qrCode) qrCode.update(options);
-	
+
 	function download() {
 		qrCode.download({
 			name: 'qrcode',
@@ -48,8 +89,19 @@
 			></InputRadioButtons>
 		</div>
 
-		<button class="bg-slate-800 text-white text-sm py-2 rounded w-full mt-2" on:click={download}>
+		<button class="bg-slate-800 text-white text-sm py-2 rounded w-full mt-2 flex justify-center items-center" on:click={download}>
+			<IconDownload size={16} />
+			<span class="ml-2">
 			{$_('download.button')}
+			</span>
+		</button>
+		<button
+			type="button"
+			class="bg-slate-800 text-white text-sm py-2 rounded w-full mt-2 flex justify-center items-center"
+			on:click={saveOptions}
+		>
+			<IconBookmark size={16} />
+			<span class="ml-2">{$_('menu.save')}</span>
 		</button>
 	</Card>
 </div>
