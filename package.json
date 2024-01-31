@@ -36,6 +36,7 @@
 	"type": "module",
 	"dependencies": {
 		"dexie": "^3.2.4",
+		"jsqr": "^1.4.0",
 		"obra-icons-svelte": "^1.10.0",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-i18n": "^4.0.0"

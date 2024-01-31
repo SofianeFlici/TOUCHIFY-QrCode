@@ -18,32 +18,43 @@
     }
     
     onMount(() => {
-      const storedLocale = localStorage.getItem('locale');
+      let storedLocale = localStorage.getItem('locale');
       if (storedLocale) {
+        if (navigator.language.startsWith('fr')) {
+          storedLocale = 'fr';	
+        } else {
+          storedLocale = 'en';
+        }
         $locale = storedLocale;
       }
-    });    
+    });
 </script>
 
 {#if $locale === 'fr'}
-    <button on:click={() => isOpen = true }>
-      <img src={fr_icon} alt="France" class="w-5 h-5"/>
-    </button>
+	<button on:click={() => (isOpen = true)}>
+		<img src={fr_icon} alt="France" class="w-5 h-5" />
+	</button>
 {:else}
-    <button on:click={() => isOpen = !isOpen}>
-      <img src={uk_icon} alt="United Kingdom" class="w-5 h-5" />
-    </button>
+	<button on:click={() => (isOpen = !isOpen)}>
+		<img src={uk_icon} alt="United Kingdom" class="w-5 h-5" />
+	</button>
 {/if}
 
 {#if isOpen}
-  <div class="flex flex-col fixed top-14 bg-slate-500 right-4 justify-between w-36 rounded-md">
-    {#each lang as { id, name, img }}
-    <div class="flex row  w-4/6">
-      <button class="flex w-full justify-between m-2 text-white" on:click={() => { changeLocale(id); isOpen = false; }}>
-        <img src={img} alt={name} class="w-5 h-5" />
-        {$_(`ui.lang.${name}`)}
-      </button>
-    </div>
-    {/each}
-  </div>
+	<div class="flex flex-col fixed top-14 bg-slate-500 right-4 justify-between w-36 rounded-md">
+		{#each lang as { id, name, img }}
+			<div class="flex row w-4/6">
+				<button
+					class="flex w-full justify-between m-2 text-white"
+					on:click={() => {
+						changeLocale(id);
+						isOpen = false;
+					}}
+				>
+					<img src={img} alt={name} class="w-5 h-5" />
+					{$_(`ui.lang.${name}`)}
+				</button>
+			</div>
+		{/each}
+	</div>
 {/if}

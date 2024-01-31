@@ -14,7 +14,7 @@
     <div class="flex">
         <div class="flex mr-6 text-xs items-center">
             <a href="/" class="text-white px-2 font-bold py-1 hover:text-slate-800 dark:hover:text-slate-600">{$_("saved.add")}</a>
-            <a href="/" class="text-white px-2 font-bold py-1 hover:text-slate-800 dark:hover:text-slate-600">{$_("scan")}</a>
+            <a href="/scanqr" class="text-white px-2 font-bold py-1 hover:text-slate-800 dark:hover:text-slate-600">{$_("scan")}</a>
             <a href="/mylist" class="text-white px-2 font-bold py-1 hover:text-slate-800 dark:hover:text-slate-600">{$_("saved.title")}</a>
         </div>
         <ToggleDarkMode />
