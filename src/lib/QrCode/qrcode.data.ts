@@ -2,11 +2,11 @@ import {
 	IconCalendarCheck,
 	IconContactBook,
 	IconEmail,
-	IconLinkAlt,
 	IconLocationMarker,
 	IconMessage,
 	IconPhone,
-	IconWifi
+	IconWifi,
+	IconGlobe
 } from 'obra-icons-svelte';
 import type { SvelteComponentTyped } from 'svelte';
 
@@ -78,7 +78,7 @@ export function ListQrCodeDataType(): QrCodeDataType[] {
 	return [
 		{
 			type: 'URL',
-			icon: IconLinkAlt,
+			icon: IconGlobe,
 			data: {
 				url: 'https://touchify.io'
 			}
