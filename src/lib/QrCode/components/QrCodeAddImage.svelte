@@ -24,12 +24,23 @@
 
 	function handleFileChange(event: Event) {
 		const input = event.target as HTMLInputElement;
-		if (input.files && input.files[0]) {
-			const file = input.files[0];
-			blob = new Blob([file], { type: file.type });
+		const file = input.files ? input.files[0] : null;
 
-			const newBlobUrl = URL.createObjectURL(blob);
-			blobUrl = newBlobUrl;
+		if (file) {
+			const validExtensions = ['png', 'jpg', 'jpeg', 'svg'];
+			const extension = file.name.split('.').pop()?.toLowerCase();
+			if (extension && validExtensions.includes(extension)) {
+				const reader = new FileReader();
+				reader.onload = (e: ProgressEvent<FileReader>) => {
+					if (e.target && typeof e.target.result === 'string') {
+						blobUrl = e.target.result;
+					}
+				};
+				reader.readAsDataURL(file);
+			} else {
+				console.error('Type de fichier non supporté.');
+				alert($_('error.image'));
+			}
 		}
 	}
 
@@ -71,7 +82,12 @@
 					on:click={triggerFileInput}
 				>
 					<IconArrowLeaveUp size={65} color={'#94A3B8'} />
-					<input type="file" accept="image/*" class="hidden" on:change={handleFileChange} />
+					<input
+						type="file"
+						accept=".png, .jpg, .jpeg, .svg"
+						class="hidden"
+						on:change={handleFileChange}
+					/>
 					<input type="hidden" name="blobUrl" bind:value={blobUrl} />
 					<p class="text-slate-400 mt-2">{$_('ui.file.load')}</p>
 				</button>

@@ -20,6 +20,9 @@
 	let rotation: number = 0;
 	let gradientType: string = 'linear';
 
+	let backgroundColors: string = '#ffffff';
+
+
 	let style = ['square', 'rounded', 'dots', 'classy', 'classy-rounded', 'extra-rounded'] as const;
 	let transparent = true;
 
@@ -50,6 +53,7 @@
 		};
 	} else {
 		if (backgroundOptions) {
+			backgroundOptions.color = backgroundColors;
 			backgroundOptions.color = transparent ? 'transparent' : backgroundOptions.color;
 			backgroundOptions.gradient = undefined;
 		}
@@ -132,7 +136,8 @@
 
 				<div>
 					{#if backgroundOptions && !backgroundGradient && !transparent}
-						<InputColor bind:value={backgroundOptions.color} />
+						{console.log('backgroundOptions.color =', backgroundOptions.color)}
+						<InputColor bind:value={backgroundColors} />
 					{/if}
 				</div>
 			{/if}

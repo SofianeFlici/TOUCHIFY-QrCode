@@ -1,5 +1,5 @@
 <script lang='ts'>
-    export let value = '#000000';
+    export let value: string;
 </script>
 
 <div class="flex items-center">

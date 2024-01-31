@@ -60,7 +60,7 @@
 		},
 		cornersDotOptions: {},
 		backgroundOptions: {
-			color: 'transparent'
+			color: '#ffffff'
 		},
 		qrOptions: {
 			typeNumber: 0,

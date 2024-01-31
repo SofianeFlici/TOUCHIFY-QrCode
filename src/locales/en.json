@@ -169,5 +169,12 @@
       }
     }
   },
-  "scan": "Scan QR Code"
+  "scan": "Scan QR Code",
+  "model": {
+    "title": "Qr Code Model",
+    "undefined": "None"
+  },
+  "error": {
+    "image": "Image format not supported"
+  }
 }
