@@ -136,7 +136,6 @@
 
 				<div>
 					{#if backgroundOptions && !backgroundGradient && !transparent}
-						{console.log('backgroundOptions.color =', backgroundOptions.color)}
 						<InputColor bind:value={backgroundColors} />
 					{/if}
 				</div>

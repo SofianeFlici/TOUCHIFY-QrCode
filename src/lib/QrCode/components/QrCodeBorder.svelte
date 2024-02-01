@@ -15,6 +15,8 @@
 	let squareColor: string = '#000000';
 	let squareColor2: string = '#ffffff';
 
+	let borderColor: string = '#000000';
+
 	let title: string = `corners.square.title`;
 
 	let types = [undefined, 'dot', 'square', 'extra-rounded'] as const;
@@ -36,6 +38,7 @@
 		};
 	} else {
 		if (cornersSquareOptions) {
+			cornersSquareOptions.color = borderColor;
 			cornersSquareOptions.gradient = undefined;
 		}
 	}
@@ -65,7 +68,7 @@
 					/>
 					{$_('ui.gradient.use')}
 					{#if !squareGradient}
-						<InputColor bind:value={cornersSquareOptions.color} />
+						<InputColor bind:value={borderColor} />
 					{/if}
 					{#if squareGradient}
 						<InputGradient

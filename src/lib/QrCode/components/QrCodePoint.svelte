@@ -19,6 +19,8 @@
 	let rotation: number = 0;
 	let cornersDotColor: string = '#000000';
 	let cornersDotColor2: string = '#ffffff';
+	
+	let cornersColor = '#000000';
 
 	function toggleCornersDotGradient() {
 		cornersDotGradient = !cornersDotGradient;
@@ -37,6 +39,7 @@
 		};
 	} else {
 		if (cornersDotOptions) {
+			cornersDotOptions.color = cornersColor;
 			cornersDotOptions.gradient = undefined;
 		}
 	}
@@ -64,7 +67,7 @@
 					/>
 					{$_('ui.gradient.use')}
 					{#if !cornersDotGradient}
-						<InputColor bind:value={cornersDotOptions.color} />
+						<InputColor bind:value={cornersColor} />
 					{/if}
 					{#if cornersDotGradient}
 						<InputGradient
