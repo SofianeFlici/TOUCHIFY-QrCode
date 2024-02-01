@@ -187,3 +187,16 @@ export function generatePhone({ number }: QrCodeDataPhone) {
 export function generateEmail({ email, subject }: QrCodeDataEmail) {
 	return `mailto:${email}?subject=${subject}`;
 }
+
+export const displayConfig: Record<string, { key: string; label: string }[]> = {
+	URL:[
+		{ key: 'url', label: 'URL' }
+	],
+	Contact: [
+		{ key: 'firstname', label: 'Prénom' },
+		{ key: 'lastname', label: 'Nom' },
+		{ key: 'company', label: 'Société' },
+		{ key: 'email', label: 'Email' },
+		{ key: 'phone', label: 'Téléphone' }
+	]		
+};

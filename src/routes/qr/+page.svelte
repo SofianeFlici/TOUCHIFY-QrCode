@@ -4,6 +4,7 @@
 	import type { default as QRCodeStyling, Options } from 'qr-code-styling';
 	import { _ } from 'svelte-i18n';
 	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
+	import { displayConfig } from '$lib/QrCode/qrcode.data';
 
 	let id: number;
 
@@ -84,32 +85,42 @@
 	}
 </script>
 
-<div class="flex flex-col justify-center align-middle items-center 
-			sm:w-full">
-	<a href="/mylist" class="w-4/6 mb-4 mt-4 ml-2 text-sm 
+<div
+	class="flex flex-col justify-center align-middle items-center
+			sm:w-full"
+>
+	<a
+		href="/mylist"
+		class="w-4/6 mb-4 mt-4 ml-2 text-sm
 		sm:w-2/6 sm:ml-4
-		dark:border-slate-200 dark:hover:text-slate-500">
+		dark:border-slate-200 dark:hover:text-slate-500"
+	>
 		{$_('back')}
 	</a>
 	<div class="w-4/6 flex flex-col justify-center align-middle items-center rounded">
 		<div
 			class=" sm:w-6/6 flex flex-col justify-center content-center items-center align-middle shrink-0 sm:p-2"
 		>
-			{#if qrCode && qrOptions && qrItems}
+			{#if qrItems && qrOptions && qrItems.type in displayConfig}
 				<div class="qr-preview bg-white aspect-square p-2 rounded" bind:this={qrCodeElement}></div>
 				<div
-					class="flex flex-col justify-center align-middle items-center bg-white 
+					class="flex flex-col justify-center align-middle items-center bg-white
 							dark:bg-slate-700 rounded w-full mt-4"
 				>
-					<p class="p-2 font-semibold">{qrOptions.data}</p>
+					<div class="flex w-60 flex-wrap bg-red-400 items-center align-middle content-center">
+						{#each displayConfig[qrItems.type] as { key, label}}
+							<p class="p-2 font-semibold">{label}: {qrItems.data[key]}</p>
+						{/each}
+					</div>
+
 					<div>
 						<p class="text-xs mt-2 mb-4 justify-center flex">
 							{qrItems.type} · {qrItems.date.toLocaleDateString()}
 						</p>
 					</div>
-					<div class="flex justify-around w-full mb-2 ">
+					<div class="flex justify-around w-full mb-2">
 						<button
-						    type="button"
+							type="button"
 							class="w-3/6 bg-transparent m-2 rounded border border-gray-500 hover:border-gray-700 text-gray-500 hover:text-gray-700 font-semibold py-2
 								 dark:text-white dark:font-normal dark:bg-slate-950 dark:border-none dark:hover:bg-slate-900 dark:hover:text-white"
 							on:click={edit}
@@ -118,7 +129,7 @@
 						</button>
 						<button
 							type="button"
-							class="w-3/6 bg-transparent m-2 rounded border border-gray-500 hover:border-gray-700 text-gray-500 hover:text-gray-700 font-semibold py-2 
+							class="w-3/6 bg-transparent m-2 rounded border border-gray-500 hover:border-gray-700 text-gray-500 hover:text-gray-700 font-semibold py-2
 								dark:text-white dark:font-normal dark:bg-slate-950 dark:border-none dark:hover:bg-slate-900 dark:hover:text-white"
 							on:click={destroy}
 						>

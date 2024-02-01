@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
 	import InputColor from '$lib/components/InputColor.svelte';
-	import type { Options } from 'qr-code-styling';
+	import type { Gradient, GradientType, Options } from 'qr-code-styling';
 	import { _ } from 'svelte-i18n';
 	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
 	import InputGradient from '$lib/components/InputGradient.svelte';
@@ -10,7 +10,7 @@
 	export let cornersSquareOptions: Options['cornersSquareOptions'];
 
 	let squareGradient: boolean = false;
-	let gradientType: string = 'linear';
+	let gradientType: GradientType = 'linear';
 	let rotation: number = 0;
 	let squareColor: string = '#000000';
 	let squareColor2: string = '#ffffff';
