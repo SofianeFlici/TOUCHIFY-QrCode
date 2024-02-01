@@ -138,89 +138,50 @@
 			/>
 		{/if}
 		{#if defaultContent == 'Contact'}
-			<div class="max-w-md mx-auto">
-				<div class="flex flex-wrap -mx-2">
-					<!-- Prénom -->
-					<div class="w-full md:w-1/2 px-2 mb-4">
-						<label for="firstname" class="block font-semibold">{$_('data.contact.firstname')}</label
-						>
-						<input
-							type="text"
-							bind:value={data.firstname}
-							id="firstname"
-							class="form-input mt-1 block w-full"
-						/>
-					</div>
-					<!-- Nom -->
-					<div class="w-full md:w-1/2 px-2 mb-4">
-						<label for="lastname" class="block font-semibold">{$_('data.contact.lastname')}</label>
-						<input
-							type="text"
-							bind:value={data.lastname}
-							id="lastname"
-							class="form-input mt-1 block w-full"
-						/>
-					</div>
+		<div class="">
+			<div class="flex flex-wrap -mx-2">
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="firstname" class="block font-semibold dark:text-white">{$_('data.contact.firstname')}</label>
+					<InputContent bind:value={data.firstname} />
 				</div>
-				<div class="flex flex-wrap -mx-2">
-					<!-- Société -->
-					<div class="w-full md:w-1/2 px-2 mb-4">
-						<label for="company" class="block font-semibold">{$_('data.contact.company')}</label>
-						<input
-							type="text"
-							bind:value={data.company}
-							id="company"
-							class="form-input mt-1 block w-full"
-						/>
-					</div>
-					<!-- Fonction -->
-					<div class="w-full md:w-1/2 px-2 mb-4">
-						<label for="job" class="block font-semibold">{$_('data.contact.job')}</label>
-						<input
-							type="text"
-							bind:value={data.jobTitle}
-							id="job"
-							class="form-input mt-1 block w-full"
-						/>
-					</div>
-				</div>
-				<div class="flex flex-wrap -mx-2">
-					<!-- Email -->
-					<div class="w-full px-2 mb-4">
-						<label for="email" class="block font-semibold">{$_('data.contact.email')}</label>
-						<input
-							type="email"
-							bind:value={data.email}
-							id="email"
-							class="form-input mt-1 block w-full"
-						/>
-					</div>
-				</div>
-				<div class="flex flex-wrap -mx-2">
-					<!-- Téléphone -->
-					<div class="w-full px-2 mb-4">
-						<label for="phone" class="block font-semibold">{$_('data.contact.phone')}</label>
-						<input
-							type="tel"
-							bind:value={data.phone}
-							id="phone"
-							class="form-input mt-1 block w-full"
-						/>
-					</div>
-				</div>
-				<div class="flex flex-wrap -mx-2">
-					<!-- Site internet -->
-					<div class="w-full px-2 mb-4">
-						<label for="website" class="block font-semibold">{$_('data.contact.url')}</label>
-						<input
-							type="url"
-							bind:value={data.url}
-							id="website"
-							class="form-input mt-1 block w-full"
-						/>
-					</div>
+				<!-- Nom -->
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="lastname" class="block font-semibold dark:text-white">{$_('data.contact.lastname')}</label>
+					<InputContent bind:value={data.lastname} />
 				</div>
 			</div>
+			<div class="flex flex-wrap -mx-2">
+				<!-- Société -->
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="company" class="block font-semibold dark:text-white">{$_('data.contact.company')}</label>
+					<InputContent bind:value={data.company} />
+				</div>
+				<!-- Fonction -->
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="job" class="block font-semibold dark:text-white">{$_('data.contact.job')}</label>
+					<InputContent bind:value={data.jobTitle} />
+				</div>
+			</div>
+			<div class="flex flex-wrap -mx-2">
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="email" class="block font-semibold dark:text-white">{$_('data.contact.email')}</label>
+					<InputContent bind:value={data.email} />
+				</div>
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="phone" class="block font-semibold dark:text-white">{$_('data.contact.phone')}</label>
+					<InputContent bind:value={data.phone} />
+				</div>
+			</div>
+			<div class="flex flex-wrap -mx-2">
+				<!-- Site internet -->
+				<div class="w-full px-2 mb-4">
+					<label for="website" class="block font-semibold dark:text-white">{$_('data.contact.url')}</label>
+					<InputContent bind:value={data.url} />
+				</div>
+			</div>
+			</div>
+		
+		
 		{/if}
 		{#if defaultContent == 'Geo'}
 			<label for="geo" class="font-semibold">{$_('data.geo.latitude')}</label>

@@ -159,9 +159,9 @@ export function generateVCard({
 	jobTitle,
 	email,
 	phone,
-	website
+	url
 }: QrCodeDataContact) {
-	return `BEGIN:VCARD\nVERSION:3.0\nFN:${firstname} ${lastname}\nORG:${company}\nTITLE:${jobTitle}\nEMAIL:${email}\nTEL:${phone}\nURL:${website}\nEND:VCARD`;
+	return `BEGIN:VCARD\nVERSION:3.0\nFN:${firstname} ${lastname}\nORG:${company}\nTITLE:${jobTitle}\nEMAIL:${email}\nTEL:${phone}\nURL:${url}\nEND:VCARD`;
 }
 
 export function generateWifi({ ssid, password, typeWifi }: QrCodeDataWifi) {
