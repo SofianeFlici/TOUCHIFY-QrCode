@@ -16,17 +16,17 @@
 	<div class="flex flex-col h-64 w-full justify-between items-center">
 		<a
 			href="/createQr"
-			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-6 text-indigo-600 font-semibold"
+			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-6 text-indigo-600 font-semibold dark:border-t-ciel dark:text-t-ciel"
 			><img src={createQr} alt="create" class="w-6" /> Créer</a
 		>
 		<a
 			href="/mylist"
-			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-4 text-indigo-600 font-semibold"
+			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-4 text-indigo-600 font-semibold dark:border-t-ciel dark:text-t-ciel"
 			><img src={myQr} alt="create" class="w-6" /> Mes QR</a
 		>
 		<a
 			href="/scanqr"
-			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-4 text-indigo-600 font-semibold"
+			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-4 text-indigo-600 font-semibold dark:border-t-ciel dark:text-t-ciel"
 			><img src={scanQr} alt="create" class="w-6" />Scanner</a
 		>
 	</div>

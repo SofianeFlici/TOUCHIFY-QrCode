@@ -78,7 +78,7 @@
 		<QrCodeDownload bind:options {data} {blob} {id} {defaultContent} />
 	</div>
 	<section class="mb-48 sm:mb-0">
-		<QrCodeDefinedChoice bind:options />
+		<!-- <QrCodeDefinedChoice bind:options /> -->
 		<QrCodeContent bind:data bind:options bind:defaultContent />
 		<QrCodeGeneralStyle
 			bind:dotsOptions={options.dotsOptions}

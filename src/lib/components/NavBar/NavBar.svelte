@@ -57,20 +57,20 @@
 		<div
 			class="flex bg-t-indigo h-12 items-center w-full justify-around text-white text-[10px] dark:bg-t-ciel dark:text-t-black"
 		>
-			<div class="flex">
-				<div class="flex-col items-center flex">
-					<a href="/createQr/" class="py-1 px-2" class:font-bold={$page.url.pathname === '/createQr/'}>{$_('saved.add')}</a>
+			<div class="flex ">
+				<div class="flex-col items-center flex justify-center">
+					<a href="/createQr/" class="py-1 px-2 " class:font-bold={$page.url.pathname === '/createQr/'}>{$_('saved.add')}</a>
 					{#if $page.url.pathname === '/createQr/'}
-                        <span class="bg-white w-1 h-1 rounded-full dark:bg-t-black"></span>
+                        <span class="bg-white w-1 h-1 rounded-full  absolute bottom-2 dark:bg-t-black"></span>
 					{/if}
 				</div>
-				<div class="flex-col items-center flex">
+				<div class="flex-col items-center flex justify-center">
 					<a href="/mylist/" class=" py-1 px-2" class:font-bold={$page.url.pathname === '/mylist/'}>{$_('saved.title')}</a>
 					{#if $page.url.pathname === '/mylist/'}
                     <span class="bg-white w-1 h-1 rounded-full dark:bg-t-black"></span>
 					{/if}
 				</div>
-				<div class="flex-col items-center flex">
+				<div class="flex-col items-center flex justify-center">
 					<a href="/scanqr/" class="py-1 px-2" class:font-semibold={$page.url.pathname === '/scanqr/'}>{$_('scan')}</a>
 					{#if $page.url.pathname === '/scanqr/'}
                         <span class="bg-white w-1 h-1 rounded-full dark:bg-t-black"></span>

@@ -73,12 +73,12 @@
 	let defaultStyle = 'SVG';
 </script>
 
-<div class="flex bg-t-ciel w-72 rounded-md justify-around items-center p-2 h-44">
+<div class="flex bg-t-medium-blue w-72 rounded-md justify-around items-center p-2 h-44 dark:bg-t-black">
 	<div class="bg-white h-36 w-36 rounded-md">
 		<div class="qr-preview bg-white rounded-md p-4" bind:this={qrCodeElement}></div>
 	</div>
 
-	<div class="h-36">
+	<div class="flex flex-col h-36 justify-between">
 		<div class="bg-white w-28 h-20 flex flex-col justify-around p-2 rounded-md text-[10px]">
 			<select
 				class="w-full rounded-md text-t-indigo p-1 border-2 border-t-indigo text-xs hover:border-t-indigo mb-2"
@@ -95,18 +95,10 @@
 				{$_('download.button')}
 			</button>
 		</div>
-
-		<div class="text-[10px] flex flex-col justify-between h-14 mt-2 text-white">
-			<button class="bg-t-indigo w-full flex justify-center p-1 items-center rounded">
-				<IconDownload size={16} />
-				<p class="ml-2">
-					{$_('download.button')}
-				</p>
-			</button>
-
+		<div class="text-[10px] flex flex-col justify-between mt-2 text-white">
 			<button
 				type="button"
-				class="bg-t-indigo w-full flex justify-center p-1 items-center rounded"
+				class="bg-t-indigo w-full flex justify-center p-1 items-center rounded py-2"
 				on:click={saveOptions}
 			> 
 				<IconBookmark size={16} />

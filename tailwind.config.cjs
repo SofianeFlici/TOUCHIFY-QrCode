@@ -9,7 +9,10 @@ const config = {
 			't-indigo': '#5236DD',
 			't-ciel': '#99B4FF',
 			't-orange': '#FFA76C',
-			't-black': '#1F1F23'
+			't-black': '#1F1F23',
+			't-light-blue': '#f5f7ff',
+			't-medium-blue': '#DBE1FF',
+			't-dark-gray': '#343438'
 		  },
 		},
 	  },
