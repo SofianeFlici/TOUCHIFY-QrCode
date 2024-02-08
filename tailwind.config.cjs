@@ -4,8 +4,15 @@ const config = {
 	darkMode: "class",
 
 	theme: {
-		extend: {}
-	},
+		extend: {
+		  colors: {
+			't-indigo': '#5236DD',
+			't-ciel': '#99B4FF',
+			't-orange': '#FFA76C',
+			't-black': '#1F1F23'
+		  },
+		},
+	  },
 
 	plugins: []
 };

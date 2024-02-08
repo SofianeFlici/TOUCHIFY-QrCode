@@ -73,37 +73,49 @@
 	let defaultStyle = 'SVG';
 </script>
 
-<div
-	class="flex border-y-2 border-gray-400 bg-slate-300 sm:flex-col sm:bg-transparent sm:border-hidden dark:bg-slate-600 dark:sm:bg-slate-900 dark:border-none"
->
-	<div class="mr-0 w-2/6 shrink-0 sm:w-full sm:p-2">
-		<div
-			class="qr-preview m-4 bg-white aspect-square p-4 rounded sm:m-2"
-			bind:this={qrCodeElement}
-		></div>
+<div class="flex bg-t-ciel w-72 rounded-md justify-around items-center p-2 h-44">
+	<div class="bg-white h-36 w-36 rounded-md">
+		<div class="qr-preview bg-white rounded-md p-4" bind:this={qrCodeElement}></div>
 	</div>
 
-	<Card>
-		<div class="col-auto rounded">
-			<InputRadioButtons bind:value={defaultStyle} text={(styles) => styles} options={styles}
-			></InputRadioButtons>
+	<div class="h-36">
+		<div class="bg-white w-28 h-20 flex flex-col justify-around p-2 rounded-md text-[10px]">
+			<select
+				class="w-full rounded-md text-t-indigo p-1 border-2 border-t-indigo text-xs hover:border-t-indigo mb-2"
+				bind:value={defaultStyle}
+			>
+				{#each styles as style}
+					<option value={style}>{style}</option>
+				{/each}
+			</select>
+			<button
+				class="border-2 border-t-indigo bg-white rounded-md p-1 w-full flex justify-center items-center text-t-indigo"
+			>
+				<IconDownload size={16} />
+				{$_('download.button')}
+			</button>
 		</div>
 
-		<button class="bg-slate-800 text-white text-sm py-2 rounded w-full mt-2 flex justify-center items-center" on:click={download}>
-			<IconDownload size={16} />
-			<span class="ml-2">
-			{$_('download.button')}
-			</span>
-		</button>
-		<button
-			type="button"
-			class="bg-slate-800 text-white text-sm py-2 rounded w-full mt-2 flex justify-center items-center"
-			on:click={saveOptions}
-		>
-			<IconBookmark size={16} />
-			<span class="ml-2">{$_('menu.save')}</span>
-		</button>
-	</Card>
+		<div class="text-[10px] flex flex-col justify-between h-14 mt-2 text-white">
+			<button class="bg-t-indigo w-full flex justify-center p-1 items-center rounded">
+				<IconDownload size={16} />
+				<p class="ml-2">
+					{$_('download.button')}
+				</p>
+			</button>
+
+			<button
+				type="button"
+				class="bg-t-indigo w-full flex justify-center p-1 items-center rounded"
+				on:click={saveOptions}
+			> 
+				<IconBookmark size={16} />
+				<p class="ml-2">
+					{$_('menu.save')}
+				</p>
+			</button>
+		</div>
+	</div>
 </div>
 
 <style>

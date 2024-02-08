@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126.37 133.98">
+  <g id="Groupe_2" data-name="Groupe 2">
+    <path id="Tracé_62" data-name="Tracé 62" d="M7.94,51.86c-2.21,0-4-1.79-4-4v-30.17c0-5.88,4.77-10.64,10.65-10.65h30.17c2.21,0,4,1.79,4,4,0,2.21-1.79,4-4,4H14.59c-1.46,0-2.65,1.19-2.65,2.65v30.16c0,2.21-1.79,4-4,4Z" fill="#99b4ff" stroke-width="0"/>
+    <path id="Tracé_63" data-name="Tracé 63" d="M118.42,51.88c-2.21,0-4-1.79-4-4v-30.17c0-1.46-1.19-2.65-2.65-2.65h-30.17c-2.21,0-4-1.79-4-4s1.79-4,4-4h30.17c5.88,0,10.64,4.77,10.65,10.65v30.17c0,2.21-1.79,4-4,4Z" fill="#99b4ff" stroke-width="0"/>
+    <path id="Tracé_64" data-name="Tracé 64" d="M111.77,126.94h-30.17c-2.21,0-4-1.79-4-4s1.79-4,4-4h30.17c1.46,0,2.65-1.19,2.65-2.65v-30.16c0-2.21,1.79-4,4-4s4,1.79,4,4v30.17c0,5.88-4.77,10.65-10.65,10.65Z" fill="#99b4ff" stroke-width="0"/>
+    <path id="Tracé_65" data-name="Tracé 65" d="M44.76,126.92H14.59c-5.88,0-10.64-4.77-10.65-10.65v-30.17c0-2.21,1.79-4,4-4,2.21,0,4,1.79,4,4h0v30.17c0,1.46,1.19,2.65,2.65,2.65h30.16c2.21,0,4,1.79,4,4s-1.79,4-4,4h0Z" fill="#99b4ff" stroke-width="0"/>
+    <g id="Groupe_1" data-name="Groupe 1">
+      <rect id="Rectangle_17" data-name="Rectangle 17" x="32.08" y="35.4" width="8.88" height="8.88" fill="#ffa76c" stroke-width="0"/>
+      <rect id="Rectangle_18" data-name="Rectangle 18" x="85.76" y="35.4" width="8.88" height="8.88" fill="#ffa76c" stroke-width="0"/>
+      <rect id="Rectangle_19" data-name="Rectangle 19" x="32.08" y="89.83" width="8.88" height="8.88" fill="#ffa76c" stroke-width="0"/>
+      <path id="Rectangle_20" data-name="Rectangle 20" d="M20.14,23.46h32.76v32.76H20.14V23.46ZM44.91,31.46h-16.77v16.77h16.77v-16.77Z" fill="#fff" stroke-width="0"/>
+      <path id="Rectangle_21" data-name="Rectangle 21" d="M20.14,77.88h32.76v32.76H20.14v-32.76ZM44.91,85.88h-16.77v16.77h16.77v-16.77Z" fill="#fff" stroke-width="0"/>
+      <path id="Rectangle_22" data-name="Rectangle 22" d="M73.82,23.46h32.76v32.76h-32.76V23.46ZM98.59,31.46h-16.77v16.77h16.77v-16.77Z" fill="#fff" stroke-width="0"/>
+      <rect id="Rectangle_23" data-name="Rectangle 23" x="75.74" y="61.91" width="8.88" height="8.88" fill="#fff" stroke-width="0"/>
+      <rect id="Rectangle_24" data-name="Rectangle 24" x="21.91" y="61.91" width="8.88" height="8.88" fill="#fff" stroke-width="0"/>
+      <rect id="Rectangle_25" data-name="Rectangle 25" x="95.97" y="61.91" width="8.88" height="8.88" fill="#fff" stroke-width="0"/>
+      <path id="Rectangle_26" data-name="Rectangle 26" d="M73.82,77.88h32.76v32.76h-32.76v-32.76ZM98.59,85.88h-16.77v16.77h16.77v-16.77Z" fill="#fff" stroke-width="0"/>
+      <path id="Tracé_66" data-name="Tracé 66" d="M67.28,70.35h-30.32v-8h22.34l.08-38.9,8,.02-.1,46.89Z" fill="#fff" stroke-width="0"/>
+      <path id="Ligne_1" data-name="Ligne 1" d="M59.39,110.66l-.11-32.77,8-.03.11,32.76-8,.03Z" fill="#fff" stroke-width="0"/>
+    </g>
+  </g>
+</svg>

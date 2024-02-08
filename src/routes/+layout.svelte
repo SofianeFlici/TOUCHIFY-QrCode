@@ -21,7 +21,6 @@
 	<NavBar />
 
 	<main
-		class={`max-w-screen-lg h-full mx-auto flex justify-center relative text-slate-800 dark:text-slate-300`}
 	>
 		<slot />
 	</main>

@@ -130,8 +130,8 @@
     }
   },
   "saved": {
-    "title": "Mes QR Codes",
-    "add": "Ajouter un QR Code",
+    "title": "MES QR CODES",
+    "add": "CREER UN QR CODE",
     "empty": "Aucun QR Code n'est sauvegardé sur ce périphérique.",
     "created": "Créé le {date, date, short}"
   },
@@ -169,7 +169,7 @@
       }
     }
   },
-  "scan":"Scanner un QR Code",
+  "scan":"SCANNER",
   "model": {
     "title": "Modèle de QR Code",
     "undefined": "Aucun"

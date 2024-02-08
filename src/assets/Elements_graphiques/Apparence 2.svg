@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <path d="M1.6,10.67h3.73v21.33H1.6c-.88,0-1.6-.72-1.6-1.6V12.27c0-.88.72-1.6,1.6-1.6Z" fill="#5236dd" stroke-width="0"/>
+  <path d="M6.93,0h2.13C9.95,0,10.67.72,10.67,1.6v14.4h-5.33V1.6C5.33.72,6.05,0,6.93,0Z" fill="#5236dd" stroke-width="0"/>
+  <path d="M10.67,10.67h3.73c.88,0,1.6.72,1.6,1.6v12.8c0,.88-.72,1.6-1.6,1.6h-2.13c-.88,0-1.6-.72-1.6-1.6v-14.4h0Z" fill="#5236dd" stroke-width="0"/>
+  <rect x="26.67" y="16" width="5.33" height="16" rx="1.6" ry="1.6" fill="#5236dd" stroke-width="0"/>
+  <rect x="16" y="5.33" width="5.33" height="5.33" rx="1.6" ry="1.6" fill="#5236dd" stroke-width="0"/>
+  <path d="M5.33,26.67h3.73c.88,0,1.6.72,1.6,1.6v2.13c0,.88-.72,1.6-1.6,1.6h-3.73v-5.33h0Z" fill="#5236dd" stroke-width="0"/>
+  <rect x="16" y="16" width="5.33" height="5.33" rx="1.6" ry="1.6" fill="#5236dd" stroke-width="0"/>
+  <rect x="21.33" width="5.33" height="5.33" rx="1.6" ry="1.6" fill="#5236dd" stroke-width="0"/>
+  <rect x="26.67" y="5.33" width="5.33" height="5.33" rx="1.6" ry="1.6" fill="#5236dd" stroke-width="0"/>
+</svg>

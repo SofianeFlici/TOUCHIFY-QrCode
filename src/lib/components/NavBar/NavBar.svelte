@@ -1,37 +1,82 @@
 <script lang="ts">
-    import logo from "$assets/logo/9043004_scan_qr_code_icon.svg";
-    import ToggleDarkMode from "./toggleDarkMode.svelte";
-    import NavBarLanguage from "./NavBarLanguage.svelte";
-    import {_} from "svelte-i18n";
-    let isMenuOpen = false;
+    import ToggleDarkMode from './toggleDarkMode.svelte';
+	import NavBarLanguage from './NavBarLanguage.svelte';
+	import { _ } from 'svelte-i18n';
+	import { page } from '$app/stores';
+	import { darkMode, isDarkMode } from '$lib/utils/darkmode';
 
-    function toggleMenu() {
-        isMenuOpen = !isMenuOpen;
+	import logoClassic from '$assets/Elements_graphiques/Logo - light.svg';
+    import logoClassicDark from '$assets/Elements_graphiques/Logo - dark.svg';
+	import logoPowered from '$assets/Elements_graphiques/Logo_light.svg';
+    import logoPoweredDark from '$assets/Elements_graphiques/Logo_dark.svg';
+
+	let logo: string;
+	let text: string;
+
+    let checked:boolean = false;
+
+	let isMenuOpen: boolean;
+
+    console.log('NavBar Page = ', $page.url.pathname);
+
+    $: {
+        if ($page.url.pathname === '/') {
+            logo = checked ? logoPoweredDark : logoPowered;
+            text = 'Powered by';
+            isMenuOpen = false;
+        } else {
+            logo = checked ? logoClassicDark : logoClassic;
+            text = 'QR Code Generator';
+            isMenuOpen = true;
+        }
     }
 
 </script>
-<nav class="sticky top-0 z-20 w-full bg-slate-600 dark:bg-slate-950 p-2 md:p-4 sm:h-16 flex justify-between items-center text-xs">
-    <div class="flex items-center">
-        <img src={logo} alt="logo" class="w-7 h-7" />
-        <a href="/" class="text-white font-bold py-1 px-2">QR Code Generator</a>
-    </div>
 
-    <div class="flex items-center">
-        <div class="hidden md:flex mr-6 text-xs">
-            <a href="/" class="text-white font-bold py-1 px-2 hover:text-slate-800 dark:hover:text-slate-600">{$_("saved.add")}</a>
-            <a href="/scanqr" class="text-white font-bold py-1 px-2 hover:text-slate-800 dark:hover:text-slate-600">{$_("scan")}</a>
-            <a href="/mylist" class="text-white font-bold py-1 px-2 hover:text-slate-800 dark:hover:text-slate-600">{$_("saved.title")}</a>
-        </div>
-        <ToggleDarkMode />
-        <NavBarLanguage />
-        <button class="md:hidden ml-3 text-white" on:click={toggleMenu}>
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-        </button>
-    </div>
+<nav
+	class="sticky top-0 z-20 bg-white w-full p-0 md:p-4 sm:h-16 flex flex-col justify-between mb-2 dark:bg-t-black"
+>
+	<div class="flex justify-between">
+		<div class="flex items-center justify-around ml-4 py-2 dark:text-white">
+			{#if $page.url.pathname === '/'}
+				<p class="text-base font-semibold ">{text}</p>
+				<img src={logo} alt="logo" class="w-20 ml-2 mt-1" />
+			{:else}
+				<img src={logo} alt="logo" class="w-7 mt-1" />
+				<p class="font-semibold text-sm ml-2 ">{text}</p>
+			{/if}
+		</div>
 
-    <div class={`flex flex-col md:hidden ${isMenuOpen ? 'block' : 'hidden'} absolute top-16 top-right right-0 rounded justify-center items-center text-xs bg-slate-600 dark:bg-slate-950 w-44`}>
-        <a href="/" class="text-white font-bold py-1 px-2 hover:text-slate-800 dark:hover:text-slate-600">{$_("saved.add")}</a>
-        <a href="/scanqr" class="text-white font-bold py-1 px-2 hover:text-slate-800 dark:hover:text-slate-600">{$_("scan")}</a>
-        <a href="/mylist" class="text-white font-bold py-1 px-2 hover:text-slate-800 dark:hover:text-slate-600">{$_("saved.title")}</a>
-    </div>
+		<div class="flex items-center mr-2">
+			<NavBarLanguage />
+			<ToggleDarkMode  bind:checked={checked} />
+		</div>
+	</div>
+
+	{#if isMenuOpen === true}
+		<div
+			class="flex bg-t-indigo h-12 items-center w-full justify-around text-white text-[10px] dark:bg-t-ciel dark:text-t-black"
+		>
+			<div class="flex">
+				<div class="flex-col items-center flex">
+					<a href="/createQr/" class="py-1 px-2" class:font-bold={$page.url.pathname === '/createQr/'}>{$_('saved.add')}</a>
+					{#if $page.url.pathname === '/createQr/'}
+                        <span class="bg-white w-1 h-1 rounded-full dark:bg-t-black"></span>
+					{/if}
+				</div>
+				<div class="flex-col items-center flex">
+					<a href="/mylist/" class=" py-1 px-2" class:font-bold={$page.url.pathname === '/mylist/'}>{$_('saved.title')}</a>
+					{#if $page.url.pathname === '/mylist/'}
+                    <span class="bg-white w-1 h-1 rounded-full dark:bg-t-black"></span>
+					{/if}
+				</div>
+				<div class="flex-col items-center flex">
+					<a href="/scanqr/" class="py-1 px-2" class:font-semibold={$page.url.pathname === '/scanqr/'}>{$_('scan')}</a>
+					{#if $page.url.pathname === '/scanqr/'}
+                        <span class="bg-white w-1 h-1 rounded-full dark:bg-t-black"></span>
+					{/if}
+				</div>
+			</div>
+		</div>
+	{/if}
 </nav>

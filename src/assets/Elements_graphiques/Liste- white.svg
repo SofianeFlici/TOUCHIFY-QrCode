@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect x="3.16" y="13.38" width="5.23" height="5.23" rx="1.63" ry="1.63" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <line x1="28.84" y1="16" x2="12.01" y2="16" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <rect x="3.16" y="3.28" width="5.23" height="5.23" rx="1.63" ry="1.63" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <line x1="28.84" y1="5.9" x2="12.01" y2="5.9" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <rect x="3.16" y="23.49" width="5.23" height="5.23" rx="1.63" ry="1.63" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <line x1="28.84" y1="26.1" x2="12.01" y2="26.1" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+</svg>

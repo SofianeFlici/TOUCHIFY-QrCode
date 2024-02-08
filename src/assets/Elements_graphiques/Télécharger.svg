@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <line x1="16" y1="25.93" x2="16" y2="1.71" fill="none" stroke="#5236dd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <polyline points="28.11 13.82 16 26.11 3.89 13.82" fill="none" stroke="#5236dd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <polyline points="30.13 22.08 30.13 30.13 1.87 30.13 1.87 22.08" fill="none" stroke="#5236dd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+</svg>

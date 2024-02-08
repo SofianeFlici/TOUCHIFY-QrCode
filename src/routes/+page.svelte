@@ -1,99 +1,33 @@
 <script lang="ts">
-	import type { Options } from 'qr-code-styling';
-	import { onMount } from 'svelte';
-	import QrCodeContent from '$lib/QrCode/components/QrCodeContent.svelte';
-	import QrCodeGeneralStyle from '$lib/QrCode/components/QrCodeGeneralStyle.svelte';
-	import QrCodeBorder from '$lib/QrCode/components/QrCodeBorder.svelte';
-	import QrCodePoint from '$lib/QrCode/components/QrCodePoint.svelte';
-	import QrCodeAddImage from '$lib/QrCode/components/QrCodeAddImage.svelte';
-	import QrCodeAdvancedOptions from '$lib/QrCode/components/QrCodeAdvancedOptions.svelte';
-	import QrCodeDownload from '$lib/QrCode/components/QrCodeDownload.svelte';
-	import QrCodeDefinedChoice from '$lib/QrCode/components/QrCodeDefinedChoice.svelte';
-	import db, { type QrCodeItem } from '$lib/db';
-	import type { QrCodeData } from '$lib/QrCode/qrcode.data';
-
-	let id: string = '';
-	let defaultContent = 'URL';
-
-	onMount(async () => {
-		const urlParams = new URLSearchParams(window.location.search);
-		id = urlParams.get('id') as string;
-
-		if (id) {
-			try {
-				// Récupération des données de la table 'options'
-				const item: QrCodeItem | undefined = await db.options.get(parseInt(id));
-				if (item) {
-					options = item.options;
-					data = item.data;
-					defaultContent = item.type;
-
-					if (item.image) {
-						blob = item.image;
-						options.image = URL.createObjectURL(item.image);
-					}
-				}
-			} catch (error) {
-				console.error('Failed to load options or images:', error);
-			}
-		}
-	});
-
-	let data: QrCodeData = {};
-	let blob: Blob | null = null;
-
-	let options: Options = {
-		image: undefined,
-		data: '',
-		width: 500,
-		height: 500,
-		dotsOptions: {
-			color: '#4267b2',
-			type: 'square'
-		},
-		imageOptions: {
-			crossOrigin: 'anonymous',
-			margin: 20
-		},
-		cornersSquareOptions: {
-			type: undefined
-		},
-		cornersDotOptions: {},
-		backgroundOptions: {
-			color: '#ffffff'
-		},
-		qrOptions: {
-			typeNumber: 0,
-			errorCorrectionLevel: 'Q',
-			mode: 'Byte'
-		}
-	};
-
-	$: console.log('page.svelte cornersDotOptions =', options);
+	import logo from '$assets/Elements_graphiques/Logo - light.svg';
+	import createQr from '$assets/Elements_graphiques/Créer - 1- black.svg';
+	import myQr from '$assets/Elements_graphiques/Liste- black.svg';
+	import scanQr from '$assets/Elements_graphiques/Scan- black.svg';
+	import dots from '$assets/Elements_graphiques/dots.svg';
 </script>
 
-<div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
-	<section class="mb-48 sm:mb-0">
-		<QrCodeDefinedChoice bind:options />
-		<QrCodeContent bind:data bind:options bind:defaultContent />
-		<QrCodeGeneralStyle
-			bind:dotsOptions={options.dotsOptions}
-			bind:backgroundOptions={options.backgroundOptions}
-		/>
-
-		<QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} />
-		<QrCodePoint bind:cornersDotOptions={options.cornersDotOptions} />
-		<QrCodeAddImage
-			bind:blobUrl={options.image}
-			bind:blob
-			bind:imageOptions={options.imageOptions}
-		/>
-		<QrCodeAdvancedOptions bind:qrOptions={options.qrOptions} />
-	</section>
-
-	<section class="grid grid-rows-1 fixed bottom-0 border-black sm:relative">
-		<div class="sm:fixed sm:w-[240px] lg:w-[320px]">
-			<QrCodeDownload bind:options {data} {blob} {id} {defaultContent} />
-		</div>
-	</section>
+<div class="flex flex-col justify-center h-full items-center content-center">
+	<img src={logo} alt="logo" class="w-20 h-20 mt-12" />
+	<div class="flex  w-full justify-between items-center flex-col mt-4 h-24 mb-8">
+		<h1 class="text-xl font-bold text-center dark:text-white">QR Code Generator</h1>
+		<img src={dots} alt="dots" class="w-5" />
+		<p class="font-semibold w-56 text-sm text-center dark:text-white">Créez, personnalisez et enregistrez votre QR Code!</p>
+	</div>
+	<div class="flex flex-col h-64 w-full justify-between items-center">
+		<a
+			href="/createQr"
+			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-6 text-indigo-600 font-semibold"
+			><img src={createQr} alt="create" class="w-6" /> Créer</a
+		>
+		<a
+			href="/mylist"
+			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-4 text-indigo-600 font-semibold"
+			><img src={myQr} alt="create" class="w-6" /> Mes QR</a
+		>
+		<a
+			href="/scanqr"
+			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-4 text-indigo-600 font-semibold"
+			><img src={scanQr} alt="create" class="w-6" />Scanner</a
+		>
+	</div>
 </div>
