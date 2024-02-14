@@ -5,6 +5,8 @@
 	import { _ } from 'svelte-i18n';
 	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
 	import InputGradient from '$lib/components/InputGradient.svelte';
+	import Select from '$lib/components/Select.svelte';
+
 	export let dotsOptions: Options['dotsOptions'];
 	export let backgroundOptions: Options['backgroundOptions'];
 
@@ -83,34 +85,41 @@
 		<div class="flex flex-col">
 			<h2 class="font-semibold m-1 mb-2">{$_('options.title')}</h2>
 			<p class="font-semibold m-1">{$_('dots.type.label')}</p>
-			<InputRadioButtons
-				bind:value={dotsOptions.type}
-				text={(style) => $_(`dots.type.${style}`)}
-				options={style}
-			></InputRadioButtons>
-			<div>
-				<p class="font-semibold m-1">{$_('dots.color.label')}</p>
-
-				<!------------------------------- Use gradient for dots color ------------------------------------>
-				<input
-					type="checkbox"
-					value="gradient"
-					on:click={() => toggleDotsGradient()}
-					checked={dotsGradient}
-					class="m-1"
-				/>
-				{$_('ui.gradient.use')}
-				<InputColor bind:value={dotsOptions.color} />
-
-				{#if dotsGradient}
+			<Select bind:value={dotsOptions.type}>
+				{#each style as style}
+					<option value={style}>{$_(`dots.type.${style}`)}</option>
+				{/each}
+			</Select>
+			<p class="font-semibold m-1">{$_('dots.color.label')}</p>
+			<div class="flex bg-yellow-400 justify-between">
+				<div class="flex flex-col bg-red-400 h-20 mt-2 mb-2 justify-between">
+					<button type="button" class="border border-t-indigo rounded-md p-1
+					{dotsGradient === false
+						? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
+						: 'bg-white text-t-indigo dark:bg-t-black dark:border-white'}" on:click={() => toggleDotsGradient()}>
+						Uni
+					</button>
+					<button type="button" 
+					class="border border-t-indigo rounded-md p-1
+					{dotsGradient === true
+						? 'bg-t-indigo text-white'
+						: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
+					on:click={() => toggleDotsGradient()}>
+						Gradient
+					</button>
+				</div>
+				<div class="bg-green-400 w-full justify-center flex items-center">
+					{#if !dotsGradient}
+						<InputColor bind:value={dotsOptions.color} />
+					{/if}
+					{#if dotsGradient}
 					<InputGradient
 						bind:gradientType
-						bind:rotation
 						bind:color1={dotsColor}
 						bind:color2={dotsColor2}
 					/>
 				{/if}
-				<!-- ------------------------------------------------------------------------------------------ -->
+				</div>
 			</div>
 			<div>
 				<p class="font-semibold m-1">{$_('background.color.label')}</p>

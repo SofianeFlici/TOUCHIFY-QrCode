@@ -6,6 +6,7 @@
 	import { _ } from 'svelte-i18n';
 	import InputGradient from '$lib/components/InputGradient.svelte';
 	import Accordion from '$lib/components/Accordion.svelte';
+	import Select from '$lib/components/Select.svelte';
 
 	export let cornersDotOptions: Options['cornersDotOptions'];
 
@@ -50,11 +51,11 @@
 		{#if cornersDotOptions}
 			<div class="flex flex-col">
 				<p class="font-semibold m-1">{$_('corners.dot.type.label')}</p>
-				<InputRadioButtons
-					bind:value={cornersDotOptions.type}
-					text={(types) => $_(`corners.square.type.${types}`)}
-					options={types}
-				></InputRadioButtons>
+				<Select bind:value={cornersDotOptions.type}>
+					{#each types as type}
+						<option value={type}>{$_(`corners.square.type.${type}`)}</option>
+					{/each}
+				</Select>
 				<div>
 					<p class="font-semibold m-1">{$_('corners.dot.color.label')}</p>
 					<!------------------------------- Use gradient for corner dots color ------------------------------------>

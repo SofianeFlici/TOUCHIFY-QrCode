@@ -74,14 +74,14 @@
 
 <Card>
 	<Accordion {title}>
-		<div class="flex flex-col">
+		<div class="flex flex-col ">
 			{#if blobUrl == '' || blobUrl == undefined}
 				<button
 					type="button"
-					class="bg-slate-100 rounded border dark:border-slate-500 h-32 flex flex-col justify-center items-center m-1 dark:bg-slate-600"
+					class="border-t-indigo rounded-md text-t-indigo dark:bg-t-dark-gray border-2  h-20 flex flex-col justify-center items-center m-1 dark:text-white dark:border-t-ciel"
 					on:click={triggerFileInput}
 				>
-					<IconArrowLeaveUp size={65} color={'#94A3B8'} />
+					<IconArrowLeaveUp size={35} />
 					<input
 						type="file"
 						accept=".png, .jpg, .jpeg, .svg"
@@ -89,7 +89,7 @@
 						on:change={handleFileChange}
 					/>
 					<input type="hidden" name="blobUrl" bind:value={blobUrl} />
-					<p class="text-slate-400 mt-2">{$_('ui.file.load')}</p>
+					<p class=" mt-2 text-xs">{$_('ui.file.load')}</p>
 				</button>
 			{/if}
 			{#if blobUrl != '' && blobUrl != undefined}
@@ -101,13 +101,10 @@
 						>
 					</div>
 					<div class="ml-2">
-						<input
-							type="checkbox"
-							name="hideBackgroundDots"
-							checked={hideBackgroundDots}
-							on:change={toggleHideBackgroundDots}
-							class="m-1"
-						/>
+						<div class="flex items-center">
+							<input id="checkboxID" type="checkbox" class="hidden" name="hideBackgroundDots" checked={hideBackgroundDots} on:change={toggleHideBackgroundDots} />
+							<label for="checkboxID" class="block w-6 h-6  bg-gray-300 rounded-full cursor-pointer border-2 border-gray-400 p-4"></label>
+						</div>
 						{$_('image.hide.label')}
 
 						<p class="mt-2 mb-2">{$_('image.size.label')}</p>
@@ -117,8 +114,8 @@
 							max="1"
 							step="0.1"
 							bind:value={imageSize}
-							class="w-16 bg-slate-100 border rounded p-2
-				  border-slate-200 h-11 dark:text-slate-300 dark:bg-slate-600 dark:border-slate-500"
+							class="w-16 bg-slate-100 border-2 rounded p-2
+				    border-t-indigo h-11 dark:text-slate-300 dark:bg-slate-600 dark:border-slate-500"
 						/>
 
 						<p class="mt-2 mb-2">{$_('image.margin.label')}</p>
@@ -127,8 +124,8 @@
 							min="0"
 							max="60"
 							bind:value={imageMargin}
-							class="w-44 bg-slate-100 border rounded p-2
-				  border-slate-200 h-11 dark:text-slate-300 dark:bg-slate-600 dark:border-slate-500"
+							class="w-44 bg-slate-100 border-2 rounded p-2
+				  border-t-indigo h-11 dark:text-slate-300 dark:bg-slate-600 dark:border-slate-500"
 						/>
 					</div>
 				</div>
@@ -136,3 +133,11 @@
 		</div>
 	</Accordion>
 </Card>
+
+<style lang="postcss">
+    input[type="checkbox"]:checked + label {
+        @apply bg-t-indigo border-4 ;
+        /* Ajoutez ici l'espace souhaité entre la couleur de fond et la bordure */
+        padding: 10px;
+    }
+</style>

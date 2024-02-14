@@ -6,6 +6,7 @@
 	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
 	import InputGradient from '$lib/components/InputGradient.svelte';
 	import Accordion from '$lib/components/Accordion.svelte';
+	import Select from '$lib/components/Select.svelte';
 
 	export let cornersSquareOptions: Options['cornersSquareOptions'];
 
@@ -49,11 +50,11 @@
 		{#if cornersSquareOptions}
 			<div class="flex flex-col">
 				<p class="font-semibold m-1">{$_(`corners.square.type.label`)}</p>
-				<InputRadioButtons
-					bind:value={cornersSquareOptions.type}
-					text={(types) => $_(`corners.square.type.${types}`)}
-					options={types}
-				></InputRadioButtons>
+				<Select bind:value={cornersSquareOptions.type}>
+					<option value="dot">{$_(`corners.square.type.dot`)}</option>
+					<option value="square">{$_(`corners.square.type.square`)}</option>
+					<option value="extra-rounded">{$_(`corners.square.type.extra-rounded`)}</option>
+				</Select>
 				<div>
 					<p class="font-semibold m-1">
 						{$_(`corners.square.color.label`)}

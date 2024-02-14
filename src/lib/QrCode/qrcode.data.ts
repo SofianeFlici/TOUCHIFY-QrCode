@@ -32,7 +32,7 @@ export type QrCodeDataContact = {
 	firstname?: string;
 	lastname?: string;
 	company?: string;
-	phone?: number;
+	phone?: number | string;
 	email?: string;
 	url?: string;
 	jobTitle?: string;
@@ -102,13 +102,13 @@ export function ListQrCodeDataType(): QrCodeDataType[] {
 			type: 'Contact',
 			icon: IconContactBook,
 			data: {
-				firstname: 'John',
-				lastname: 'Doe',
-				company: 'Touchify',
-				jobTitle: 'Developer',
-				phone: 123456789,
-				email: 'example@mail.com',
-				url: 'https://touchify.io'
+				firstname: 'Prénom',
+				lastname: 'Nom',
+				company: 'Société',
+				jobTitle: 'Fonction',
+				phone: 'téléphone',
+				email: 'Email',
+				url: 'Site Internet'
 			}
 		},
 		{

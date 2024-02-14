@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { Options } from 'qr-code-styling';
-	import Card from '$lib/components/Card.svelte';
-	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
 	import { IconBookmark, IconDownload } from 'obra-icons-svelte';
 	import db from '$lib/db';
 	import type { QrCodeData } from '$lib/QrCode/qrcode.data';
@@ -79,9 +77,9 @@
 	</div>
 
 	<div class="flex flex-col h-36 justify-between">
-		<div class="bg-white w-28 h-20 flex flex-col justify-around p-2 rounded-md text-[10px]">
+		<div class="bg-white w-28 h-24 flex flex-col justify-around p-2 rounded-md text-[10px] dark:bg-t-dark-gray  dark:font-semibold">
 			<select
-				class="w-full rounded-md text-t-indigo p-1 border-2 border-t-indigo text-xs hover:border-t-indigo mb-2"
+				class="w-full rounded-md text-t-indigo p-1 border-2 border-t-indigo text-xs font-semibold hover:border-t-indigo mb-3 dark:bg-t-dark-gray dark:text-white dark:border-white"
 				bind:value={defaultStyle}
 			>
 				{#each styles as style}
@@ -89,16 +87,16 @@
 				{/each}
 			</select>
 			<button
-				class="border-2 border-t-indigo bg-white rounded-md p-1 w-full flex justify-center items-center text-t-indigo"
+				class="border-2 border-t-indigo bg-white rounded-md p-[5px] font-semibold w-full flex justify-center items-center text-t-indigo dark:bg-t-dark-gray dark:text-white dark:border-white"
 			>
 				<IconDownload size={16} />
 				{$_('download.button')}
 			</button>
 		</div>
-		<div class="text-[10px] flex flex-col justify-between mt-2 text-white">
+		<div class="text-[10px] flex flex-col justify-between mt-2 text-white dark:text-black">
 			<button
 				type="button"
-				class="bg-t-indigo w-full flex justify-center p-1 items-center rounded py-2"
+				class="bg-t-indigo w-full flex justify-center p-1 items-center rounded py-2 dark:bg-t-ciel"
 				on:click={saveOptions}
 			> 
 				<IconBookmark size={16} />

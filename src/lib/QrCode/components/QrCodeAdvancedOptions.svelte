@@ -24,7 +24,7 @@
 						bind:value={qrOptions.typeNumber}
 						min="0"
 						max="40"
-						class="text-black text-sm rounded mt-3 mb-3 border bg-slate-100 p-2 placeholder-black w-44 dark:bg-slate-600 dark:text-white dark:border-slate-500"
+						class="text-black text-sm rounded-md mt-3 mb-3 border-2 border-t-indigo p-2 placeholder-black w-full dark:bg-t-dark-gray dark:text-white dark:border-white"
 					/>
 				</div>
 				<InputRadioButtons

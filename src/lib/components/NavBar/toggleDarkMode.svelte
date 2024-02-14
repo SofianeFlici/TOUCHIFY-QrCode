@@ -8,6 +8,7 @@
 	let color_sun: string;
 	let color_moon: string;
 
+
 	onMount(() => {
 		checked = isDarkMode();
 	});
@@ -37,6 +38,8 @@
 		bg_moon = 'bg-t-ciel';
 		color_moon = '#1F1F23';
 	}
+
+	$: isDarkMode;
 </script>
 
 <div class="flex items-center justify-around w-14">
