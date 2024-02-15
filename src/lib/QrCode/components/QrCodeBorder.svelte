@@ -46,7 +46,7 @@
 </script>
 
 <Card>
-	<Accordion title={title}>
+	<Accordion {title}>
 		{#if cornersSquareOptions}
 			<div class="flex flex-col">
 				<p class="font-semibold m-1">{$_(`corners.square.type.label`)}</p>
@@ -69,7 +69,9 @@
 					/>
 					{$_('ui.gradient.use')}
 					{#if !squareGradient}
-						<InputColor bind:value={borderColor} />
+						<div class="">
+							<InputColor bind:value={borderColor} />
+						</div>
 					{/if}
 					{#if squareGradient}
 						<InputGradient

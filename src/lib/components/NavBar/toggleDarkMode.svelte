@@ -1,8 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { toggleDarkMode, isDarkMode } from '$lib/utils/darkmode';
+	import { writable } from 'svelte/store';
 
 	export let checked:boolean;
+	export const darkMode = writable({isDarkMode: false});
+
 	let bg_sun: string;
 	let bg_moon: string;
 	let color_sun: string;
@@ -15,15 +18,17 @@
 
 	function changeToLight() {
 		if (checked) {
-			toggleDarkMode();
+			toggleDarkMode(false);
 			checked = false;
+			$darkMode = {isDarkMode: false};
 		}
 	}
 
 	function changeToDark() {
 		if (!checked) {
-			toggleDarkMode();
+			toggleDarkMode(true);
 			checked = true;
+			$darkMode = {isDarkMode: true};
 		}
 	}
 
@@ -39,7 +44,6 @@
 		color_moon = '#1F1F23';
 	}
 
-	$: isDarkMode;
 </script>
 
 <div class="flex items-center justify-around w-14">

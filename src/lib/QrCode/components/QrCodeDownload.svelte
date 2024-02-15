@@ -71,7 +71,7 @@
 	let defaultStyle = 'SVG';
 </script>
 
-<div class="flex bg-t-medium-blue w-72 rounded-md justify-around items-center p-2 h-44 dark:bg-t-black">
+<div class="flex bg-t-medium-blue w-[92%] rounded-md justify-around items-center p-2 h-44 dark:bg-t-black">
 	<div class="bg-white h-36 w-36 rounded-md">
 		<div class="qr-preview bg-white rounded-md p-4" bind:this={qrCodeElement}></div>
 	</div>

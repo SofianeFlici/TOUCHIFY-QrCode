@@ -24,7 +24,6 @@
 
 	let backgroundColors: string = '#ffffff';
 
-
 	let style = ['square', 'rounded', 'dots', 'classy', 'classy-rounded', 'extra-rounded'] as const;
 	let transparent = true;
 
@@ -91,34 +90,36 @@
 				{/each}
 			</Select>
 			<p class="font-semibold m-1">{$_('dots.color.label')}</p>
-			<div class="flex bg-yellow-400 justify-between">
-				<div class="flex flex-col bg-red-400 h-20 mt-2 mb-2 justify-between">
-					<button type="button" class="border border-t-indigo rounded-md p-1
+			<div class="flex justify-between">
+				<div class="flex flex-col h-20 mt-2 mb-2 justify-between bg-red-400">
+					<button
+						type="button"
+						class="border border-t-indigo rounded-md p-1
 					{dotsGradient === false
-						? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
-						: 'bg-white text-t-indigo dark:bg-t-black dark:border-white'}" on:click={() => toggleDotsGradient()}>
+							? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
+							: 'bg-white text-t-indigo dark:bg-t-black dark:border-white'}"
+						on:click={() => toggleDotsGradient()}
+					>
 						Uni
 					</button>
-					<button type="button" 
-					class="border border-t-indigo rounded-md p-1
+					<button
+						type="button"
+						class="border border-t-indigo rounded-md p-1
 					{dotsGradient === true
-						? 'bg-t-indigo text-white'
-						: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
-					on:click={() => toggleDotsGradient()}>
+							? 'bg-t-indigo text-white'
+							: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
+						on:click={() => toggleDotsGradient()}
+					>
 						Gradient
 					</button>
 				</div>
-				<div class="bg-green-400 w-full justify-center flex items-center">
+				<div class="w-full justify-center flex items-center">
 					{#if !dotsGradient}
 						<InputColor bind:value={dotsOptions.color} />
 					{/if}
 					{#if dotsGradient}
-					<InputGradient
-						bind:gradientType
-						bind:color1={dotsColor}
-						bind:color2={dotsColor2}
-					/>
-				{/if}
+						<InputGradient bind:gradientType bind:color1={dotsColor} bind:color2={dotsColor2} />
+					{/if}
 				</div>
 			</div>
 			<div>
@@ -151,12 +152,14 @@
 			{/if}
 			<!-- ------------------------------------------------------------------------------- -->
 			{#if backgroundGradient && !transparent}
-				<InputGradient
-					bind:gradientType
-					bind:rotation
-					bind:color1={bgColor}
-					bind:color2={bgColor2}
-				/>
+				<div class="flex justify-center items-center bg-red-400">
+					<InputGradient
+						bind:gradientType
+						bind:rotation
+						bind:color1={bgColor}
+						bind:color2={bgColor2}
+					/>
+				</div>
 			{/if}
 		</div>
 	{/if}

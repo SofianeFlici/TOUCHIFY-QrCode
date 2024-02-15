@@ -11,7 +11,7 @@
     }
   </script>
   
-  <select bind:value={value} on:change={handleChange} class="w-full rounded-md text-t-indigo p-2 mt-2 border-2 border-t-indigo text-xs font-semibold hover:border-t-indigo mb-3 dark:bg-t-black dark:text-white dark:border-white">
+  <select bind:value={value} on:change={handleChange} class="w-full h-[34px] rounded-md text-t-indigo flex mt-2 border border-t-indigo text-xs font-semibold hover:border-t-indigo mb-3 dark:bg-t-black dark:text-white dark:border-white">
     <slot></slot> <!-- Utiliser des slots pour passer des options personnalisées -->
   </select>
   
