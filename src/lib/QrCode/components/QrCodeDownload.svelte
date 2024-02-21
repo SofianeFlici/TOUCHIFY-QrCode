@@ -5,6 +5,7 @@
 	import db from '$lib/db';
 	import type { QrCodeData } from '$lib/QrCode/qrcode.data';
 	import { _ } from 'svelte-i18n';
+	import SelectDownload from '$lib/components/selectDownload.svelte';
 
 	export let options: Options;
 
@@ -67,38 +68,31 @@
 		});
 	}
 
-	let styles = ['JPEG', 'PNG', 'SVG', 'WEBP'];
 	let defaultStyle = 'SVG';
 </script>
 
-<div class="flex bg-t-medium-blue w-[92%] rounded-md justify-around items-center p-2 h-44 dark:bg-t-black">
-	<div class="bg-white h-36 w-36 rounded-md">
+<div
+	class="flex bg-t-medium-blue w-[92%] rounded-md justify-around items-center p-2  dark:bg-t-black
+sm:flex-col sm:justify-around sm:items-center sm:w-[70%] sm:p-0 sm:bg-transparent"
+>
+	<div
+		class="bg-white h-36 w-36 rounded-md
+	sm:w-full sm:mb-40"
+	>
 		<div class="qr-preview bg-white rounded-md p-4" bind:this={qrCodeElement}></div>
 	</div>
 
-	<div class="flex flex-col h-36 justify-between">
-		<div class="bg-white w-28 h-24 flex flex-col justify-around p-2 rounded-md text-[10px] dark:bg-t-dark-gray  dark:font-semibold">
-			<select
-				class="w-full rounded-md text-t-indigo p-1 border-2 border-t-indigo text-xs font-semibold hover:border-t-indigo mb-3 dark:bg-t-dark-gray dark:text-white dark:border-white"
-				bind:value={defaultStyle}
-			>
-				{#each styles as style}
-					<option value={style}>{style}</option>
-				{/each}
-			</select>
-			<button
-				class="border-2 border-t-indigo bg-white rounded-md p-[5px] font-semibold w-full flex justify-center items-center text-t-indigo dark:bg-t-dark-gray dark:text-white dark:border-white"
-			>
-				<IconDownload size={16} />
-				{$_('download.button')}
-			</button>
-		</div>
+	<div
+		class="flex flex-col h-36 justify-between
+	sm:w-full"
+	>
+		<SelectDownload {defaultStyle} />
 		<div class="text-[10px] flex flex-col justify-between mt-2 text-white dark:text-black">
 			<button
 				type="button"
 				class="bg-t-indigo w-full flex justify-center p-1 items-center rounded py-2 dark:bg-t-ciel"
 				on:click={saveOptions}
-			> 
+			>
 				<IconBookmark size={16} />
 				<p class="ml-2">
 					{$_('menu.save')}

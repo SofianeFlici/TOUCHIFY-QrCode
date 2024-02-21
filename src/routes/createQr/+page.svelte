@@ -73,25 +73,29 @@
 	$: console.log('page.svelte cornersDotOptions =', options);
 </script>
 
-<div class="grid grid-cols-1 sm:grid-cols-[auto_240px] grow lg:grid-cols-[auto_320px]">
-	<div class="flex justify-center">
+<div class="w-[100vh] h-full flex flex-col
+	sm:flex-row-reverse">
+	<div class=" flex justify-center w-full h-full
+	sm:mt-5">
 		<QrCodeDownload bind:options {data} {blob} {id} {defaultContent} />
 	</div>
-	<section class="mb-48 sm:mb-0">
-		<!-- <QrCodeDefinedChoice bind:options /> -->
+	<div class="w-full">
 		<QrCodeContent bind:data bind:options bind:defaultContent />
 		<QrCodeGeneralStyle
-			bind:dotsOptions={options.dotsOptions}
-			bind:backgroundOptions={options.backgroundOptions}
+		bind:dotsOptions={options.dotsOptions}
+		bind:backgroundOptions={options.backgroundOptions}
 		/>
-
+		
 		<QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} />
 		<QrCodePoint bind:cornersDotOptions={options.cornersDotOptions} />
 		<QrCodeAddImage
-			bind:blobUrl={options.image}
-			bind:blob
-			bind:imageOptions={options.imageOptions}
+		bind:blobUrl={options.image}
+		bind:blob
+		bind:imageOptions={options.imageOptions}
 		/>
 		<QrCodeAdvancedOptions bind:qrOptions={options.qrOptions} />
-	</section>
+	</div>
 </div>
+
+	<!-- A Definir -->
+	<!-- <QrCodeDefinedChoice bind:options /> -->
