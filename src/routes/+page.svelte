@@ -18,15 +18,15 @@
 
 </script>
 
-<div class="flex flex-col justify-center h-full items-center content-center ">
+<div class="flex flex-col justify-center h-full items-center content-center w-full ">
 	<img src={logo} alt="logo" class="w-20 h-20 mt-12" />
 	<div class="flex  w-full justify-between items-center flex-col mt-4 h-24 mb-8">
 		<h1 class="text-xl font-bold text-center dark:text-white">QR Code Generator</h1>
 		<img src={dots} alt="dots" class="w-5" />
 		<p class="font-semibold w-56 text-sm text-center dark:text-white">Créez, personnalisez et enregistrez votre QR Code!</p>
 	</div>
-	<div class="flex flex-col h-64 w-full justify-between items-center sm:flex-row sm:justify-around sm:p-24
-	lg:w-4/6 xl:w-3/6">
+	<div class="flex flex-col h-64 w-full justify-between items-center sm:flex-row sm:justify-around
+	lg:w-4/6">
 		<a
 			href="/createQr"
 			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-6 text-indigo-600 font-semibold dark:border-t-ciel dark:text-t-ciel sm:flex-col sm:justify-center sm:items-center"
@@ -44,7 +44,7 @@
 			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-4 text-indigo-600 font-semibold dark:border-t-ciel dark:text-t-ciel
 			sm:flex-col sm:justify-center sm:items-center"
 			>
-			<svg class="" id="C" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" stroke={svgColor} stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+			<svg class="mb-2" id="C" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" stroke={svgColor} stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
 				<g fill="none">
 				  <rect x="3.16" y="3.28" width="5.23" height="5.23" rx="1.63"/>
 				  <rect x="3.16" y="13.38" width="5.23" height="5.23" rx="1.63"/>
@@ -62,7 +62,7 @@
 			class="border-2 border-indigo-600 w-32 py-4 rounded-xl flex justify-between p-4 text-indigo-600 font-semibold dark:border-t-ciel dark:text-t-ciel
 			sm:flex-col sm:justify-center sm:items-center"
 			>
-			<svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+			<svg class="mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
 				<polyline points="10.61 28.32 4.08 28.32 4.08 21.79" stroke={svgColor} stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
 				<polyline points="27.92 21.79 27.92 28.32 21.39 28.32" stroke={svgColor} stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
 				<polyline points="21.39 3.68 27.92 3.68 27.92 10.21" stroke={svgColor} stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>

@@ -46,10 +46,10 @@
 
 </script>
 
-<div class="flex items-center justify-around w-14">
+<div class="flex items-center shrink-0">
 	<button
 		type="button"
-		class="border rounded-full border-t-indigo"
+		class="border rounded-full border-t-indigo mr-1"
 		on:click={changeToLight}
 		aria-label="Changer pour le mode clair"
 	>
