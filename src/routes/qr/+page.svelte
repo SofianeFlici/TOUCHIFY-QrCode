@@ -12,6 +12,8 @@
 	let qrCode: QRCodeStyling | null = null;
 	let qrOptions: Options | null = null;
 
+	let chevron = '<<';
+
 	let styles = ['JPEG', 'PNG', 'SVG', 'WEBP'];
 	let defaultStyle: string = 'SVG';
 	let qrItems: any;
@@ -74,7 +76,7 @@
 		if (qrCode) {
 			try {
 				if (id) {
-					await db.options.delete(id); // Ensuite, supprimer l'entrée options
+					await db.options.delete(id);
 					console.log(`Deleted options and image for id: ${id}`);
 				}
 				window.location.href = '/mylist';
@@ -85,7 +87,7 @@
 	}
 </script>
 
-<div
+<!-- <div
 	class="flex flex-col justify-center align-middle items-center
 			sm:w-full"
 >
@@ -157,6 +159,65 @@
 				</div>
 			{/if}
 		</div>
+	</div>
+</div> -->
+
+<div class="w-[70%] flex justify-center flex-col items-center">
+	<div class="mb-2 mt-4 sm:self-start sm:flex sm:justify-start">
+		<!-- Ajout de cette div pour aligner à gauche -->
+		<a
+			href="/mylist"
+			class="border border-t-indigo rounded-md p-2 text-t-indigo font-semibold text-sm
+	dark:border-white dark:text-white">{chevron} Retour</a
+		>
+	</div>
+	<div class="mt-4 mb-4">
+		<div
+			class="qr-preview bg-white aspect-square p-8 rounded-md
+		sm:p-14"
+			bind:this={qrCodeElement}
+		></div>
+	</div>
+	<div
+		class="bg-white w-full rounded-md text-t-indigo font-semibol
+	dark:text-white dark:bg-t-black"
+	>
+		{#if qrItems && qrOptions && qrItems.type in displayConfig}
+			<div class="flex flex-col justify-center align-middle items-center rounded w-full mt-4">
+				<div class="flex w-60 flex-wrap items-center align-middle text-sm justify-center">
+					{#each displayConfig[qrItems.type] as { key }}
+						<p class="p-2 font-semibold">{qrItems.data[key]}</p>
+					{/each}
+				</div>
+				<div>
+					<p class="text-sm mt-2 mb-4 justify-center flex font-semibold">
+						{qrItems.type} · {qrItems.date.toLocaleDateString()}
+					</p>
+				</div>
+			</div>
+		{/if}
+	</div>
+	<div class="flex w-full justify-between">
+		<button
+			type="button"
+			class="w-[48%] rounded-md mt-4 border p-2 border-t-indigo text-white bg-t-indigo
+			dark:bg-transparent dark:border-t-white"
+			on:click={edit}
+		>
+			{$_('view.load')}
+		</button>
+		<button
+			type="button"
+			class="w-[48%] rounded-md mt-4 border p-2 border-t-indigo text-white bg-t-indigo
+			dark:bg-transparent dark:border-t-white"
+			on:click={destroy}
+		>
+			{#if $_('view.delete') == 'Supprimer'}
+				{$_('view.delete')}
+			{:else}
+				{$_('view.delete')}
+			{/if}
+		</button>
 	</div>
 </div>
 
