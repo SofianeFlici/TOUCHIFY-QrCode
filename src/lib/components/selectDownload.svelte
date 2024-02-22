@@ -1,9 +1,18 @@
 <script lang="ts">
     import { IconDownload } from 'obra-icons-svelte';
     import { _ } from 'svelte-i18n';
-    export let defaultStyle: string;
 
+    export let defaultStyle: string;
+    export let qrCode: any;
+    
     let styles = ['JPEG', 'PNG', 'SVG', 'WEBP'];
+
+    function download() {
+		qrCode.download({
+			name: 'qrcode',
+			extension: defaultStyle
+		});
+	}
 </script>
 
 <div class="bg-white w-28 h-24 flex flex-col justify-around p-2 rounded-md text-[10px] dark:bg-t-dark-gray dark:font-semibold 
@@ -29,7 +38,9 @@ sm:w-full">
     </div>
 
     <button
-        class="border-2 border-t-indigo bg-white rounded-md p-[5px] font-semibold w-full flex justify-center items-center text-t-indigo dark:bg-t-dark-gray dark:text-white dark:border-white"
+        class="border-2 border-t-indigo bg-white rounded-md p-[5px] font-semibold w-full flex justify-center items-center text-t-indigo 
+                dark:bg-t-dark-gray dark:text-white dark:border-white"
+        on:click={download}
     >
         <IconDownload size={16} />
         {$_('download.button')}

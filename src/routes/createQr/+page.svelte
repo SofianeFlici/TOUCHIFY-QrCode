@@ -76,7 +76,8 @@
 <div class="w-[100vh] h-full flex flex-col
 	sm:flex-row-reverse">
 	<div class=" flex justify-center w-full h-full
-	sm:mt-5">
+	sm:w-2/3 sm:mt-5 bg-green-400 
+	">
 		<QrCodeDownload bind:options {data} {blob} {id} {defaultContent} />
 	</div>
 	<div class="w-full">
