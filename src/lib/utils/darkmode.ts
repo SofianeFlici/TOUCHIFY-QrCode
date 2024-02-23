@@ -22,7 +22,6 @@ export function setDarkMode(value: boolean) {
 	darkMode.set(value);
 	localStorage.setItem('theme', value ? 'dark' : '');
 	document.documentElement.classList.toggle('dark', value);
-	console.log("Dark mode set to", value);
 }
 
 export function toggleDarkMode(value: boolean) {

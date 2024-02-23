@@ -5,7 +5,6 @@
 	export let open = false;
 	export let title: string;
 
-	console.log('QrCodeBorder.svelte title = ', title);
 </script>
 
 <button class="w-full" on:click={() => (open = !open)}>

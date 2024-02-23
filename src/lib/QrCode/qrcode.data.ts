@@ -195,8 +195,5 @@ export const displayConfig: Record<string, { key: string; label: string }[]> = {
 	Contact: [
 		{ key: 'firstname', label: 'Prénom' },
 		{ key: 'lastname', label: 'Nom' },
-		{ key: 'company', label: 'Société' },
-		{ key: 'email', label: 'Email' },
-		{ key: 'phone', label: 'Téléphone' }
 	]		
 };

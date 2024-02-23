@@ -11,7 +11,6 @@
 
 	export let options: Options;
 
-	$: console.log('definedChoice option data =', options.data);
 
 	let style = ['None', 'Facebook', 'Instagram', 'Youtube', 'Linkedin', 'Twitter', 'Github'];
 	let styleSelected = 'none';
@@ -84,8 +83,6 @@
 		}
 	}
 
-	$: console.log('qrCodeDefinedChoice =', styleSelected);
-	$: console.log('qrCodeDefinedChoice options =', options);
 </script>
 
 <Card>

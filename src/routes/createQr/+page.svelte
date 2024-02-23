@@ -25,7 +25,6 @@
 				const item: QrCodeItem | undefined = await db.options.get(parseInt(id));
 				if (item) {
 					options = item.options;
-					console.log('page.svelte options =', options);
 					data = item.data;
 					defaultContent = item.type;
 
@@ -69,11 +68,9 @@
 			mode: 'Byte'
 		}
 	};
-
-	$: console.log('page.svelte cornersDotOptions =', options);
 </script>
 
-<div class="w-[100vh] h-full flex flex-col
+<div class="w-[100vh] h-full flex flex-col mt-2
 	sm:flex-row-reverse">
 	<div class=" flex justify-center w-full h-full
 	sm:w-2/3 sm:mt-5 bg-green-400 

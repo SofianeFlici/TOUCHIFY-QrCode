@@ -16,7 +16,6 @@
 
 	let isMenuOpen: boolean;
 
-	console.log('NavBar Page = ', $page.url.pathname);
 
 	$: {
 		if ($page.url.pathname == '/' || $page.url.pathname == '') {
@@ -32,10 +31,9 @@
 </script>
 
 <nav
-	class="sticky top-0 z-20 bg-white w-full p-0 flex flex-col justify-between mb-2 dark:bg-t-black lg:h-full
-	sm:h-full"
->
-<div class="flex w-[100vw] {($page.url.pathname !== '' && $page.url.pathname !== '/') ? 'sm:h-16' : ''}  justify-between p-2">
+	class="sticky top-0 z-20 bg-white right-0 left-0 p-0 flex flex-col justify-center dark:bg-t-black lg:h-full
+">
+<div class="flex w-full {($page.url.pathname !== '' && $page.url.pathname !== '/') ? 'sm:h-16' : ''}  justify-between p-2">
 
 		<div
 			class="flex {$page.url.pathname == '' || $page.url.pathname == '/'
@@ -71,7 +69,7 @@
 				<img
 					src={checked ? logoPoweredDark : logoPowered}
 					alt="logo"
-					class="hidden w-16 mt-1 lg:block mr-3"
+					class="hidden h-4 mt-[2px] lg:block mr-3"
 				/>
 			</div>
 			<div class="flex">

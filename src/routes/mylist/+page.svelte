@@ -1,62 +1,94 @@
 <script lang="ts">
 	import db, { type QrCodeItem } from '$lib/db.js';
 	import { onMount } from 'svelte';
-	import { _ } from 'svelte-i18n';
 	import { ListQrCodeDataType } from '$lib/QrCode/qrcode.data';
-	import { displayConfig } from '$lib/QrCode/qrcode.data';
 
-	let items: QrCodeItem[] = [];
-	let options: any = [];
+	let qrCodeData: any[] = [];
+	let qrCodeElements: HTMLElement[] = []; // This will store references to the DOM elements
 	let types = ListQrCodeDataType();
 
 	onMount(async () => {
 		try {
-			items = await db.options.toArray();
-			options = items.map((item) => {
-				return {
-					item: item,
-					icon: types.find((type) => type.type === item.type)?.icon
-				};
+			const qrCodeDataTemp = [];
+			const items = await db.options.toArray();
+			for (const item of items) {
+				console.log(item);
+				qrCodeDataTemp.push({
+					type: item.type,
+					id: item.id,
+					options: item.options,
+					date: item.date,
+					icon: types.find((type) => type.type === item.type)?.icon || ''
+				});
+			}
+
+			const { default: QRCodeStyling } = await import('qr-code-styling');
+
+			qrCodeDataTemp.forEach(async (data, index) => {
+				const { default: QRCodeStyling } = await import('qr-code-styling');
+				const qrCode = new QRCodeStyling(data.options);
+				qrCode.append(qrCodeElements[index]);
 			});
+
+			qrCodeData = qrCodeDataTemp;
+			console.log(qrCodeData);
 		} catch (error) {
 			console.error('Failed to load options:', error);
 		}
 	});
 </script>
 
-<div class="h-52 w-full mt-4">
-	<a
-		href="/"
-		class="border-slate-800 rounded-md text-xs font-semibold p-2 m-2 dark:border-slate-200 dark:hover:text-slate-500"
-	>
-		{$_('back')}
-	</a>
-	<h1 class=" font-semibold m-4 mb-8">{$_('saved.title')}</h1>
-	<div class=" mt-4">
-		{#each options as option, i}
-			<div class="mt-2 m-4">
-				<a href={`/qr?id=${option.item.id}`} class="">
-					<div class="w-full bg-white rounded flex dark:bg-slate-800">
-						<p class="p-4"><svelte:component this={option.icon} size={30} /></p>
-						<div class="flex-col px-4 py-2">
-							{#if option.item.type in displayConfig}
-							<div class="flex">
-								{#each displayConfig[option.item.type] as { key }}
-									<p class="p-2 font-semibold">{option.item.data[key]}</p>
-									{/each}
-								</div>
-							{/if}
-							<p class="text-xs ml-2 flex w-96">
-								{option.item.type} · {option.item.date.toLocaleDateString()}
-							</p>
-						</div>
+<div
+	class="w-full flex justify-center flex-col items-center p-4
+			sm:px-20 sm:pb-20
+			lg:pr-40 lg:pl-40 lg:pb-40"
+>
 
-						<div class="flex justify-end items-center w-full mr-4">
-							<p class="font-bold">></p>
-						</div>
-					</div>
-				</a>
+	{#each qrCodeData as _, index}
+		<a href={`/mylist/qr?id=${qrCodeData[index].id}`} class="w-full">
+			<div class="flex w-full  rounded-md mb-4 bg-white">
+				<div class="w-[100px] shrink-0
+							sm:w-[120px]">
+					<div
+						class="qr-preview bg-white aspect-square p-4 rounded-md
+								"
+						bind:this={qrCodeElements[index]}
+					></div>
+				</div>
+				<div class=" flex flex-col overflow-hidden flex-grow justify-center text-t-indigo ">
+					<p class="font-bold text-sm truncate mb-2">
+						{qrCodeData[index].options.data}
+					</p>
+					<p class="text-xs">
+						&bull; {qrCodeData[index].type}
+					</p>
+
+					<p class="text-xs">
+						&bull; {qrCodeData[index].date.toLocaleDateString()}
+					</p>
+				</div>
+				<div class="">
+					<span class="h-full flex items-center text-t-indigo p-2 shrink-0">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="32"
+							height="32"
+							fill="currentColor"
+							viewBox="0 0 256 256"
+							><path
+								d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+							></path></svg
+						>
+					</span>
+				</div>
 			</div>
-		{/each}
-	</div>
+		</a>
+	{/each}
 </div>
+
+<style>
+	.qr-preview > :global(canvas) {
+		width: 100%;
+		height: 100%;
+	}
+</style>

@@ -11,7 +11,6 @@
 	export let cornersDotOptions: Options['cornersDotOptions'];
 
 	let title: string = `corners.dot.title`;
-	$: console.log('cornersDotOptionddddddds', cornersDotOptions);
 
 	let types = [undefined, 'square', 'dot'] as const;
 

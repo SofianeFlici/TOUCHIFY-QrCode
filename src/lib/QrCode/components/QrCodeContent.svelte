@@ -76,7 +76,6 @@
 		visible = false;
 	}
 
-	console.log('QrCodeContent data =', data_types);
 </script>
 
 <Card>
