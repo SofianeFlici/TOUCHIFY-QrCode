@@ -47,7 +47,7 @@
 	{#each qrCodeData as _, index}
 		<a href={`/mylist/qr?id=${qrCodeData[index].id}`} class="w-full">
 			<div class="flex w-full  rounded-md mb-4 bg-white
-						dark:bg-t-black">
+						dark:bg-t-black p-4">
 				<div class="w-[100px] shrink-0
 							sm:w-[120px]">
 					<div

@@ -176,5 +176,18 @@
   },
   "error": {
     "image": "Le format de l'image n'est pas supporté."
+  },
+
+  "homePage":{
+    "slogan": "Créez, personnalisez et enregistrez votre QR Code!",
+    "create": "Créer",
+    "myqr": "Mes QR",
+    "scan": "Scanner"
+  },
+
+  "navbar":{
+    "slogan": "Affichage dynamique et interactif pour tous vos ecran",
+    "poweredby": "Propulsé par"
   }
+
 }

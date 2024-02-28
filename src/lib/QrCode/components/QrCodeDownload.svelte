@@ -63,7 +63,7 @@
 
 <div class="flex flex-col items-center justify-center w-full h-full p-4">
 	<div
-		class="flex bg-t-medium-blue w-full h-full rounded-md justify-center items-center p-2 sm:py-2
+		class="flex bg-t-medium-blue w-full h-full rounded-md justify-center items-center p-2 sm:dark:py-4
 				dark:bg-t-black
 				sm:flex-col sm:justify-around sm:items-center sm:w-full  sm:p-0 sm:bg-transparent
 				"

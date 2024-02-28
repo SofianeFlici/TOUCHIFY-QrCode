@@ -16,11 +16,10 @@
 
 	let isMenuOpen: boolean;
 
-
 	$: {
 		if ($page.url.pathname == '/' || $page.url.pathname == '') {
 			logo = checked ? logoPoweredDark : logoPowered;
-			text = 'Powered by';
+			text = 'poweredby';
 			isMenuOpen = false;
 		} else {
 			logo = checked ? logoClassicDark : logoClassic;
@@ -32,9 +31,13 @@
 
 <nav
 	class="sticky top-0 z-20 bg-white right-0 left-0 p-0 flex flex-col justify-center dark:bg-t-black lg:h-full
-">
-<div class="flex w-full {($page.url.pathname !== '' && $page.url.pathname !== '/') ? 'sm:h-16' : ''}  justify-between p-2">
-
+"
+>
+	<div
+		class="flex w-full {$page.url.pathname !== '' && $page.url.pathname !== '/'
+			? 'sm:h-16'
+			: ''}  justify-between p-2"
+	>
 		<div
 			class="flex {$page.url.pathname == '' || $page.url.pathname == '/'
 				? 'sm:w-[70%]'
@@ -42,8 +45,12 @@
 		>
 			{#if $page.url.pathname == '/' || $page.url.pathname == ''}
 				<div class="flex items-center h-[100%]">
-					<p class="text-base font-semibold
-					dark:text-white">{text}</p>
+					<p
+						class="text-base font-semibold
+					dark:text-white"
+					>
+						{$_(`navbar.${text}`)}
+					</p>
 					<img src={logo} alt="logo" class="w-20 ml-2" />
 				</div>
 			{:else}
@@ -53,27 +60,34 @@
 				</div>
 			{/if}
 			{#if $page.url.pathname == '/' || $page.url.pathname == ''}
-				<p class="test text-[10px] sm:ml-4 sm:mt-1 sm:text-[12px] lg:w-80
-				dark:text-white">
-					Affichage dynamique et interactif pour tous vos ecran
+				<p
+					class="test text-[10px] sm:ml-4 sm:mt-1 sm:text-[12px] lg:w-80
+				dark:text-white"
+				>
+					{$_('navbar.slogan')}
 					<span class="text-t-indigo font-bold">>></span>
 				</p>
 			{/if}
 		</div>
 		{#if $page.url.pathname !== '/' && $page.url.pathname !== ''}
-			<div class="hidden sm:block  ">
+			<div class="hidden sm:block">
 				<NavBarMenu />
 			</div>
 		{/if}
-		<div class="  flex items-center shrink-0 sm:mr-2 sm:justify-between">
-			<div class="flex">
-				<span class="hidden text-xs sm:mr-2 lg:block dark:text-white">Powered by </span>
-				<img
-					src={checked ? logoPoweredDark : logoPowered}
-					alt="logo"
-					class="hidden h-4 mt-[2px] lg:block mr-3"
-				/>
-			</div>
+		<div class=" flex items-center shrink-0 sm:mr-2 sm:justify-between">
+			{#if $page.url.pathname !== '/' && $page.url.pathname !== ''}
+    <div class="flex">
+        <span class="hidden text-xs sm:mr-2 lg:block dark:text-white">
+            {$_('navbar.poweredby')}
+        </span>
+        <img
+            src={checked ? logoPoweredDark : logoPowered}
+            alt="logo"
+            class="hidden h-4 mt-[2px] lg:block mr-3"
+        />
+    </div>
+{/if}
+
 			<div class="flex">
 				<NavBarLanguage />
 				<ToggleDarkMode bind:checked />

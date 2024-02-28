@@ -1,4 +1,5 @@
 <script lang="ts">
+	import  { _ } from 'svelte-i18n';
 	import logo from '$assets/Elements_graphiques/Logo - light.svg';
 	import dots from '$assets/Elements_graphiques/dots.svg';
 </script>
@@ -22,7 +23,7 @@
 			  </svg>
 			  
 
-			Créer</a
+			{$_('homePage.create')}</a
 		>
 		<a
 			href="/mylist"
@@ -40,7 +41,7 @@
 				</g>
 			  </svg>
 			  
-			  Mes QR</a
+			  {$_('homePage.myqr')}</a
 		>
 		<a
 			href="/scanqr"
@@ -55,7 +56,7 @@
 				<line x1="30.04" y1="16" x2="1.96" y2="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
 			  </svg>
 			  
-			  Scanner</a
+			  {$_('homePage.scan')}</a
 		>
 	</div>
 </div>

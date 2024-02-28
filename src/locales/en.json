@@ -130,8 +130,8 @@
     }
   },
   "saved": {
-    "title": "My QR Codes",
-    "add": "Add a QR Code",
+    "title": "MY QR CODES",
+    "add": "ADD A QR CODE",
     "empty": "No QR Codes saved on this device.",
     "created": "Created on {date, date, short}"
   },
@@ -169,12 +169,25 @@
       }
     }
   },
-  "scan": "Scan QR Code",
+  "scan": "SCAN QR CODE",
   "model": {
     "title": "Qr Code Model",
     "undefined": "None"
   },
   "error": {
     "image": "Image format not supported"
+  },
+  
+  "homePage": {
+    "slogan": "Create, customize, and save your QR Code!",
+    "create": "Create",
+    "myqr": "My QR",
+    "scan": "Scan"
+  },
+  
+  "navbar": {
+    "slogan": "Dynamic and interactive display for all your screens",
+    "poweredby": "Powered by"
   }
+  
 }

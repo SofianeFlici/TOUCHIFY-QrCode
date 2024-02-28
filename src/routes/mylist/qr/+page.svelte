@@ -65,7 +65,7 @@
 	async function edit() {
 		if (qrCode) {
 			try {
-				window.location.href = `/?id=${id}`;
+				window.location.href = `../createQr/?id=${id}`;
 			} catch (error) {
 				console.error('Failed to send id :', error);
 			}
@@ -110,7 +110,7 @@ lg:pr-40 lg:pl-40 lg:pb-40"
 					></path></svg
 				>
 			</span>
-			<span>Retour</span></a
+			<span>{$_('back')}</span></a
 		>
 	</div>
 	<div class="mt-4 mb-4 sm:w-full">
