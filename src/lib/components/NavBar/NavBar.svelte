@@ -42,7 +42,8 @@
 		>
 			{#if $page.url.pathname == '/' || $page.url.pathname == ''}
 				<div class="flex items-center h-[100%]">
-					<p class="text-base font-semibold">{text}</p>
+					<p class="text-base font-semibold
+					dark:text-white">{text}</p>
 					<img src={logo} alt="logo" class="w-20 ml-2" />
 				</div>
 			{:else}
@@ -52,7 +53,8 @@
 				</div>
 			{/if}
 			{#if $page.url.pathname == '/' || $page.url.pathname == ''}
-				<p class="test text-[10px] sm:ml-4 sm:mt-1 sm:text-[12px] lg:w-80">
+				<p class="test text-[10px] sm:ml-4 sm:mt-1 sm:text-[12px] lg:w-80
+				dark:text-white">
 					Affichage dynamique et interactif pour tous vos ecran
 					<span class="text-t-indigo font-bold">>></span>
 				</p>
@@ -65,7 +67,7 @@
 		{/if}
 		<div class="  flex items-center shrink-0 sm:mr-2 sm:justify-between">
 			<div class="flex">
-				<span class="hidden text-xs sm:mr-2 lg:block">Powered by </span>
+				<span class="hidden text-xs sm:mr-2 lg:block dark:text-white">Powered by </span>
 				<img
 					src={checked ? logoPoweredDark : logoPowered}
 					alt="logo"

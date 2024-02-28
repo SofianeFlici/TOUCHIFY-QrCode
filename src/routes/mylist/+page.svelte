@@ -46,7 +46,8 @@
 
 	{#each qrCodeData as _, index}
 		<a href={`/mylist/qr?id=${qrCodeData[index].id}`} class="w-full">
-			<div class="flex w-full  rounded-md mb-4 bg-white">
+			<div class="flex w-full  rounded-md mb-4 bg-white
+						dark:bg-t-black">
 				<div class="w-[100px] shrink-0
 							sm:w-[120px]">
 					<div
@@ -55,7 +56,8 @@
 						bind:this={qrCodeElements[index]}
 					></div>
 				</div>
-				<div class=" flex flex-col overflow-hidden flex-grow justify-center text-t-indigo ">
+				<div class="flex flex-col overflow-hidden flex-grow justify-center text-t-indigo ml-6
+							dark:text-t-ciel">
 					<p class="font-bold text-sm truncate mb-2">
 						{qrCodeData[index].options.data}
 					</p>
@@ -68,7 +70,8 @@
 					</p>
 				</div>
 				<div class="">
-					<span class="h-full flex items-center text-t-indigo p-2 shrink-0">
+					<span class="h-full flex items-center text-t-indigo p-2 shrink-0
+								dark:text-t-ciel">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="32"

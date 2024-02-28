@@ -61,33 +61,31 @@
 	let defaultStyle = 'SVG';
 </script>
 
-<div class="flex flex-col items-center justify-center w-full h-full ">
+<div class="flex flex-col items-center justify-center w-full h-full p-4">
 	<div
-		class="flex bg-t-medium-blue w-[92%] rounded-md justify-around items-center p-2 
+		class="flex bg-t-medium-blue w-full h-full rounded-md justify-center items-center p-2 sm:py-2
 				dark:bg-t-black
-				sm:flex-col sm:justify-around sm:items-center sm:w-[80%]  sm:p-0 sm:bg-transparent
-				lg:w-[63%]
-				xl:w-[70%]"
+				sm:flex-col sm:justify-around sm:items-center sm:w-full  sm:p-0 sm:bg-transparent
+				"
 	>
 		<div
-			class="bg-white h-36 w-36 rounded-md
-					sm:w-full sm:mb-32
-					lg:mb-36
-					xl:mb-40"
+			class="bg-white rounded-md mr-4 sm:mr-0"
+				
 		>
-			<div class="qr-preview bg-white rounded-md p-4" bind:this={qrCodeElement}></div>
+			<div class="qr-preview bg-white rounded-md p-4 max-w-32 sm:max-w-52 md:max-w-60" bind:this={qrCodeElement}></div>
 		</div>
 
 		<div
-			class="flex flex-col h-36 justify-between
-					sm:w-full">		
+			class="flex flex-col justify-between
+					">		
 			<SelectDownload {defaultStyle} {qrCode}/>
 			<div class="text-[10px] flex flex-col justify-between mt-2 text-white 
 						dark:text-black">
 				<button
 					type="button"
 					class="bg-t-indigo w-full flex justify-center p-1 items-center rounded py-2 
-							dark:bg-t-ciel"
+							dark:bg-t-ciel
+							md:text-sm lg:text-md"
 					on:click={saveOptions}
 				>
 					<IconBookmark size={16} />

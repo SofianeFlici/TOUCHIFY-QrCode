@@ -16,8 +16,8 @@
 </script>
 
 <div
-	class="bg-white w-28 h-24 flex flex-col justify-around p-2 rounded-md text-[10px] dark:bg-t-dark-gray dark:font-semibold
-sm:w-full"
+	class="bg-white flex flex-col justify-around p-2 rounded-md text-[10px] dark:bg-t-dark-gray dark:font-semibold
+sm:w-full sm:bg-red-400 sm:mt-3"
 >
 	<select
 		class="w-full rounded-md text-t-indigo p-1 border-2 border-t-indigo text-xs font-semibold hover:border-t-indigo mb-3 dark:bg-t-dark-gray dark:text-white dark:border-white sm:hidden"
@@ -30,7 +30,7 @@ sm:w-full"
 	<div class="hidden sm:flex">
 		{#each styles as style}
 			<button
-				class="py-1 px-2 rounded-md m-1 text-xs sm:text-base
+				class="py-1 px-2 w-full rounded-md m-1 sm:text-[10px] md:text-sm lg:text-md
                 {defaultStyle === style
 					? 'bg-t-indigo text-white dark:bg-t-indigo dark:text-white'
 					: 'bg-slate-100 hover:bg-slate-300 text-black border dark:border-slate-500 dark:bg-slate-600 dark:text-white'}"
@@ -43,6 +43,7 @@ sm:w-full"
 
 	<button
 		class="border-2 border-t-indigo bg-white rounded-md p-[5px] font-semibold w-full flex justify-center items-center text-t-indigo
+				md:text-sm lg:text-md lg:mt-2
                 dark:bg-t-dark-gray dark:text-white dark:border-white"
 		on:click={download}
 	>
