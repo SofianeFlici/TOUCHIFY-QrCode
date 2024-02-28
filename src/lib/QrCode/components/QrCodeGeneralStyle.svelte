@@ -91,13 +91,13 @@
 			</Select>
 			<p class="font-semibold m-1">{$_('dots.color.label')}</p>
 			<div class="flex justify-between">
-				<div class="flex flex-col h-20 mt-2 mb-2 justify-between bg-red-400">
+				<div class="flex flex-col h-20 mt-2 mb-2 justify-between">
 					<button
 						type="button"
 						class="border border-t-indigo rounded-md p-1
 					{dotsGradient === false
 							? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
-							: 'bg-white text-t-indigo dark:bg-t-black dark:border-white'}"
+							: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
 						on:click={() => toggleDotsGradient()}
 					>
 						Uni
@@ -106,7 +106,7 @@
 						type="button"
 						class="border border-t-indigo rounded-md p-1
 					{dotsGradient === true
-							? 'bg-t-indigo text-white'
+							? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
 							: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
 						on:click={() => toggleDotsGradient()}
 					>
@@ -152,7 +152,7 @@
 			{/if}
 			<!-- ------------------------------------------------------------------------------- -->
 			{#if backgroundGradient && !transparent}
-				<div class="flex justify-center items-center bg-red-400">
+				<div class="flex justify-center items-center">
 					<InputGradient
 						bind:gradientType
 						bind:rotation

@@ -17,7 +17,7 @@
 
 <div
 	class="bg-white flex flex-col justify-around p-2 rounded-md text-[10px] dark:bg-t-dark-gray dark:font-semibold
-sm:w-full sm:bg-red-400 sm:mt-3"
+sm:w-full sm:mt-3"
 >
 	<select
 		class="w-full rounded-md text-t-indigo p-1 border-2 border-t-indigo text-xs font-semibold hover:border-t-indigo mb-3 dark:bg-t-dark-gray dark:text-white dark:border-white sm:hidden"
