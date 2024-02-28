@@ -179,14 +179,14 @@
   },
 
   "homePage":{
-    "slogan": "Créez, personnalisez et enregistrez votre QR Code!",
+    "slogan": "Créez, personnalisez et enregistrez votre QR Code !",
     "create": "Créer",
     "myqr": "Mes QR",
     "scan": "Scanner"
   },
 
   "navbar":{
-    "slogan": "Affichage dynamique et interactif pour tous vos ecran",
+    "slogan": "Affichage dynamique et interactif pour tous vos écrans",
     "poweredby": "Propulsé par"
   }
 

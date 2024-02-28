@@ -65,25 +65,22 @@
 	<div
 		class="flex bg-t-medium-blue w-full h-full rounded-md justify-center items-center p-2 sm:dark:py-4
 				dark:bg-t-black
-				sm:flex-col sm:justify-around sm:items-center sm:w-full  sm:p-0 sm:bg-transparent
+				sm:flex-col sm:justify-around sm:items-center sm:w-full sm:p-0 sm:bg-transparent
 				"
 	>
-		<div
-			class="bg-white rounded-md mr-4 sm:mr-0"
-				
-		>
-			<div class="qr-preview bg-white rounded-md p-4 max-w-32 sm:max-w-52 md:max-w-60" bind:this={qrCodeElement}></div>
+		<div class="bg-white rounded-md mr-4 sm:mr-0">
+			<div
+				class="qr-preview bg-white rounded-md p-4 max-w-32 sm:max-w-52 md:max-w-60"
+				bind:this={qrCodeElement}
+			></div>
 		</div>
 
-		<div
-			class="flex flex-col justify-between
-					">		
-			<SelectDownload {defaultStyle} {qrCode}/>
-			<div class="text-[10px] flex flex-col justify-between mt-2 text-white 
-						dark:text-black">
+		<div class="flex flex-col justify-between">
+			<SelectDownload {defaultStyle} {qrCode} />
+			<div class="text-[10px] flex flex-col justify-between mt-2 text-white dark:text-black">
 				<button
 					type="button"
-					class="bg-t-indigo w-full flex justify-center p-1 items-center rounded py-2 
+					class="bg-t-indigo w-full flex justify-center p-1 items-center rounded py-2
 							dark:bg-t-ciel
 							md:text-sm lg:text-md"
 					on:click={saveOptions}

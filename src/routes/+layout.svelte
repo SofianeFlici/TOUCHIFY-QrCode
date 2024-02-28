@@ -5,7 +5,6 @@
 	import { isDarkMode, initDarkMode } from '$lib/utils/darkmode';
 	import Spinner from '$lib/components/Loader.svelte';
 
-	// faire un isloading pour charger les données avant d afficher les éléments de la page -----
 	let isLoading = true;
 	onMount(async () => {
 		await initDarkMode();
@@ -20,7 +19,7 @@
 {:else}
 	<NavBar />
 
-	<main class={`max-w-screen-lg h-full mx-auto flex justify-center`}
+	<main class="max-w-screen-lg h-full mx-auto flex justify-center"
 	>
 		<slot />
 	</main>
