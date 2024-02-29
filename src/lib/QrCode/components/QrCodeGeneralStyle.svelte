@@ -93,8 +93,8 @@
 			</div>
 			<div>
 				<h2 class="font-semibold mb-2">{$_('dots.color.label')}</h2>
-				<div class="grid grid-cols-[max-content_auto] gap-2 p-2 bg-yellow-400">
-					<div class="flex flex-col bg-red-400">
+				<div class="grid grid-cols-[max-content_auto] gap-2">
+					<div class="flex flex-col">
 						<button
 							type="button"
 							class="border rounded-md p-1
@@ -127,7 +127,7 @@
 				</div>
 			</div>
 			<div class="mt-4">
-				<p class="font-semibold m-1">{$_('background.color.label')}</p>
+				<h3 data-type="form-label" class="font-semibold m-1">{$_('background.color.label')}</h3>
 				<input
 					type="checkbox"
 					value="transparent"
