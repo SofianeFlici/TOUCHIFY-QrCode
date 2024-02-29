@@ -61,11 +61,11 @@
 	let defaultStyle = 'SVG';
 </script>
 
-<div class="flex flex-col w-full px-4 mt-2 sm:mt-4">
+<div class="flex flex-col px-4 mt-2 sm:w-full sm:mt-4">
 	<div
-		class="flex bg-t-medium-blue w-full h-full rounded-md p-2 flex-grow justify-center
+		class="flex bg-t-medium-blue rounded-md p-2 flex-grow justify-center
 				dark:bg-t-black
-				sm:flex-col sm:dark:py-4 sm:justify-around sm:items-center sm:w-full sm:p-0 sm:bg-transparent
+				sm:flex-col sm:dark:py-4 sm:items-center sm:p-0 sm:bg-transparent
 				"
 	>
 		<div class="bg-white rounded-md mr-4 sm:mr-0">
@@ -76,14 +76,14 @@
 		</div>
 
 		<div
-			class="flex flex-col flex-grow max-w-48 text-[10px] justify-between max-h-full text-white
+			class="flex flex-col flex-grow max-w-48 text-[10px] text-white
 					sm:max-w-64
 					dark:text-black"
 		>
 			<SelectDownload {defaultStyle} {qrCode} />
 			<button
 				type="button"
-				class="bg-t-indigo w-full flex border-2 p-1 items-center rounded-md mt-2
+				class="bg-t-indigo flex border-2 p-1 items-center rounded-md mt-2
 							dark:bg-t-ciel dark:border-t-ciel
 							md:text-sm lg:text-md"
 				on:click={saveOptions}
