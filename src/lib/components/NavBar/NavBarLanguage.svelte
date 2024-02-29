@@ -31,12 +31,12 @@
 </script>
 
 {#if $locale === 'fr'}
-	<button class="mr-1" on:click={() => (isOpen = true)}>
-		<img src={fr_icon} alt="France" class="w-5 h-5 rounded-full bg-indigo-600" />
+	<button class="mr-1" on:click={() => (isOpen = !isOpen)}>
+		<img src={fr_icon} alt="France" class="w-5 h-5 rounded-full border border-t-indigo bg-t-indigo dark:border-t-ciel" />
 	</button>
 {:else}
 	<button class="mr-1" on:click={() => (isOpen = !isOpen)}>
-		<img src={uk_icon} alt="United Kingdom" class="w-5 h-5 rounded-full bg-indigo-600" />
+		<img src={uk_icon} alt="United Kingdom" class="w-5 h-5 rounded-full bg-t-indigo dark:bg-t-ciel" />
 	</button>
 {/if}
 

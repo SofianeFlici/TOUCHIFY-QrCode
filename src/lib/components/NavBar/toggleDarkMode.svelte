@@ -49,7 +49,7 @@
 <div class="flex items-center shrink-0">
 	<button
 		type="button"
-		class="border rounded-full border-t-indigo mr-1"
+		class="border rounded-full border-t-indigo dark:border-t-ciel mr-1"
 		on:click={changeToLight}
 		aria-label="Changer pour le mode clair"
 	>
