@@ -41,7 +41,7 @@
 <div
 	class="w-full flex justify-center flex-col items-center p-4
 			sm:px-20 sm:pb-20
-			lg:pr-40 lg:pl-40 lg:pb-40
+			lg:pr-40 lg:pl-40 lg:pb-40"
 >
 
 	{#each qrCodeData as _, index}

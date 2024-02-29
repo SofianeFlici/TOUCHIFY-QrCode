@@ -82,19 +82,21 @@
 <Card>
 	{#if dotsOptions}
 		<div class="flex flex-col">
-			<h2 class="font-semibold m-1 mb-2">{$_('options.title')}</h2>
-			<p class="font-semibold m-1">{$_('dots.type.label')}</p>
-			<Select bind:value={dotsOptions.type}>
-				{#each style as style}
-					<option value={style}>{$_(`dots.type.${style}`)}</option>
-				{/each}
-			</Select>
+			<h2 data-type="form-label" class="font-semibold mb-2">{$_('options.title')}</h2>
+			<div data-type="form-group" class="mb-4">
+				<h3 data-type="form-label" class="font-semibold mb-2">{$_('dots.type.label')}</h3>
+				<Select bind:value={dotsOptions.type}>
+					{#each style as style}
+						<option value={style}>{$_(`dots.type.${style}`)}</option>
+					{/each}
+				</Select>
+			</div>
 			<p class="font-semibold m-1">{$_('dots.color.label')}</p>
-			<div class="flex justify-between">
-				<div class="flex flex-col h-20 mt-2 mb-2 justify-between">
+			<div class="grid grid-cols-[max-content_auto] gap-2 p-2 bg-yellow-400">
+				<div class="flex flex-col bg-red-400">
 					<button
 						type="button"
-						class="border border-t-indigo rounded-md p-1
+						class="border rounded-md p-1
 					{dotsGradient === false
 							? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
 							: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
@@ -104,7 +106,7 @@
 					</button>
 					<button
 						type="button"
-						class="border border-t-indigo rounded-md p-1
+						class="border rounded-md p-1 mt-2
 					{dotsGradient === true
 							? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
 							: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
@@ -113,7 +115,7 @@
 						Gradient
 					</button>
 				</div>
-				<div class="w-full justify-center flex items-center">
+				<div>
 					{#if !dotsGradient}
 						<InputColor bind:value={dotsOptions.color} />
 					{/if}

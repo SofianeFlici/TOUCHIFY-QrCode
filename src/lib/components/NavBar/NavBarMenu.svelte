@@ -17,7 +17,7 @@
 
 				{#if $page.url.pathname === menu.href || $page.url.pathname.startsWith(menu.href + '/')}
 					<span
-						class="sm:mr-5 bg-white w-1 h-1 rounded-full dark:bg-t-black sm:bg-t-indigo dark:sm:bg-white"
+						class="sm:mr-5 bg-white w-1 h-1 rounded-full dark:bg-t-black sm:bg-t-indigo dark:sm:bg-t-ciel"
 					></span>
 				{/if}
 			</div>
