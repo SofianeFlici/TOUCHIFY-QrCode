@@ -80,74 +80,78 @@
 
 <Card>
 	<h1 class="font-semibold mb-2">{$_('data.title')}</h1>
-	{#if data_types}
-		<div class="flex-wrap justify-between">
-			{#each data_types as data_type}
-				<button
-					type="button"
-					class="mr-3 mb-2 mt-1 text-t-indigo border-t-indigo border-2 rounded-md text-[10px] p-1 dark:border-white dark:text-white
-					{defaultContent === data_type.type && visible
-						? 'bg-t-indigo text-white'
-						: 'bg-white text-t-indigo dark:bg-t-black'}"
-					value={data_type.type}
-					on:click={() => selectType(data_type)}
-					on:click={() => (visible = !visible)}
-				>
-					<div class="flex items-center">
-						<svelte:component this={data_type.icon} size={16} />
-						<p class="text-sm mr-1 ml-2">{data_type.type}</p>
-					</div>
-				</button>
-			{/each}
-		</div>
-	{/if}
-	{#if visible == true}
-		{#if defaultContent == 'URL'}
-			<InputContent bind:value={data.url} />
-		{/if}
-		{#if defaultContent == 'Email'}
-			<InputContent bind:value={data.email}  />
-			<InputContent bind:value={data.subject} />
-		{/if}
-		{#if defaultContent == 'SMS'}
-			<InputContent bind:value={data.number}  />
-			<InputContent bind:value={data.message}  />
-		{/if}
-		{#if defaultContent == 'Phone'}
-			<InputContent bind:value={data.number} />
-		{/if}
-		{#if defaultContent == 'Wifi'}
-			<InputContent bind:value={data.ssid} />
-			<InputContent bind:value={data.typeWifi}  />
-			<InputContent bind:value={data.password}  />
-			<input
-				type="checkbox"
-				class="text-black text-sm rounded mt-3 mb-3 border bg-slate-100 w-full p-2 placeholder-black"
-			/>
-		{/if}
-		{#if defaultContent == 'Contact'}
-			<div class="flex">
-				<div class="flex flex-col">
-					<InputContent bind:value={data.firstname}  />
-					<InputContent bind:value={data.company}  />
-					<InputContent bind:value={data.email} />
-				</div>
-				<div class="flex flex-col">
-					<InputContent bind:value={data.lastname}  />
-					<InputContent bind:value={data.jobTitle}  />
-					<InputContent bind:value={data.phone}  />
-				</div>
+	<div class="flex flex-col ">
+		{#if data_types}
+			<div class="flex-wrap justify-between">
+				{#each data_types as data_type}
+					<button
+						type="button"
+						class="mr-3 mb-2 mt-1  border-t-indigo border-2 rounded-md text-[10px] p-1 dark:border-white 
+						{defaultContent === data_type.type && visible
+							? 'bg-t-indigo text-white dark:bg-t-ciel dark:text-black'
+							: 'bg-white text-t-indigo dark:bg-t-black dark:text-white'}"
+						value={data_type.type}
+						on:click={() => selectType(data_type)}
+						on:click={() => (visible = !visible)}
+					>
+						<div class="flex items-center">
+							<svelte:component this={data_type.icon} size={16} />
+							<p class="text-sm mr-1 ml-2">{data_type.type}</p>
+						</div>
+					</button>
+				{/each}
 			</div>
-			<InputContent bind:value={data.url}  />
 		{/if}
-		{#if defaultContent == 'Geo'}
-			<InputContent bind:value={data.latitude}  />
-			<InputContent bind:value={data.longitude}  />
-		{/if}
-		{#if defaultContent == 'Event'}
-			<InputContent bind:value={data.title} />
-			<InputContent nameType="date" bind:value={data.dstart}  />
-			<InputContent nameType="date" bind:value={data.dend} />
-		{/if}
-	{/if}
+		<div>
+			{#if visible == true}
+				{#if defaultContent == 'URL'}
+					<InputContent bind:value={data.url} />
+				{/if}
+				{#if defaultContent == 'Email'}
+					<InputContent bind:value={data.email}  />
+					<InputContent bind:value={data.subject} />
+				{/if}
+				{#if defaultContent == 'SMS'}
+					<InputContent bind:value={data.number}  />
+					<InputContent bind:value={data.message}  />
+				{/if}
+				{#if defaultContent == 'Phone'}
+					<InputContent bind:value={data.number} />
+				{/if}
+				{#if defaultContent == 'Wifi'}
+					<InputContent bind:value={data.ssid} />
+					<InputContent bind:value={data.typeWifi}  />
+					<InputContent bind:value={data.password}  />
+					<input
+						type="checkbox"
+						class="text-black text-sm rounded mt-3 mb-3 border bg-slate-100 w-full p-2 placeholder-black"
+					/>
+				{/if}
+				{#if defaultContent == 'Contact'}
+					<div class="flex">
+						<div class="flex flex-col">
+							<InputContent bind:value={data.firstname}  />
+							<InputContent bind:value={data.company}  />
+							<InputContent bind:value={data.email} />
+						</div>
+						<div class="flex flex-col">
+							<InputContent bind:value={data.lastname}  />
+							<InputContent bind:value={data.jobTitle}  />
+							<InputContent bind:value={data.phone}  />
+						</div>
+					</div>
+					<InputContent bind:value={data.url}  />
+				{/if}
+				{#if defaultContent == 'Geo'}
+					<InputContent bind:value={data.latitude}  />
+					<InputContent bind:value={data.longitude}  />
+				{/if}
+				{#if defaultContent == 'Event'}
+					<InputContent bind:value={data.title} />
+					<InputContent nameType="date" bind:value={data.dstart}  />
+					<InputContent nameType="date" bind:value={data.dend} />
+				{/if}
+			{/if}
+		</div>
+	</div>
 </Card>

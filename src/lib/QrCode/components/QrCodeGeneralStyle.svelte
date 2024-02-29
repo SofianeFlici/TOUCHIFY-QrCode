@@ -91,40 +91,42 @@
 					{/each}
 				</Select>
 			</div>
-			<p class="font-semibold m-1">{$_('dots.color.label')}</p>
-			<div class="grid grid-cols-[max-content_auto] gap-2 p-2 bg-yellow-400">
-				<div class="flex flex-col bg-red-400">
-					<button
-						type="button"
-						class="border rounded-md p-1
-					{dotsGradient === false
-							? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
-							: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
-						on:click={() => toggleDotsGradient()}
-					>
-						Uni
-					</button>
-					<button
-						type="button"
-						class="border rounded-md p-1 mt-2
-					{dotsGradient === true
-							? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
-							: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
-						on:click={() => toggleDotsGradient()}
-					>
-						Gradient
-					</button>
-				</div>
-				<div>
-					{#if !dotsGradient}
-						<InputColor bind:value={dotsOptions.color} />
-					{/if}
-					{#if dotsGradient}
-						<InputGradient bind:gradientType bind:color1={dotsColor} bind:color2={dotsColor2} />
-					{/if}
+			<div>
+				<h2 class="font-semibold mb-2">{$_('dots.color.label')}</h2>
+				<div class="grid grid-cols-[max-content_auto] gap-2 p-2 bg-yellow-400">
+					<div class="flex flex-col bg-red-400">
+						<button
+							type="button"
+							class="border rounded-md p-1
+						{dotsGradient === false
+								? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
+								: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
+							on:click={() => toggleDotsGradient()}
+						>
+							Uni
+						</button>
+						<button
+							type="button"
+							class="border rounded-md p-1 mt-2
+						{dotsGradient === true
+								? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
+								: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
+							on:click={() => toggleDotsGradient()}
+						>
+							Gradient
+						</button>
+					</div>
+					<div>
+						{#if !dotsGradient}
+							<InputColor bind:value={dotsOptions.color} />
+						{/if}
+						{#if dotsGradient}
+							<InputGradient bind:gradientType bind:color1={dotsColor} bind:color2={dotsColor2} />
+						{/if}
+					</div>
 				</div>
 			</div>
-			<div>
+			<div class="mt-4">
 				<p class="font-semibold m-1">{$_('background.color.label')}</p>
 				<input
 					type="checkbox"
