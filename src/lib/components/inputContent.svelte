@@ -3,7 +3,6 @@
     import { _ } from 'svelte-i18n';
 	export let value: string;
 	export let nameType: string = 'text';
-	export let options: Options;
 </script>
 
 {#if nameType == 'text'}

@@ -26,7 +26,6 @@
 	export let optionsType: string;
 
 	let visible: boolean = false;
-	let placeHolder: string;
 
 	const data_types = ListQrCodeDataType();
 
@@ -115,7 +114,7 @@
 		<div>
 			{#if visible == true}
 				{#if defaultContent == 'URL'}
-					<InputContent bind:value={data.url} {options} />
+					<InputContent bind:value={data.url} />
 				{/if}
 				{#if defaultContent == 'Email'}
 					<InputContent bind:value={data.email}  />
