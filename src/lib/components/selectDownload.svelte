@@ -30,7 +30,7 @@ sm:w-full sm:mt-3"
 	<div class="hidden sm:flex">
 		{#each styles as style}
 			<button
-				class="py-1 px-2 w-full h-full rounded-md mb-4 m-1 sm:text-[10px] md:text-sm lg:text-md
+				class="py-1 px-2 w-full flex-grow flex rounded-md m-1 sm:text-[10px] md:text-sm lg:text-md
                 {defaultStyle === style
 					? 'bg-t-indigo text-white dark:bg-t-ciel dark:text-t-black'
 					: 'bg-slate-100 hover:bg-slate-300 text-black border dark:border-slate-500 dark:bg-slate-600 dark:text-white'}"

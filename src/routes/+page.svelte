@@ -9,7 +9,7 @@
 	<div class="flex w-full justify-between items-center flex-col mt-4 h-24 mb-8">
 		<h1 class="text-xl font-bold text-center dark:text-white">QR Code Generator</h1>
 		<img src={dots} alt="dots" class="w-5" />
-		<p class="font-semibold w-56 text-sm text-center dark:text-white">
+		<p class="font-semibold max-w-56 text-sm text-center dark:text-white sm:max-w-max">
 			Créez, personnalisez et enregistrez votre QR Code!
 		</p>
 	</div>

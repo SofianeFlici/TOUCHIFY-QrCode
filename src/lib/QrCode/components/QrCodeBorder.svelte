@@ -49,27 +49,29 @@
 	<Accordion {title}>
 		{#if cornersSquareOptions}
 			<div class="flex flex-col">
-				<p class="font-semibold m-1">{$_(`corners.square.type.label`)}</p>
-				<Select bind:value={cornersSquareOptions.type}>
-					<option value="dot">{$_(`corners.square.type.dot`)}</option>
-					<option value="square">{$_(`corners.square.type.square`)}</option>
-					<option value="extra-rounded">{$_(`corners.square.type.extra-rounded`)}</option>
-				</Select>
 				<div>
-					<p class="font-semibold m-1">
+					<h3 class="font-semibold mb-3">{$_(`corners.square.type.label`)}</h3>
+					<Select bind:value={cornersSquareOptions.type}>
+						<option value="dot">{$_(`corners.square.type.dot`)}</option>
+						<option value="square">{$_(`corners.square.type.square`)}</option>
+						<option value="extra-rounded">{$_(`corners.square.type.extra-rounded`)}</option>
+					</Select>
+				</div>
+				<div class="mt-3">
+					<h3 class="mb-3">
 						{$_(`corners.square.color.label`)}
-					</p>
+					</h3>
 					<!------------------------------- Use gradient for border color ------------------------------------>
 					<input
 						type="checkbox"
 						value="gradient"
 						on:click={() => toggleSquareGradient()}
 						checked={squareGradient}
-						class="m-1"
+						class="mr-2"
 					/>
 					{$_('ui.gradient.use')}
 					{#if !squareGradient}
-						<div class="">
+						<div class="h-24 mt-3">
 							<InputColor bind:value={borderColor} />
 						</div>
 					{/if}

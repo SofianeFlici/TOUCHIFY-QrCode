@@ -46,12 +46,12 @@
 			{#if $page.url.pathname == '/' || $page.url.pathname == ''}
 				<div class="flex items-center h-[100%]">
 					<p
-						class="text-base font-semibold
+						class="text-xs font-semibold
 					dark:text-white"
 					>
 						{$_(`navbar.${text}`)}
 					</p>
-					<img src={logo} alt="logo" class="w-20 ml-2" />
+					<img src={logo} alt="logo" class="w-20 ml-2 mt-1" />
 				</div>
 			{:else}
 				<div class="flex items-center">
@@ -61,11 +61,11 @@
 			{/if}
 			{#if $page.url.pathname == '/' || $page.url.pathname == ''}
 				<p
-					class="test text-[10px] sm:ml-4 sm:mt-1 sm:text-[12px] lg:w-80
+					class="hidden text-[10px] sm:block sm:ml-4 sm:mt-1 sm:text-[12px] lg:w-80
 				dark:text-white"
 				>
 					{$_('navbar.slogan')}
-					<span class="text-t-indigo font-bold">>></span>
+					<span class="text-t-indigo font-bold dark:text-t-ciel">>></span>
 				</p>
 			{/if}
 		</div>
@@ -76,17 +76,17 @@
 		{/if}
 		<div class=" flex items-center shrink-0 sm:mr-2 sm:justify-between">
 			{#if $page.url.pathname !== '/' && $page.url.pathname !== ''}
-    <div class="flex">
-        <span class="hidden text-xs sm:mr-2 lg:block dark:text-white">
-            {$_('navbar.poweredby')}
-        </span>
-        <img
-            src={checked ? logoPoweredDark : logoPowered}
-            alt="logo"
-            class="hidden h-4 mt-[2px] lg:block mr-3"
-        />
-    </div>
-{/if}
+				<div class="flex">
+					<span class="hidden text-xs sm:mr-2 lg:block dark:text-white">
+						{$_('navbar.poweredby')}
+					</span>
+					<img
+						src={checked ? logoPoweredDark : logoPowered}
+						alt="logo"
+						class="hidden h-4 mt-[2px] lg:block mr-3"
+					/>
+				</div>
+			{/if}
 
 			<div class="flex">
 				<NavBarLanguage />
@@ -103,9 +103,5 @@
 </nav>
 
 <style>
-	@media (max-width: 425px) {
-		.test {
-			display: none;
-		}
-	}
+	
 </style>

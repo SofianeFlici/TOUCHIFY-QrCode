@@ -81,7 +81,7 @@
 
 <Card>
 	{#if dotsOptions}
-		<div class="flex flex-col">
+		<div class="flex flex-col h-full">
 			<h2 data-type="form-label" class="font-semibold mb-2">{$_('options.title')}</h2>
 			<div data-type="form-group" class="mb-4">
 				<h3 data-type="form-label" class="font-semibold mb-2">{$_('dots.type.label')}</h3>
@@ -118,6 +118,7 @@
 					</div>
 					<div>
 						{#if !dotsGradient}
+
 							<InputColor bind:value={dotsOptions.color} />
 						{/if}
 						{#if dotsGradient}
@@ -127,13 +128,13 @@
 				</div>
 			</div>
 			<div class="mt-4">
-				<h3 data-type="form-label" class="font-semibold m-1">{$_('background.color.label')}</h3>
+				<h3 data-type="form-label" class="font-semibold">{$_('background.color.label')}</h3>
 				<input
 					type="checkbox"
 					value="transparent"
 					on:click={() => toggleTransparent()}
 					checked={transparent}
-					class="m-1"
+					class="mr-2"
 				/>{$_('ui.color.transparent')}
 			</div>
 			<!-- -------------------- Partie dégradé --------------------------------------- -->
@@ -144,13 +145,15 @@
 						value="degrade"
 						on:click={() => toggleBackgroundGradient()}
 						checked={backgroundGradient}
-						class="m-1"
+						class="mr-2"
 					/>{$_('ui.gradient.use')}
 				</div>
 
 				<div>
 					{#if backgroundOptions && !backgroundGradient && !transparent}
+					<div class="w-full h-16 mt-3">						
 						<InputColor bind:value={backgroundColors} />
+					</div>
 					{/if}
 				</div>
 			{/if}

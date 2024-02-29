@@ -46,28 +46,30 @@
 </script>
 
 <Card>
-	<Accordion {title}>
+	<!-- <Accordion {title}> -->
 		{#if cornersDotOptions}
 			<div class="flex flex-col">
-				<p class="font-semibold m-1">{$_('corners.dot.type.label')}</p>
+				<h3 class="font-semibold mb-3">{$_('corners.dot.type.label')}</h3>
 				<Select bind:value={cornersDotOptions.type}>
 					{#each types as type}
 						<option value={type}>{$_(`corners.square.type.${type}`)}</option>
 					{/each}
 				</Select>
 				<div>
-					<p class="font-semibold m-1">{$_('corners.dot.color.label')}</p>
+					<h3 class="font-semibold mt-3">{$_('corners.dot.color.label')}</h3>
 					<!------------------------------- Use gradient for corner dots color ------------------------------------>
 					<input
 						type="checkbox"
 						value="gradient"
 						on:click={() => toggleCornersDotGradient()}
 						checked={cornersDotGradient}
-						class="m-1"
+						class="mt-3"
 					/>
 					{$_('ui.gradient.use')}
 					{#if !cornersDotGradient}
-						<InputColor bind:value={cornersColor} />
+						<div class="h-24 mt-3">
+							<InputColor bind:value={cornersColor} />
+						</div>
 					{/if}
 					{#if cornersDotGradient}
 						<InputGradient
@@ -81,5 +83,5 @@
 				</div>
 			</div>
 		{/if}
-	</Accordion>
+	<!-- </Accordion> -->
 </Card>

@@ -20,9 +20,10 @@
 	import type { Options } from 'qr-code-styling';
 	import { onMount } from 'svelte';
 
-	export let defaultContent = 'URL';
+	export let defaultContent: string;
 	export let data: any = {};
 	export let options: Options;
+	export let optionsType: string;
 
 	let visible: boolean = false;
 	let placeHolder: string;
@@ -30,6 +31,15 @@
 	const data_types = ListQrCodeDataType();
 
 	let currentIcon: any = null;
+
+	$:if ( optionsType !== '' ){
+		defaultContent = optionsType;
+		visible = true;
+	} else {
+		defaultContent = 'URL';
+	}
+
+	$:console.log("defaultContent", defaultContent);
 
 	$: {
 		const selectedType = data_types.find((dt) => dt.type === defaultContent);
@@ -79,7 +89,7 @@
 </script>
 
 <Card>
-	<h1 class="font-semibold mb-2">{$_('data.title')}</h1>
+	<h1 class="font-semibold mb-3">{$_('data.title')}</h1>
 	<div class="flex flex-col ">
 		{#if data_types}
 			<div class="flex-wrap justify-between">
@@ -105,7 +115,7 @@
 		<div>
 			{#if visible == true}
 				{#if defaultContent == 'URL'}
-					<InputContent bind:value={data.url} />
+					<InputContent bind:value={data.url} {options} />
 				{/if}
 				{#if defaultContent == 'Email'}
 					<InputContent bind:value={data.email}  />
@@ -128,13 +138,13 @@
 					/>
 				{/if}
 				{#if defaultContent == 'Contact'}
-					<div class="flex">
-						<div class="flex flex-col">
+					<div class="flex w-full justify-between">
+						<div class="flex flex-col flex-grow mr-2">
 							<InputContent bind:value={data.firstname}  />
 							<InputContent bind:value={data.company}  />
 							<InputContent bind:value={data.email} />
 						</div>
-						<div class="flex flex-col">
+						<div class="flex flex-col flex-grow">
 							<InputContent bind:value={data.lastname}  />
 							<InputContent bind:value={data.jobTitle}  />
 							<InputContent bind:value={data.phone}  />

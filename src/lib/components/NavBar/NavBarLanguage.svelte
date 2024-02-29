@@ -41,11 +41,12 @@
 {/if}
 
 {#if isOpen}
-	<div class="flex flex-col fixed top-14 bg-slate-500 right-4 justify-between w-36 rounded-md">
+	<div class="flex flex-col fixed top-14 bg-white border-2 border-t-indigo text-t-dark-gray right-4 justify-between w-36 rounded-md
+				dark:bg-t-black dark:border-t-ciel dark:text-t-ciel">
 		{#each lang as { id, name, img }}
 			<div class="flex row w-4/6">
 				<button
-					class="flex w-full justify-between m-2 text-white"
+					class="flex w-full justify-between m-2"
 					on:click={() => {
 						changeLocale(id);
 						isOpen = false;

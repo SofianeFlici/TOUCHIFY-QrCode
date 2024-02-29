@@ -17,7 +17,7 @@
 	<Accordion {title}>
 		{#if qrOptions}
 			<div class="flex flex-col">
-				<p class="font-semibold text-sm m-1">{$_('qr.type.label')}</p>
+				<h3 class="font-semibold text-sm m-1">{$_('qr.type.label')}</h3>
 				<div>
 					<input
 						type="number"

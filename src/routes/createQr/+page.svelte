@@ -14,11 +14,12 @@
 
 	let id: string = '';
 	let defaultContent = 'URL';
-
+	let optionsType: string;
+	
 	onMount(async () => {
 		const urlParams = new URLSearchParams(window.location.search);
 		id = urlParams.get('id') as string;
-
+		
 		if (id) {
 			try {
 				// Récupération des données de la table 'options'
@@ -27,6 +28,10 @@
 					options = item.options;
 					data = item.data;
 					defaultContent = item.type;
+					optionsType = item.type;
+
+					console.log("options", item.options);
+					console.log("default ", item.type);
 
 					if (item.image) {
 						blob = item.image;
@@ -71,14 +76,14 @@
 </script>
 
 <div class="w-[100vh] h-full flex flex-col mt-2
-	sm:flex-row-reverse">
+	sm:flex-row-reverse sm:mt-0">
 	<div class=" flex justify-center w-full h-full
 	sm:w-2/3  
 	">
 		<QrCodeDownload bind:options {data} {blob} {id} {defaultContent} />
 	</div>
 	<div class="w-full">
-		<QrCodeContent bind:data bind:options bind:defaultContent />
+		<QrCodeContent bind:data bind:options bind:defaultContent {optionsType} />
 		<QrCodeGeneralStyle
 		bind:dotsOptions={options.dotsOptions}
 		bind:backgroundOptions={options.backgroundOptions}

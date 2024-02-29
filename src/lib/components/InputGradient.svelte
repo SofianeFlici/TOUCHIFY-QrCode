@@ -16,8 +16,8 @@
 	}
 </script>
 
-<div class="flex flex-col h-20 items-center w-full justify-around align-middle px-3 mt-2">
-	<div class="flex w-full justify-center items-center relative mb-1">
+<div class="flex flex-col h-full items-center w-full justify-around align-middle mt-3">
+	<div class="flex w-full justify-center items-center relative mb-3">
 		<div class="border m-0 p-0 border-slate-200 h-full" style={gradientStyle}></div>
 		<input type="color" bind:value={color1} class="input-color absolute left-0 rounded-full" />
 		<input type="color" bind:value={color2} class="input-color absolute right-0 rounded-full" />
