@@ -60,13 +60,16 @@
 				</div>
 			{/if}
 			{#if $page.url.pathname == '/' || $page.url.pathname == ''}
-				<p
-					class="hidden text-[10px] sm:block sm:ml-4 sm:mt-1 sm:text-[12px] lg:w-80
-				dark:text-white"
-				>
-					{$_('navbar.slogan')}
-					<span class="text-t-indigo font-bold dark:text-t-ciel">>></span>
-				</p>
+				<a href="https://www.touchify.io" class="bg-red-400">
+
+					<p
+						class="hidden text-[10px] sm:block sm:ml-4 sm:mt-1 sm:text-[12px] lg:w-80
+					dark:text-white"
+					>
+						{$_('navbar.slogan')}
+						<span class="text-t-indigo font-bold dark:text-t-ciel">>></span>
+					</p>
+				</a>
 			{/if}
 		</div>
 		{#if $page.url.pathname !== '/' && $page.url.pathname !== ''}
