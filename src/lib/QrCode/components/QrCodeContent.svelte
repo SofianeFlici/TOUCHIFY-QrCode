@@ -1,8 +1,6 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
-	import InputRadioButton from '$lib/components/InputRadioButton.svelte';
-	import { ListQrCodeDataType, type QrCodeData, type QrCodeDataType } from '../qrcode.data';
-	import { IconChevronUp, IconChevronDown, IconGlobe } from 'obra-icons-svelte';
+	import { ListQrCodeDataType, type QrCodeDataType } from '../qrcode.data';
 
 	import {
 		generateVCard,
