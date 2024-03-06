@@ -17,6 +17,7 @@
 	let styles = ['JPEG', 'PNG', 'SVG', 'WEBP'];
 	let defaultStyle: string = 'SVG';
 	let qrItems: any;
+	// let QrDataSplit:string;
 
 	onMount(async () => {
 		const urlParams = new URLSearchParams(window.location.search);
@@ -42,7 +43,12 @@
 				if (qrCodeElement) {
 					qrCode.append(qrCodeElement);
 				}
+
+				// QrDataSplit = splitData(qrItems);
+				// console.log('QrDataSplit', QrDataSplit);
 			}
+			
+			console.log('qrItems', qrItems);
 		} catch (error) {
 			console.error('Failed to load options:', error);
 		}

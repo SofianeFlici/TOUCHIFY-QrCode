@@ -20,6 +20,8 @@
 					date: item.date,
 					icon: types.find((type) => type.type === item.type)?.icon || ''
 				});
+				item.options.data = splitData(item.options.data);
+				
 			}
 
 			const { default: QRCodeStyling } = await import('qr-code-styling');

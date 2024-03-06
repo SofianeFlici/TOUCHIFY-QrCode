@@ -75,7 +75,7 @@
 	};
 </script>
 
-<div class="w-[100vh] h-full flex flex-col mt-2
+<div class="w-[100vh] h-full flex flex-col mt-2 justify-center
 	sm:flex-row-reverse sm:mt-0">
 	<div class=" flex justify-center w-full h-full
 	sm:w-2/3  

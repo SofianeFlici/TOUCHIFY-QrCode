@@ -4,7 +4,7 @@
 	import dots from '$assets/Elements_graphiques/dots.svg';
 </script>
 
-<div class="flex flex-col items-center w-full text-sm">
+<div class="flex flex-col items-center w-full text-sm bg-red-400 justify-center h-screen">
 	<img src={logo} alt="logo" class="w-20 h-20 mt-12" />
 	<div class="flex justify-between items-center flex-col mt-4 h-24 mb-8">
 		<h1 class="text-xl font-bold dark:text-white">QR Code Generator</h1>

@@ -3,7 +3,6 @@
 	import InputColor from '$lib/components/InputColor.svelte';
 	import type { Options } from 'qr-code-styling';
 	import { _ } from 'svelte-i18n';
-	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
 	import InputGradient from '$lib/components/InputGradient.svelte';
 	import Select from '$lib/components/Select.svelte';
 
@@ -94,7 +93,7 @@
 			<div>
 				<h2 class="font-semibold mb-2">{$_('dots.color.label')}</h2>
 				<div class="grid grid-cols-[max-content_auto] gap-2">
-					<div class="flex flex-col">
+					<div class="flex flex-col justify-between">
 						<button
 							type="button"
 							class="border rounded-md p-1
@@ -107,7 +106,7 @@
 						</button>
 						<button
 							type="button"
-							class="border rounded-md p-1 mt-2
+							class="border rounded-md p-1 mt-1
 						{dotsGradient === true
 								? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
 								: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
@@ -118,11 +117,14 @@
 					</div>
 					<div>
 						{#if !dotsGradient}
-
-							<InputColor bind:value={dotsOptions.color} />
+							<div class="h-[80px]">
+								<InputColor bind:value={dotsOptions.color} />
+							</div>
 						{/if}
 						{#if dotsGradient}
-							<InputGradient bind:gradientType bind:color1={dotsColor} bind:color2={dotsColor2} />
+							<div>
+								<InputGradient bind:gradientType bind:color1={dotsColor} bind:color2={dotsColor2} />
+							</div>
 						{/if}
 					</div>
 				</div>

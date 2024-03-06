@@ -195,5 +195,35 @@ export const displayConfig: Record<string, { key: string; label: string }[]> = {
 	Contact: [
 		{ key: 'firstname', label: 'Prénom' },
 		{ key: 'lastname', label: 'Nom' },
-	]		
+		{ key: 'company', label: 'Société' },
+		{ key: 'jobTitle', label: 'Fonction' },
+		{ key: 'phone', label: 'Téléphone' },
+		{ key: 'email', label: 'Email' },
+		{ key: 'url', label: 'Site Internet' }
+	],
+	Wifi: [
+		{ key: 'ssid', label: 'SSID' },
+		{ key: 'password', label: 'Mot de passe' },
+		{ key: 'typeWifi', label: 'Type' }
+	],
+	Event: [
+		{ key: 'title', label: 'Titre' },
+		{ key: 'dstart', label: 'Début' },
+		{ key: 'dend', label: 'Fin' }
+	],
+	Geo: [
+		{ key: 'latitude', label: 'Latitude' },
+		{ key: 'longitude', label: 'Longitude' }
+	],
+	SMS: [
+		{ key: 'number', label: 'Numéro' },
+		{ key: 'message', label: 'Message' }
+	],
+	Phone: [
+		{ key: 'number', label: 'Numéro' }
+	],
+	Email: [
+		{ key: 'email', label: 'Email' },
+		{ key: 'subject', label: 'Sujet' }
+	]
 };

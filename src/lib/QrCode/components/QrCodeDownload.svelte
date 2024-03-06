@@ -61,7 +61,7 @@
 	let defaultStyle = 'SVG';
 </script>
 
-<div class="flex flex-col px-4 mt-2 sm:w-full sm:mt-4">
+<div class="flex flex-col px-4 mt-2 sm:w-full sm:mt-4 flex-grow">
 	<div
 		class="flex bg-t-medium-blue rounded-md p-2 flex-grow justify-center
 				dark:bg-t-black

@@ -46,7 +46,7 @@
 </script>
 
 <Card>
-	<!-- <Accordion {title}> -->
+	<Accordion {title}>
 		{#if cornersDotOptions}
 			<div class="flex flex-col">
 				<h3 class="font-semibold mb-3">{$_('corners.dot.type.label')}</h3>
@@ -83,5 +83,5 @@
 				</div>
 			</div>
 		{/if}
-	<!-- </Accordion> -->
+	</Accordion>
 </Card>

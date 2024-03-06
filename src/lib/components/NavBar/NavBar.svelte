@@ -30,7 +30,7 @@
 </script>
 
 <nav
-	class="sticky top-0 z-20 bg-white right-0 left-0 p-0 flex flex-col justify-center dark:bg-t-black lg:h-full
+	class="{$page.url.pathname === '' || $page.url.pathname === '/' ? 'fixed' : 'sticky'} top-0 z-20 bg-white right-0 left-0 p-0 flex flex-col justify-center dark:bg-t-black
 "
 >
 	<div
