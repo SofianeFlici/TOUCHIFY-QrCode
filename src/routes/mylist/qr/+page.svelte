@@ -3,21 +3,20 @@
 	import { onMount } from 'svelte';
 	import type { default as QRCodeStyling, Options } from 'qr-code-styling';
 	import { _ } from 'svelte-i18n';
-	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
 	import { displayConfig } from '$lib/QrCode/qrcode.data';
+	import SelectDownload from '$lib/components/selectDownload.svelte';
+	import Accordion from '$lib/components/Accordion.svelte';
 
 	let id: number;
 
 	let qrCodeElement: HTMLElement | null = null;
 	let qrCode: QRCodeStyling | null = null;
 	let qrOptions: Options | null = null;
-
-	let chevron = '<<';
-
 	let styles = ['JPEG', 'PNG', 'SVG', 'WEBP'];
 	let defaultStyle: string = 'SVG';
 	let qrItems: any;
-	// let QrDataSplit:string;
+	let open = false;
+	let title = 'view.data';
 
 	onMount(async () => {
 		const urlParams = new URLSearchParams(window.location.search);
@@ -43,9 +42,6 @@
 				if (qrCodeElement) {
 					qrCode.append(qrCodeElement);
 				}
-
-				// QrDataSplit = splitData(qrItems);
-				// console.log('QrDataSplit', QrDataSplit);
 			}
 			
 			console.log('qrItems', qrItems);
@@ -119,7 +115,7 @@ lg:pr-40 lg:pl-40 lg:pb-40"
 			<span>{$_('back')}</span></a
 		>
 	</div>
-	<div class="mt-4 mb-4 sm:w-full">
+	<div class="mt-2 mb-4 sm:w-full">
 		<div
 			class="qr-preview bg-white aspect-square p-8 rounded-md
 		sm:p-14"
@@ -131,20 +127,22 @@ lg:pr-40 lg:pl-40 lg:pb-40"
 	dark:text-white dark:bg-t-black"
 	>
 		{#if qrItems && qrOptions && qrItems.type in displayConfig}
-			<div class="flex flex-col justify-center items-center content-center rounded w-full">
-				<div class="flex w-full justify-center">
-					<p class="font-bold text-sm truncate">
-						{#each displayConfig[qrItems.type] as { key }}
-							{qrItems.data[key]}&nbsp;
-						{/each}
-					</p>
+			<Accordion {open} {title}>
+				<div class="flex flex-col justify-center items-center content-center rounded w-full">
+					<div class="flex w-full justify-center">
+						<p class="font-bold text-sm truncate">
+							{#each displayConfig[qrItems.type] as { key }}
+								{qrItems.data[key]}&nbsp;
+							{/each}
+						</p>
+					</div>
+					<div>
+						<p class="text-xs mt-2 justify-center flex">
+							{qrItems.type} &bull; {qrItems.date.toLocaleDateString()}
+						</p>
+					</div>
 				</div>
-				<div>
-					<p class="text-xs mt-2 justify-center flex">
-						{qrItems.type} &bull; {qrItems.date.toLocaleDateString()}
-					</p>
-				</div>
-			</div>
+			</Accordion>
 		{/if}
 	</div>
 	<div class="flex w-full justify-between">
@@ -168,6 +166,9 @@ lg:pr-40 lg:pl-40 lg:pb-40"
 				{$_('view.delete')}
 			{/if}
 		</button>
+	</div>
+	<div class="w-full mt-4">
+		<SelectDownload {defaultStyle} {qrCode} />
 	</div>
 </div>
 

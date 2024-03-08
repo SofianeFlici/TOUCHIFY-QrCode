@@ -4,7 +4,7 @@
 	import { ListQrCodeDataType } from '$lib/QrCode/qrcode.data';
 
 	let qrCodeData: any[] = [];
-	let qrCodeElements: HTMLElement[] = []; // This will store references to the DOM elements
+	let qrCodeElements: HTMLElement[] = [];
 	let types = ListQrCodeDataType();
 
 	onMount(async () => {
@@ -19,9 +19,7 @@
 					options: item.options,
 					date: item.date,
 					icon: types.find((type) => type.type === item.type)?.icon || ''
-				});
-				item.options.data = splitData(item.options.data);
-				
+				});				
 			}
 
 			const { default: QRCodeStyling } = await import('qr-code-styling');

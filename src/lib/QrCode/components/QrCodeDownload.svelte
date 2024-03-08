@@ -61,41 +61,33 @@
 	let defaultStyle = 'SVG';
 </script>
 
-<div class="flex flex-col px-4 mt-2 sm:w-full sm:mt-4 flex-grow">
-	<div
-		class="flex bg-t-medium-blue rounded-md p-2 flex-grow justify-center
-				dark:bg-t-black
-				sm:flex-col sm:dark:py-4 sm:items-center sm:p-0 sm:bg-transparent
-				"
-	>
-		<div class="bg-white rounded-md mr-4 sm:mr-0">
-			<div
-				class="qr-preview bg-white rounded-md p-4 max-w-32 sm:max-w-52 md:max-w-60"
-				bind:this={qrCodeElement}
-			></div>
-		</div>
+<div
+	class="flex bg-t-medium-blue rounded-md dark:bg-transparent sm:block sm:bg-transparent">
+	<div class="m-2 sm:m-4 bg-white rounded-md dark:bg-t-black p-4">
+		<div class="qr-preview bg-white rounded-md p-2 sm:p-4" bind:this={qrCodeElement}></div>
+	</div>
 
-		<div
-			class="flex flex-col flex-grow max-w-48 text-[10px] text-white
-					sm:max-w-64
+	<div
+		class="flex flex-col flex-grow text-white m-2
+					sm:m-4
 					dark:text-black"
-		>
-			<SelectDownload {defaultStyle} {qrCode} />
-			<button
-				type="button"
-				class="bg-t-indigo flex border-2 p-1 items-center rounded-md mt-2
+	>
+		<SelectDownload {defaultStyle} {qrCode} />
+		<button
+			type="button"
+			class="bg-t-indigo flex border-2 p-2 items-center rounded-md mt-2 text-sm
 							dark:bg-t-ciel dark:border-t-ciel
-							md:text-sm lg:text-md"
-				on:click={saveOptions}
-			>
-				<span class="w-full flex justify-center items-center">
-					<IconBookmark size={16} />
-					<p class="ml-3">
-						{$_('menu.save')}
-					</p>
-				</span>
-			</button>
-		</div>
+							sm:mt-4
+							sm:text-base"
+			on:click={saveOptions}
+		>
+			<span class="w-full flex justify-center items-center">
+				<IconBookmark size={16} />
+				<p class="ml-3">
+					{$_('menu.save')}
+				</p>
+			</span>
+		</button>
 	</div>
 </div>
 

@@ -93,7 +93,7 @@
 				{#each data_types as data_type}
 					<button
 						type="button"
-						class="mr-3 mb-2 mt-1  border-t-indigo border-2 rounded-md text-[10px] p-1 dark:border-white 
+						class="mr-2 mb-2 border-t-indigo border rounded-md text-[10px] p-1 dark:border-white 
 						{defaultContent === data_type.type && visible
 							? 'bg-t-indigo text-white dark:bg-t-ciel dark:text-black'
 							: 'bg-white text-t-indigo dark:bg-t-black dark:text-white'}"

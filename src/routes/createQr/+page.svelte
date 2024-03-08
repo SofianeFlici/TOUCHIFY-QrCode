@@ -65,7 +65,6 @@
 		},
 		cornersDotOptions: {},
 		backgroundOptions: {
-			color: '#ffa600',
 		},
 		qrOptions: {
 			typeNumber: 0,
@@ -77,8 +76,8 @@
 
 <div class="w-[100vh] h-full flex flex-col mt-2 justify-center
 	sm:flex-row-reverse sm:mt-0">
-	<div class=" flex justify-center w-full h-full
-	sm:w-2/3  
+	<div class="px-4 sm:-ml-4
+	sm:w-2/3
 	">
 		<QrCodeDownload bind:options {data} {blob} {id} {defaultContent} />
 	</div>

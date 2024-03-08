@@ -1,175 +1,89 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
-	import InputColor from '$lib/components/InputColor.svelte';
 	import type { Options } from 'qr-code-styling';
 	import { _ } from 'svelte-i18n';
 	import InputGradient from '$lib/components/InputGradient.svelte';
 	import Select from '$lib/components/Select.svelte';
+	import Toggle from '$lib/components/Toggle.svelte';
 
 	export let dotsOptions: Options['dotsOptions'];
 	export let backgroundOptions: Options['backgroundOptions'];
 
+	console.log("bg options", backgroundOptions);
+
 	let backgroundGradient: boolean = false;
-	let dotsGradient: boolean = false;
-
-	let bgColor: string = '#000000';
-	let bgColor2: string = '#ffffff';
-
 	let dotsColor: string = '#000000';
 	let dotsColor2: string = '#ffffff';
-
-	let rotation: number = 0;
-	let gradientType: string = 'linear';
-
-	let backgroundColors: string = '#ffffff';
+	let backgroundColor: string = '#ffffff';
 
 	let style = ['square', 'rounded', 'dots', 'classy', 'classy-rounded', 'extra-rounded'] as const;
-	let transparent = true;
+	let transparent = !backgroundOptions?.color;
 
-	function toggleDotsGradient() {
-		dotsGradient = !dotsGradient;
-	}
-
-	function toggleTransparent() {
-		transparent = !transparent;
-		if (transparent) backgroundGradient = false;
-	}
+		$:if (transparent) backgroundOptions.color = null;
+		else backgroundOptions.color = backgroundColor;
 
 	function toggleBackgroundGradient() {
 		backgroundGradient = !backgroundGradient;
 		if (backgroundGradient) transparent = false;
 	}
-
-	$: if (backgroundGradient && gradientType && backgroundOptions) {
-		let type = gradientType;
-		let rotate = rotation;
-		backgroundOptions.gradient = {
-			type: type,
-			rotation: rotate,
-			colorStops: [
-				{ offset: 0, color: bgColor },
-				{ offset: 1, color: bgColor2 }
-			]
-		};
-	} else {
-		if (backgroundOptions) {
-			backgroundOptions.color = backgroundColors;
-			backgroundOptions.color = transparent ? 'transparent' : backgroundOptions.color;
-			backgroundOptions.gradient = undefined;
-		}
-	}
-
-	$: if (dotsGradient && gradientType && dotsOptions) {
-		let type = gradientType;
-		let rotate = rotation;
-		dotsOptions.gradient = {
-			type: type,
-			rotation: rotate,
-			colorStops: [
-				{ offset: 0, color: dotsColor },
-				{ offset: 1, color: dotsColor2 }
-			]
-		};
-	} else {
-		if (dotsOptions) {
-			dotsOptions.color = dotsOptions.color;
-			dotsOptions.gradient = undefined;
-		}
-	}
+$:console.log("--------------------------------", transparent);
 </script>
 
 <Card>
 	{#if dotsOptions}
 		<div class="flex flex-col h-full">
-			<h2 data-type="form-label" class="font-semibold mb-2">{$_('options.title')}</h2>
-			<div data-type="form-group" class="mb-4">
-				<h3 data-type="form-label" class="font-semibold mb-2">{$_('dots.type.label')}</h3>
+			<h2 class="font-semibold mb-2">{$_('options.title')}</h2>
+			<div class="mb-4">
+				<h3 class="font-semibold mb-2">{$_('dots.type.label')}</h3>
 				<Select bind:value={dotsOptions.type}>
 					{#each style as style}
 						<option value={style}>{$_(`dots.type.${style}`)}</option>
 					{/each}
 				</Select>
 			</div>
-			<div>
-				<h2 class="font-semibold mb-2">{$_('dots.color.label')}</h2>
-				<div class="grid grid-cols-[max-content_auto] gap-2">
-					<div class="flex flex-col justify-between">
-						<button
-							type="button"
-							class="border rounded-md p-1
-						{dotsGradient === false
-								? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
-								: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
-							on:click={() => toggleDotsGradient()}
-						>
-							Uni
-						</button>
-						<button
-							type="button"
-							class="border rounded-md p-1 mt-1
-						{dotsGradient === true
-								? 'bg-t-indigo text-white dark:text-black dark:bg-t-ciel border-t-ciel'
-								: 'bg-white text-t-indigo dark:bg-t-black dark:text-white dark:border-white'}"
-							on:click={() => toggleDotsGradient()}
-						>
-							Gradient
-						</button>
-					</div>
-					<div>
-						{#if !dotsGradient}
-							<div class="h-[80px]">
-								<InputColor bind:value={dotsOptions.color} />
-							</div>
-						{/if}
-						{#if dotsGradient}
-							<div>
-								<InputGradient bind:gradientType bind:color1={dotsColor} bind:color2={dotsColor2} />
-							</div>
-						{/if}
-					</div>
-				</div>
-			</div>
+			<InputGradient
+					bind:options={dotsOptions}
+					bind:transparent={transparent}
+					{backgroundGradient}
+					allowTransparent={false}
+				/>
+
 			<div class="mt-4">
-				<h3 data-type="form-label" class="font-semibold">{$_('background.color.label')}</h3>
-				<input
-					type="checkbox"
-					value="transparent"
-					on:click={() => toggleTransparent()}
-					checked={transparent}
-					class="mr-2"
-				/>{$_('ui.color.transparent')}
+				<h3 class="font-semibold mb-2">{$_('background.color.label')}</h3>
+				<div class="flex items-center">
+					<!-- <label class="inline-flex items-center cursor-pointer">
+						<input
+							type="checkbox"
+							value=""
+							class="sr-only peer"
+							checked={!transparent}
+							on:click={() => toggleTransparent()}
+						/>
+						<div
+							class="relative w-10 h-6 border-t-indigo peer-focus:outline-none rounded-full border peer dark:bg-t-black peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[0.175rem] after:start-[0.175rem] after:bg-t-indigo after:peer-checked:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-white peer-checked:bg-t-indigo dark:peer-checked:bg-t-ciel"
+						></div>
+						<span class="ms-3 text-sm dark:text-gray-300">{$_('image.hide.label')}</span>
+					</label> -->
+				
+					<Toggle bind:value={transparent} text={'ui.color.transparent'} />
+				</div>
 			</div>
 			<!-- -------------------- Partie dégradé --------------------------------------- -->
 			{#if !transparent && backgroundOptions}
 				<div>
-					<input
-						type="checkbox"
-						value="degrade"
-						on:click={() => toggleBackgroundGradient()}
-						checked={backgroundGradient}
-						class="mr-2"
-					/>{$_('ui.gradient.use')}
-				</div>
-
-				<div>
 					{#if backgroundOptions && !backgroundGradient && !transparent}
-					<div class="w-full h-16 mt-3">						
-						<InputColor bind:value={backgroundColors} />
-					</div>
+					<InputGradient
+					bind:color1={dotsColor}
+					bind:color2={dotsColor2}
+					bind:options={backgroundOptions}
+					bind:transparent={transparent}
+					{backgroundGradient}
+					allowTransparent={true}
+				/>
 					{/if}
 				</div>
 			{/if}
-			<!-- ------------------------------------------------------------------------------- -->
-			{#if backgroundGradient && !transparent}
-				<div class="flex justify-center items-center">
-					<InputGradient
-						bind:gradientType
-						bind:rotation
-						bind:color1={bgColor}
-						bind:color2={bgColor2}
-					/>
-				</div>
-			{/if}
+
 		</div>
 	{/if}
 </Card>

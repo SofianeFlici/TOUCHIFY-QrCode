@@ -3,14 +3,13 @@
 	import InputColor from '$lib/components/InputColor.svelte';
 	import type { Gradient, GradientType, Options } from 'qr-code-styling';
 	import { _ } from 'svelte-i18n';
-	import InputRadioButtons from '$lib/components/InputRadioButtons.svelte';
 	import InputGradient from '$lib/components/InputGradient.svelte';
 	import Accordion from '$lib/components/Accordion.svelte';
 	import Select from '$lib/components/Select.svelte';
 
 	export let cornersSquareOptions: Options['cornersSquareOptions'];
 
-	let squareGradient: boolean = false;
+	let gradient: boolean = false;
 	let gradientType: GradientType = 'linear';
 	let rotation: number = 0;
 	let squareColor: string = '#000000';
@@ -23,10 +22,10 @@
 	let types = [undefined, 'dot', 'square', 'extra-rounded'] as const;
 
 	function toggleSquareGradient() {
-		squareGradient = !squareGradient;
+		gradient = !gradient;
 	}
 
-	$: if (squareGradient && gradientType && cornersSquareOptions) {
+	$: if (gradient && gradientType && cornersSquareOptions) {
 		let type = gradientType;
 		let rotate = rotation;
 		cornersSquareOptions.gradient = {
@@ -62,27 +61,31 @@
 						{$_(`corners.square.color.label`)}
 					</h3>
 					<!------------------------------- Use gradient for border color ------------------------------------>
-					<input
+					<InputGradient
+						bind:options={cornersSquareOptions}
+						bind:gradientType
+						{gradient}
+					/>
+					<!-- <input
 						type="checkbox"
 						value="gradient"
 						on:click={() => toggleSquareGradient()}
-						checked={squareGradient}
+						checked={gradient}
 						class="mr-2"
 					/>
 					{$_('ui.gradient.use')}
-					{#if !squareGradient}
+					{#if !gradient}
 						<div class="h-24 mt-3">
 							<InputColor bind:value={borderColor} />
 						</div>
 					{/if}
-					{#if squareGradient}
+					{#if gradient}
 						<InputGradient
 							bind:gradientType
-							bind:rotation
 							bind:color1={squareColor}
 							bind:color2={squareColor2}
 						/>
-					{/if}
+					{/if} -->
 					<!-- ------------------------------------------------------------------------------------------ -->
 				</div>
 			</div>
