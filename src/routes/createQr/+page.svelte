@@ -11,15 +11,18 @@
 	import QrCodeDefinedChoice from '$lib/QrCode/components/QrCodeDefinedChoice.svelte';
 	import db, { type QrCodeItem } from '$lib/db';
 	import type { QrCodeData } from '$lib/QrCode/qrcode.data';
+	import type { ColorOptions } from '$lib/QrCode/qrcode.data';
 
 	let id: string = '';
 	let defaultContent = 'URL';
 	let optionsType: string;
-	
+
+	let options: Options;
+
 	onMount(async () => {
 		const urlParams = new URLSearchParams(window.location.search);
 		id = urlParams.get('id') as string;
-		
+
 		if (id) {
 			try {
 				// Récupération des données de la table 'options'
@@ -30,8 +33,7 @@
 					defaultContent = item.type;
 					optionsType = item.type;
 
-					console.log("options", item.options);
-					console.log("default ", item.type);
+					console.log('options', item.options);
 
 					if (item.image) {
 						blob = item.image;
@@ -42,62 +44,67 @@
 				console.error('Failed to load options or images:', error);
 			}
 		}
+
+		options = options || {
+			image: undefined,
+			data: '',
+			width: 500,
+			height: 500,
+			dotsOptions: {
+			},
+			imageOptions: {
+				crossOrigin: 'anonymous',
+				margin: 20
+			},
+			cornersSquareOptions: {
+				type: undefined
+			},
+			cornersDotOptions: {},
+			backgroundOptions: {},
+			qrOptions: {
+				typeNumber: 0,
+				errorCorrectionLevel: 'Q',
+				mode: 'Byte'
+			}
+		};
 	});
 
 	let data: QrCodeData = {};
 	let blob: Blob | null = null;
 
-	let options: Options = {
-		image: undefined,
-		data: '',
-		width: 500,
-		height: 500,
-		dotsOptions: {
-			color: '#4267b2',
-			type: 'square'
-		},
-		imageOptions: {
-			crossOrigin: 'anonymous',
-			margin: 20
-		},
-		cornersSquareOptions: {
-			type: undefined
-		},
-		cornersDotOptions: {},
-		backgroundOptions: {
-		},
-		qrOptions: {
-			typeNumber: 0,
-			errorCorrectionLevel: 'Q',
-			mode: 'Byte'
-		}
-	};
+	$: console.error('opts', options);
 </script>
 
-<div class="w-[100vh] h-full flex flex-col mt-2 justify-center
-	sm:flex-row-reverse sm:mt-0">
-	<div class="px-4 sm:-ml-4
+{#if options}
+	<div
+		class="w-[100vh] h-full flex flex-col mt-2 justify-center
+	sm:flex-row-reverse sm:mt-0"
+	>
+		<div
+			class="px-4 sm:-ml-4
 	sm:w-2/3
-	">
-		<QrCodeDownload bind:options {data} {blob} {id} {defaultContent} />
-	</div>
-	<div class="w-full">
-		<QrCodeContent bind:data bind:options bind:defaultContent {optionsType} />
-		<QrCodeGeneralStyle
-		bind:dotsOptions={options.dotsOptions}
-		bind:backgroundOptions={options.backgroundOptions}
-		/>
-		
-		<QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} />
-		<QrCodePoint bind:cornersDotOptions={options.cornersDotOptions} />
-		<QrCodeAddImage
-		bind:blobUrl={options.image}
-		bind:blob
-		bind:imageOptions={options.imageOptions}
-		/>
-		<QrCodeAdvancedOptions bind:qrOptions={options.qrOptions} />
-	</div>
-</div>
+	"
+		>
+			<QrCodeDownload bind:options {data} {blob} {id} {defaultContent} />
+		</div>
+		<div class="w-full">
+			<QrCodeContent bind:data bind:options bind:defaultContent {optionsType} />
+			<QrCodeGeneralStyle
+				bind:dotsOptions={options.dotsOptions}
+				bind:backgroundOptions={options.backgroundOptions}
+			/>
 
-	<!-- A Definir -->
-	<!-- <QrCodeDefinedChoice bind:options /> -->
+			<QrCodeBorder bind:cornersSquareOptions={options.cornersSquareOptions} bind:generalOptions={options.dotsOptions} />
+			<QrCodePoint bind:cornersDotOptions={options.cornersDotOptions} />
+			<QrCodeAddImage
+				bind:blobUrl={options.image}
+				bind:blob
+				bind:imageOptions={options.imageOptions}
+			/>
+			<QrCodeAdvancedOptions bind:qrOptions={options.qrOptions} />
+		</div>
+	</div>
+{/if}
+
+<!-- A Definir -->
+<!-- <QrCodeDefinedChoice bind:options /> -->

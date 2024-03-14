@@ -1,57 +1,56 @@
 <script lang="ts">
-	import { _ } from 'svelte-i18n';
-	import Select from './Select.svelte';
-	import InputColor from './InputColor.svelte';
+    import { _ } from 'svelte-i18n';
+    import Select from './Select.svelte';
+    import InputColor from './InputColor.svelte';
+    import type { ColorOptions } from '../QrCode/qrcode.data';
 
-	// -------------------------------------
+    export let options: ColorOptions;
+	export let defaultColor: string = '';
+	export let placeholder: string = '';
 
-	// export let transparent;
-	export let options;
-	export let transparent;
-	export let backgroundGradient;
-	export let allowTransparent;
+    let gradient = !!options.gradient;
+    let color1 = options.gradient?.colorStops[0].color || '#000000';
+    let color2 = options.gradient?.colorStops[1].color || '#ffffff';
+    let gradientType = options.gradient?.type || 'linear';
 
-	let gradient: boolean = !!options.gradient;
-
-	let color1: string = options.gradient?.colorStops[0].color || '#000000';
-	let color2: string = options.gradient?.colorStops[1].color || '#ffffff';
-
-	let gradientType: string = 'linear';
-
-	$: console.log('gradient Transparent', transparent);
-	$: console.log('gradient options', options);
-
-	function toggleGradient(value) {
-		gradient = value;
-	}
-
-	$: if (gradientType && options && gradient === true) {
-		options.gradient = {
-			type: gradientType,
-			colorStops: [
-				{ offset: 0, color: color1 },
-				{ offset: 1, color: color2 }
-			]
-		};
-	} else {
-		if (options) {
-			options.color = allowTransparent && transparent ? 'transparent' : options.color;
+    function toggleGradient(value: boolean) {
+        gradient = value;
+        if (!gradient) {
+            options.gradient = undefined;
+        } else {
+			options.color = undefined;		
 		}
+    }
+
+	if (!options.color && defaultColor){
+		options.color = defaultColor;
 	}
 
-	$: gradientStyle = `background: linear-gradient(to right, ${color1}, ${color2});`;
 
-	function changeToLinear() {
-		gradientType = 'linear';
-	}
+	let gradientStyle = '';
+    $: if (gradient) {
+		gradientStyle = `background: ${gradientType}-gradient(to right, ${color1}, ${color2});`;
+		options.gradient = {
+            type: gradientType,
+            colorStops: [
+                { offset: 0, color: color1 },
+                { offset: 1, color: color2 },
+            ],
+        };
+    } else {
+        gradientStyle = '';
+    }
 
-	function changeToRadial() {
-		gradientType = 'radial';
-	}
+    function changeToLinear() {
+        gradientType = 'linear';
+    }
+
+    function changeToRadial() {
+        gradientType = 'radial';
+    }
 </script>
 
 <div>
-	<h3 class="font-semibold mb-2">{$_('dots.color.label')}</h3>
 	<div class="grid grid-cols-[max-content_auto] gap-2">
 		<div class="flex flex-col">
 			<button
@@ -77,7 +76,7 @@
 		</div>
 		<div>
 			{#if !gradient}
-				<InputColor bind:value={options.color} />
+				<InputColor bind:value={options.color} {placeholder} />
 			{/if}
 			{#if gradient}
 				<div class="flex flex-col h-full items-center w-full justify-around">

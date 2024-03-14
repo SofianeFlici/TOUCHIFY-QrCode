@@ -9,19 +9,19 @@
 </script>
 
 <div class="{($page.url.pathname.startsWith('/mylist/qr') ? 'hidden' : 'block' )}">
-	<button class="w-full" on:click={() => (open = !open)}>
-		<div class="flex justify-between">
-			<h2 class="font-semibold m-1 mb-2">{$_(title)}</h2>
-			<p class="mt-1">
+	<button type="button" class="w-full" on:click={() => (open = !open)}>
+		<span class="flex justify-between items-center ">
+			<h2 class="font-semibold">{$_(title)}</h2>
+			<p>
 				{#if open}
 					<svelte:component this={IconChevronUp} />
 				{:else}
 					<svelte:component this={IconChevronDown} />
 				{/if}
 			</p>
-		</div>
+		</span>
 	</button>
-	<div class="panel" style="display: {open ? 'block' : 'none'}">
+	<div class="panel mt-2" style="display: {open ? 'block' : 'none'}">
 		<slot />
 	</div>
 </div>

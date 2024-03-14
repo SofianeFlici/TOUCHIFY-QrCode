@@ -92,7 +92,7 @@
 <div
 	class="w-[70%] flex justify-center flex-col items-center
 sm:pr-20 sm:pl-20 sm:pb-20
-lg:pr-40 lg:pl-40 lg:pb-40"
+"
 >
 	<div class="mb-2 mt-4 sm:self-start sm:flex sm:justify-start">
 		<a
@@ -128,7 +128,8 @@ lg:pr-40 lg:pl-40 lg:pb-40"
 	>
 		{#if qrItems && qrOptions && qrItems.type in displayConfig}
 			<Accordion {open} {title}>
-				<div class="flex flex-col justify-center items-center content-center rounded w-full">
+				<div class="flex flex-col justify-center items-center content-center rounded-md w-full border border-t-indigo mt-4 p-2
+							dark:border-white">
 					<div class="flex w-full justify-center">
 						<p class="font-bold text-sm truncate">
 							{#each displayConfig[qrItems.type] as { key }}

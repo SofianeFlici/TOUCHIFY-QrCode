@@ -36,8 +36,6 @@
 		defaultContent = 'URL';
 	}
 
-	$:console.log("defaultContent", defaultContent);
-
 	$: {
 		const selectedType = data_types.find((dt) => dt.type === defaultContent);
 		currentIcon = selectedType ? selectedType.icon : null;
@@ -86,14 +84,14 @@
 </script>
 
 <Card>
-	<h1 class="font-semibold mb-3">{$_('data.title')}</h1>
+	<h2 class="font-semibold mb-2">{$_('data.title')}</h2>
 	<div class="flex flex-col ">
 		{#if data_types}
 			<div class="flex-wrap justify-between">
 				{#each data_types as data_type}
 					<button
 						type="button"
-						class="mr-2 mb-2 border-t-indigo border rounded-md text-[10px] p-1 dark:border-white 
+						class="mr-2 mb-2 border-t-indigo border rounded-md text-[10px] p-1 hover:bg-t-ciel hover:border-t-ciel hover:text-black dark:border-white
 						{defaultContent === data_type.type && visible
 							? 'bg-t-indigo text-white dark:bg-t-ciel dark:text-black'
 							: 'bg-white text-t-indigo dark:bg-t-black dark:text-white'}"

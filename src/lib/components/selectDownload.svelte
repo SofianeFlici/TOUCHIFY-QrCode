@@ -5,7 +5,7 @@
 
 	export let defaultStyle: string;
 	export let qrCode: any;
-	console.log('url ------- ', $page.url.pathname);
+
 	let styles = ['JPEG', 'PNG', 'SVG', 'WEBP'];
 
 	function download() {
@@ -14,11 +14,9 @@
 			extension: defaultStyle
 		});
 	}
-	console.log('myqr test ------- ', $page.url.pathname);
 </script>
 
-<div
-class="bg-white flex flex-col rounded-md text-sm p-3 dark:bg-t-black {($page.url.pathname.startsWith('/mylist/qr') ? 'w-full h-full' : '')} sm:w-full">
+<div class="bg-white flex flex-col rounded-md text-sm p-3 dark:bg-t-black {($page.url.pathname.startsWith('/mylist/qr') ? 'w-full h-full' : '')} sm:w-full">
 	<select
 		class="w-full rounded-md text-t-indigo p-1 border border-t-indigo hover:border-t-indigo dark:bg-t-dark-gray dark:text-white dark:border-white sm:hidden"
 		bind:value={defaultStyle}

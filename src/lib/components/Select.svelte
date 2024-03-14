@@ -10,7 +10,7 @@
     }
   </script>
   
-  <select bind:value={value} on:change={handleChange} class="w-full h-full py-2 rounded-md text-t-indigo flex border border-t-indigo text-sm  hover:border-t-indigo dark:bg-t-black dark:text-white dark:border-white">
+  <select bind:value={value} on:change={handleChange} class="w-full h-full py-2 rounded-md text-t-indigo flex border border-t-indigo text-sm focus-visible:outline-t-ciel hover:border-t-ciel dark:bg-t-black dark:text-white dark:border-white">
     <slot></slot>
   </select>
   

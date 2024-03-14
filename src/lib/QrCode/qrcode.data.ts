@@ -74,6 +74,17 @@ export type QrCodeDataType = {
 	// options: Partial<Options>;
 };
 
+export type ColorOptions = {
+	type: string
+	color?: string;
+	gradient?: GradientOptions;
+};
+
+export type GradientOptions = {
+	type: string;
+	colorStops: { offset: number; color: string }[];
+};
+
 export function ListQrCodeDataType(): QrCodeDataType[] {
 	return [
 		{
