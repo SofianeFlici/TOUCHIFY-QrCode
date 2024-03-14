@@ -204,21 +204,21 @@ export const displayConfig: Record<string, { key: string; label: string }[]> = {
 		{ key: 'url', label: 'URL' }
 	],
 	Contact: [
-		{ key: 'firstname', label: 'Prénom' },
-		{ key: 'lastname', label: 'Nom' },
-		{ key: 'company', label: 'Société' },
-		{ key: 'jobTitle', label: 'Fonction' },
-		{ key: 'phone', label: 'Téléphone' },
-		{ key: 'email', label: 'Email' },
-		{ key: 'url', label: 'Site Internet' }
+		{ key: 'firstname', label: 'firstname' },
+		{ key: 'lastname', label: 'lastname' },
+		{ key: 'company', label: 'company' },
+		{ key: 'jobTitle', label: 'jobTitle' },
+		{ key: 'phone', label: 'phone' },
+		{ key: 'email', label: 'email' },
+		{ key: 'url', label: 'website' }
 	],
 	Wifi: [
-		{ key: 'ssid', label: 'SSID' },
-		{ key: 'password', label: 'Mot de passe' },
-		{ key: 'typeWifi', label: 'Type' }
+		{ key: 'ssid', label: 'ssid' },
+		{ key: 'password', label: 'password' },
+		{ key: 'typeWifi', label: 'typeWifi' }
 	],
 	Event: [
-		{ key: 'title', label: 'Titre' },
+		{ key: 'title', label: 'title' },
 		{ key: 'dstart', label: 'Début' },
 		{ key: 'dend', label: 'Fin' }
 	],
@@ -227,14 +227,14 @@ export const displayConfig: Record<string, { key: string; label: string }[]> = {
 		{ key: 'longitude', label: 'Longitude' }
 	],
 	SMS: [
-		{ key: 'number', label: 'Numéro' },
+		{ key: 'number', label: 'number' },
 		{ key: 'message', label: 'Message' }
 	],
 	Phone: [
-		{ key: 'number', label: 'Numéro' }
+		{ key: 'number', label: 'number' }
 	],
 	Email: [
 		{ key: 'email', label: 'Email' },
-		{ key: 'subject', label: 'Sujet' }
+		{ key: 'subject', label: 'Subjet' }
 	]
 };

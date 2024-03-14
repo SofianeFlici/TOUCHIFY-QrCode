@@ -21,7 +21,7 @@
 </script>
 
 <Card>
-	<Accordion {title} >
+	<Accordion {title} open={true}>
 		{#if cornersSquareOptions}
 			<div class="mb-4">
 				<h3 class="font-semibold mb-2">{$_(`corners.square.type.label`)}</h3>

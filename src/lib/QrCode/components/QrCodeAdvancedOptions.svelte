@@ -9,23 +9,26 @@
 
 	let title: string = `qr.title`;
 	let styles = ['L', 'M', 'Q', 'H'] as const;
-	let modes = ['Numeric', 'Alphanumeric', 'Byte', 'Kanji'] as const;
+	let modes = ['Byte'] as const;
+
+	// Mode enlevé pour l'instant 'Numeric', 'Alphanumeric', 'Kanji'
 </script>
 
 <Card>
-	<Accordion {title}>
+	<Accordion {title} open={true}>
 		{#if qrOptions}
 			<div class="flex flex-col">
-				<h3 class="font-semibold text-sm m-1">{$_('qr.type.label')}</h3>
+				<h3 class="font-semibold mb-2">{$_('qr.type.label')}</h3>
 				<div>
 					<input
 						type="number"
 						bind:value={qrOptions.typeNumber}
 						min="0"
 						max="40"
-						class="text-black text-sm rounded-md mt-3 mb-3 border border-t-indigo p-2 placeholder-black w-full dark:bg-t-black dark:text-white dark:border-white"
+						class="text-black text-sm rounded-md mt-2 mb-2 border border-t-indigo p-2 placeholder-black w-full dark:bg-t-black dark:text-white dark:border-white"
 					/>
 				</div>
+				<h3 class="font-semibold mb-2">Qualité</h3>
 				<InputRadioButtons
 					bind:value={qrOptions.errorCorrectionLevel}
 					text={(styles) => styles}

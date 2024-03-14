@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { Options } from 'qr-code-styling';
     import { _ } from 'svelte-i18n';
 	export let value: string;
 	export let nameType: string = 'text';

@@ -12,7 +12,6 @@
 	let qrCodeElement: HTMLElement | null = null;
 	let qrCode: QRCodeStyling | null = null;
 	let qrOptions: Options | null = null;
-	let styles = ['JPEG', 'PNG', 'SVG', 'WEBP'];
 	let defaultStyle: string = 'SVG';
 	let qrItems: any;
 	let open = false;
@@ -34,6 +33,7 @@
 			}
 
 			if (item) {
+				console.log('/qr ------ item', item);
 				const { default: QRCodeStyling } = await import('qr-code-styling');
 				qrItems = item;
 				qrOptions = item.options;
@@ -52,16 +52,6 @@
 
 	$: if (qrCodeElement && qrCode) {
 		qrCode.append(qrCodeElement);
-	}
-
-	function download() {
-		if (!qrCode) {
-			return;
-		}
-		qrCode.download({
-			name: 'qrcode',
-			extension: defaultStyle
-		});
 	}
 
 	async function edit() {
@@ -130,10 +120,10 @@ sm:pr-20 sm:pl-20 sm:pb-20
 			<Accordion {open} {title}>
 				<div class="flex flex-col justify-center items-center content-center rounded-md w-full border border-t-indigo mt-4 p-2
 							dark:border-white">
-					<div class="flex w-full justify-center">
-						<p class="font-bold text-sm truncate">
-							{#each displayConfig[qrItems.type] as { key }}
-								{qrItems.data[key]}&nbsp;
+					<div class="flex flex-col">
+						<p class="font-bold text-sm">
+							{#each displayConfig[qrItems.type] as { key, label }}
+								{$_(`qrLabel.${label}`)} : {qrItems.data[key]}&nbsp;
 							{/each}
 						</p>
 					</div>
@@ -150,7 +140,7 @@ sm:pr-20 sm:pl-20 sm:pb-20
 		<button
 			type="button"
 			class="w-[48%] rounded-md mt-4 border p-2 border-t-indigo text-white bg-t-indigo
-			dark:bg-transparent dark:border-white"
+			dark:bg-t-ciel dark:border-t-ciel dark:text-black"
 			on:click={edit}
 		>
 			{$_('view.load')}
@@ -158,7 +148,7 @@ sm:pr-20 sm:pl-20 sm:pb-20
 		<button
 			type="button"
 			class="w-[48%] rounded-md mt-4 border p-2 border-t-indigo text-white bg-t-indigo
-			dark:bg-transparent dark:border-white"
+			dark:bg-t-ciel dark:border-t-ciel dark:text-black"
 			on:click={destroy}
 		>
 			{#if $_('view.delete') == 'Supprimer'}

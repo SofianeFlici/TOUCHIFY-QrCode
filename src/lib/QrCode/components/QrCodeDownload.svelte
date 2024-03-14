@@ -62,20 +62,20 @@
 </script>
 
 <div
-	class="flex bg-t-medium-blue rounded-md dark:bg-transparent sm:block sm:bg-transparent">
-	<div class="m-2 sm:m-4 bg-white rounded-md dark:bg-t-black p-4">
-		<div class="qr-preview bg-white rounded-md p-2 sm:p-4" bind:this={qrCodeElement}></div>
+	class="flex bg-t-medium-blue h-24 rounded-md dark:bg-transparent sm:h-full sm:bg-transparent sm:flex-col sm:fixed ">
+	<div class="m-2 sm:m-4 bg-white rounded-md dark:bg-t-black p-2">
+		<div class="h-full qr-preview bg-white rounded-md sm:p-4" bind:this={qrCodeElement}></div>
 	</div>
 
 	<div
-		class="flex flex-col flex-grow text-white m-2
+		class="flex flex-col flex-grow text-white p-2
 					sm:m-4
 					dark:text-black"
 	>
 		<SelectDownload {defaultStyle} {qrCode} />
 		<button
 			type="button"
-			class="bg-t-indigo flex border-2 p-2 items-center rounded-md mt-2 text-sm
+			class="bg-t-indigo flex sm:border-2 p-1 sm:p-2 items-center rounded-md text-sm
 							dark:bg-t-ciel dark:border-t-ciel
 							sm:mt-4
 							sm:text-base"

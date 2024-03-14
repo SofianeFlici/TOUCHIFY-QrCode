@@ -2,6 +2,8 @@
 	import db, { type QrCodeItem } from '$lib/db.js';
 	import { onMount } from 'svelte';
 	import { ListQrCodeDataType } from '$lib/QrCode/qrcode.data';
+	import { displayConfig } from '$lib/QrCode/qrcode.data';
+	import { _ } from 'svelte-i18n';
 
 	let qrCodeData: any[] = [];
 	let qrCodeElements: HTMLElement[] = [];
@@ -9,43 +11,36 @@
 
 	onMount(async () => {
 		try {
-			const qrCodeDataTemp = [];
 			const items = await db.options.toArray();
-			for (const item of items) {
-				console.log(item);
-				qrCodeDataTemp.push({
-					type: item.type,
-					id: item.id,
-					options: item.options,
-					date: item.date,
-					icon: types.find((type) => type.type === item.type)?.icon || ''
-				});				
-			}
-
-			const { default: QRCodeStyling } = await import('qr-code-styling');
-
-			qrCodeDataTemp.forEach(async (data, index) => {
+			
+			items.forEach(async (data, index) => {
 				const { default: QRCodeStyling } = await import('qr-code-styling');
 				const qrCode = new QRCodeStyling(data.options);
 				qrCode.append(qrCodeElements[index]);
 			});
-
-			qrCodeData = qrCodeDataTemp;
-			console.log(qrCodeData);
+			
+			qrCodeData = items;
+			console.log("test ---- QrCodeData ------------",qrCodeData);
+			console.log("test ----------------",qrCodeData);
 		} catch (error) {
 			console.error('Failed to load options:', error);
 		}
 	});
+	
 </script>
 
 <div
-	class="w-full flex justify-center flex-col items-center p-4
+	class="w-full flex justify-center flex-col-reverse items-center p-4
 			sm:px-20 sm:pb-20
 			"
 >
-
-	{#each qrCodeData as _, index}
-		<a href={`/mylist/qr?id=${qrCodeData[index].id}`} class="w-full">
+	{#if qrCodeData.length === 0}
+		<p class="text-t-indigo text-center dark:text-white">
+			No QR codes found
+		</p>
+	{/if}
+	{#each qrCodeData as data , index}
+		<a href={`/mylist/qr?id=${data.id}`} class="w-full">
 			<div class="flex w-full  rounded-md mb-4 bg-white
 						dark:bg-t-black p-4">
 				<div class="w-[100px] shrink-0
@@ -57,12 +52,18 @@
 					></div>
 				</div>
 				<div class="flex flex-col overflow-hidden flex-grow justify-center text-t-indigo ml-6
-							dark:text-t-ciel">
-					<p class="font-bold text-sm truncate mb-2">
-						{qrCodeData[index].options.data}
-					</p>
+				dark:text-t-ciel">
+				<div class="flex truncate">
+					{#if data.type in displayConfig }
+					{#each displayConfig[data.type] as {key, label}}
+					<p class="font-bold text-sm mb-2">	
+						{$_(`qrLabel.${label}`)} : {data.data[key]}&nbsp;
+								</p>
+							{/each}
+						{/if}
+					</div>
 					<p class="text-xs">
-						&bull; {qrCodeData[index].type}
+						&bull; {data.type}
 					</p>
 
 					<p class="text-xs">

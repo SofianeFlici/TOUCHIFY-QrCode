@@ -4,13 +4,13 @@
 	import dots from '$assets/Elements_graphiques/dots.svg';
 </script>
 
-<div class="flex flex-col items-center w-full text-sm bg-red-400 justify-center h-screen">
+<div class="flex flex-col items-center w-full text-sm justify-center">
 	<img src={logo} alt="logo" class="w-20 h-20 mt-12" />
 	<div class="flex justify-between items-center flex-col mt-4 h-24 mb-8">
 		<h1 class="text-xl font-bold dark:text-white">QR Code Generator</h1>
 		<img src={dots} alt="dots" class="w-5" />
 		<p class="font-semibold max-w-56 text-center dark:text-white sm:max-w-max">
-			Créez, personnalisez et enregistrez votre QR Code!
+			{$_('homePage.slogan')}
 		</p>
 	</div>
 	<div

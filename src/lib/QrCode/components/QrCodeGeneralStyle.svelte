@@ -6,15 +6,14 @@
 	import Toggle from '$lib/components/Toggle.svelte';
 	import type { ColorOptions } from '../qrcode.data';
 	import Accordion from '$lib/components/Accordion.svelte';
-	import { IconAcademicCap } from 'obra-icons-svelte';
 
 	export let dotsOptions: ColorOptions;
 	export let backgroundOptions: ColorOptions;
 
 
 	let style = ['square', 'rounded', 'dots', 'classy', 'classy-rounded', 'extra-rounded'] as const;
-	let transparent = !backgroundOptions?.color;
-	$: if(transparent){
+	let transparent = backgroundOptions?.color;
+	$: if(!transparent){
 		backgroundOptions.color = undefined;
 		backgroundOptions.gradient = undefined;
 	}
@@ -36,14 +35,13 @@
 				<InputGradient bind:options={dotsOptions} 
 				defaultColor='#000000' />
 				<div class="mt-4">
-					<h3 class="font-semibold mb-2">{$_('background.color.label')}</h3>
-					<div class="flex items-center">				
-						<Toggle bind:value={transparent} text={'ui.color.transparent'} />
+					<div class="flex w-full h-full justify-between items-center">
+					<h3 class="font-semibold">{$_('background.color.label')}</h3>
+						<Toggle bind:value={transparent} />
 					</div>
 				</div>
-				<!-- -------------------- Partie dégradé --------------------------------------- -->
-				{#if !transparent && backgroundOptions}
-				<h3 class="font-semibold mb-2">{$_('dots.color.label')}</h3>
+				{#if transparent && backgroundOptions}
+				<h3 class="font-semibold mb-2 mt-2">{$_('dots.color.label')}</h3>
 					<div>
 						<InputGradient
 						bind:options={backgroundOptions}

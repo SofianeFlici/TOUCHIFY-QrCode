@@ -188,6 +188,27 @@
   "navbar": {
     "slogan": "Dynamic and interactive display for all your screens",
     "poweredby": "Powered by"
-  }
-  
+  },
+
+  "qrLabel": {
+    "url": "URL",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "company": "Company",
+    "jobTitle": "JobTitle",
+    "phone": "Phone",
+    "email": "Email",
+    "website": "Web Site",
+    "ssid": "SSID",
+    "password": "Password",
+    "typeWifi": "Type Wifi",
+    "title": "Title",
+    "dstart": "Start",
+    "dend": "End",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "number": "Number",
+    "message": "Message",
+    "subject": "Subject"
+  } 
 }
