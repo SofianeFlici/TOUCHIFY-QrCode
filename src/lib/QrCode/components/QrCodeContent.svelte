@@ -127,10 +127,16 @@
 					<InputContent bind:value={data.ssid} />
 					<InputContent bind:value={data.typeWifi}  />
 					<InputContent bind:value={data.password}  />
-					<input
-						type="checkbox"
-						class="text-black text-sm rounded mt-3 mb-3 border bg-slate-100 w-full p-2 placeholder-black"
-					/>
+					<div class="flex mt-3 mb-3 w-full">
+						<input
+							type="checkbox"
+							class="text-t-indigo text-sm  border border-t-indigo rounded-md"
+							bind:checked={data.hidden}
+							
+						/>
+						<span class="ml-2">reseau masqué</span>	
+					</div>
+					
 				{/if}
 				{#if defaultContent == 'Contact'}
 					<div class="flex w-full justify-between">
