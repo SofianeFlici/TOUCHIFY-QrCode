@@ -62,14 +62,14 @@
 </script>
 
 <div
-	class="sm:max-w-72 flex bg-t-medium-blue h-24 rounded-md dark:bg-transparent sm:h-full sm:bg-transparent sm:flex-col sm:fixed sm:top-15 ">
-	<div class="m-2 sm:m-4 bg-white rounded-md dark:bg-t-black p-2">
+	class="sm:max-w-72 flex bg-t-medium-blue h-24 rounded-md dark:bg-transparent sm:h-full sm:bg-transparent sm:flex-col sm:fixed sm:mt-2 ">
+	<div class="m-2 sm:mx-4 bg-white rounded-md dark:bg-t-black p-2">
 		<div class="h-full qr-preview bg-white rounded-md sm:p-4" bind:this={qrCodeElement}></div>
 	</div>
 
 	<div
 		class="flex flex-col flex-grow text-white p-2
-					sm:m-4
+					sm:m-2
 					dark:text-black"
 	>
 		<SelectDownload {defaultStyle} {qrCode} />
