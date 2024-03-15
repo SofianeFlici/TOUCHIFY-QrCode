@@ -14,7 +14,6 @@
 	let qrOptions: Options | null = null;
 	let defaultStyle: string = 'SVG';
 	let qrItems: any;
-	let open = false;
 	let title = 'view.data';
 
 	onMount(async () => {
@@ -43,7 +42,7 @@
 					qrCode.append(qrCodeElement);
 				}
 			}
-			
+
 			console.log('qrItems', qrItems);
 		} catch (error) {
 			console.error('Failed to load options:', error);
@@ -117,15 +116,17 @@ sm:pr-20 sm:pl-20 sm:pb-20
 	dark:text-white dark:bg-t-black"
 	>
 		{#if qrItems && qrOptions && qrItems.type in displayConfig}
-			<Accordion {open} {title}>
-				<div class="flex flex-col justify-center items-center content-center rounded-md w-full border border-t-indigo mt-4 p-2
-							dark:border-white">
-					<div class="flex flex-col">
-						<p class="font-bold text-sm">
-							{#each displayConfig[qrItems.type] as { key, label }}
+			<Accordion {title} open={true}>
+				<div
+					class="flex flex-col justify-center items-center content-center rounded-md w-full border border-t-indigo mt-4 p-2
+							dark:border-white"
+				>
+					<div class="flex flex-col items-center p-1">
+						{#each displayConfig[qrItems.type] as { key, label }}
+							<span class="font-semibold text-sm">
 								{$_(`qrLabel.${label}`)} : {qrItems.data[key]}&nbsp;
-							{/each}
-						</p>
+							</span>
+						{/each}
 					</div>
 					<div>
 						<p class="text-xs mt-2 justify-center flex">
