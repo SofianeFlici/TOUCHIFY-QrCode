@@ -15,7 +15,7 @@
 </script>
 
 <Card>
-	<Accordion {title} open={true}>
+	<Accordion {title}>
 		{#if qrOptions}
 			<div class="flex flex-col">
 				<h3 class="font-semibold mb-2">{$_('qr.type.label')}</h3>
@@ -28,14 +28,14 @@
 						class="text-black text-sm rounded-md mt-2 mb-2 border border-t-indigo p-2 placeholder-black w-full dark:bg-t-black dark:text-white dark:border-white"
 					/>
 				</div>
-				<h3 class="font-semibold mb-2">Qualité</h3>
+				<h3 class="font-semibold mb-2">Precision</h3>
 				<InputRadioButtons
 					bind:value={qrOptions.errorCorrectionLevel}
 					text={(styles) => styles}
 					options={styles}
 				></InputRadioButtons>
-				<InputRadioButtons bind:value={qrOptions.mode} text={(modes) => modes} options={modes}
-				></InputRadioButtons>
+				<!-- <InputRadioButtons bind:value={qrOptions.mode} text={(modes) => modes} options={modes}
+				></InputRadioButtons> -->
 			</div>
 		{/if}
 	</Accordion>

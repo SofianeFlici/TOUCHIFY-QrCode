@@ -75,10 +75,11 @@ export type QrCodeDataType = {
 };
 
 export type ColorOptions = {
-	type: string
+	type: string;
 	color?: string;
 	gradient?: GradientOptions;
-};
+} | undefined;
+
 
 export type GradientOptions = {
 	type: string;
@@ -214,7 +215,6 @@ export const displayConfig: Record<string, { key: string; label: string }[]> = {
 	],
 	Wifi: [
 		{ key: 'ssid', label: 'ssid' },
-		{ key: 'password', label: 'password' },
 		{ key: 'typeWifi', label: 'typeWifi' }
 	],
 	Event: [

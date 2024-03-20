@@ -11,7 +11,6 @@
 	import QrCodeDefinedChoice from '$lib/QrCode/components/QrCodeDefinedChoice.svelte';
 	import db, { type QrCodeItem } from '$lib/db';
 	import type { QrCodeData } from '$lib/QrCode/qrcode.data';
-	import type { ColorOptions } from '$lib/QrCode/qrcode.data';
 
 	let id: string = '';
 	let defaultContent = 'URL';
@@ -46,6 +45,9 @@
 		}
 
 		options = options || {
+			dotOptions:{
+				type:undefined,
+			},
 			image: undefined,
 			data: '',
 			width: 500,
@@ -72,7 +74,6 @@
 	let data: QrCodeData = {};
 	let blob: Blob | null = null;
 
-	$: console.error('opts', options);
 </script>
 
 {#if options}
@@ -81,13 +82,13 @@
 	sm:flex-row-reverse sm:mt-0"
 	>
 		<div
-			class="px-4 sm:-ml-4
+			class="mb-24 sm:mb-0 px-4 sm:-ml-4
 	sm:w-2/3
 	"
 		>
 			<QrCodeDownload bind:options {data} {blob} {id} {defaultContent} />
 		</div>
-		<div class="w-full">
+		<div class="w-full mt-2">
 			<QrCodeContent bind:data bind:options bind:defaultContent {optionsType} />
 			<QrCodeGeneralStyle
 				bind:dotsOptions={options.dotsOptions}

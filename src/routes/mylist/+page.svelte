@@ -39,43 +39,44 @@
 	{#each qrCodeData as data, index}
 		<a href={`/mylist/qr?id=${data.id}`} class="w-full">
 			<div
-				class="flex w-full rounded-md mb-4 bg-white
-						dark:bg-t-black p-4"
+				class="flex w-full rounded-md mb-4 p-2 bg-white
+						dark:bg-t-black"
 			>
 				<div
-					class="w-[100px] shrink-0
-							sm:w-[120px]"
+					class="w-[70px] shrink-0
+							sm:w-[100px]"
 				>
 					<div
-						class="qr-preview bg-white aspect-square p-4 rounded-md
+						class="qr-preview bg-white aspect-square p-2 rounded-md
 								"
 						bind:this={qrCodeElements[index]}
 					></div>
 				</div>
 				<div
-					class="flex flex-col overflow-hidden flex-grow justify-center text-t-indigo ml-6
+					class="flex flex-col overflow-hidden flex-grow justify-center text-t-indigo ml-3 sm:ml-6
 				dark:text-t-ciel"
 				>
-					<div class="flex truncate">
+					<div class="flex">
 						{#if data.type in displayConfig}
-							{#each displayConfig[data.type] as { key, label }}
-								<p class="font-bold text-sm mb-2">
-									{$_(`qrLabel.${label}`)} : {data.data[key]}&nbsp;
-								</p>
-							{/each}
+							<p class="font-bold mb-2 truncate text-sm sm:text-lg">
+								{#each displayConfig[data.type].slice(0, 2) as { key }}
+									{data.data[key]}&nbsp;
+								{/each}
+							</p>
 						{/if}
 					</div>
-					<p class="text-xs">
-						&bull; {data.type}
+					<p class="text-xs sm:text-sm">
+						{data.type}
+						&bull;
+						{qrCodeData[index].date.toLocaleDateString()}
 					</p>
 
-					<p class="text-xs">
-						&bull; {qrCodeData[index].date.toLocaleDateString()}
-					</p>
+					<!-- <p class="text-sm">
+					</p> -->
 				</div>
 				<div class="">
 					<span
-						class="h-full flex items-center text-t-indigo p-2 shrink-0
+						class="h-full flex items-center text-t-indigo sm:p-2 shrink-0
 								dark:text-t-ciel"
 					>
 						<svg

@@ -123,8 +123,9 @@ sm:pr-20 sm:pl-20 sm:pb-20
 				>
 					<div class="flex flex-col items-center p-1">
 						{#each displayConfig[qrItems.type] as { key, label }}
-							<span class="font-semibold text-sm">
-								{$_(`qrLabel.${label}`)} : {qrItems.data[key]}&nbsp;
+							<span class=" text-sm">
+								{$_(`qrLabel.${label}`)} :
+								<span class="font-semibold">{qrItems.data[key]}&nbsp;</span>
 							</span>
 						{/each}
 					</div>

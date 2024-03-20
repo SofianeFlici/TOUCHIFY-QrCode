@@ -62,21 +62,22 @@
 </script>
 
 <div
-	class="sm:max-w-72 flex bg-t-medium-blue h-24 rounded-md dark:bg-transparent sm:h-full sm:bg-transparent sm:flex-col sm:fixed sm:mt-2 ">
-	<div class="m-2 sm:mx-4 bg-white rounded-md dark:bg-t-black p-2">
+	class="fixed z-50 right-0 left-0 top-[94px] flex bg-t-medium-blue h-28 justify-center shadow-lg sm:shadow-none sm:top-16 dark:bg-transparent sm:left-auto sm:right-auto sm:h-full sm:bg-transparent sm:flex-col sm:fixed sm:mt-2 sm:max-w-72">
+	<div class="m-4 sm:mx-4 bg-white  p-2 rounded-md dark:bg-t-black">
 		<div class="h-full qr-preview bg-white rounded-md sm:p-4" bind:this={qrCodeElement}></div>
 	</div>
 
 	<div
-		class="flex flex-col flex-grow text-white p-2
-					sm:m-2
+		class="flex flex-col flex-grow text-white p-2 justify-center max-w-36
+					sm:m-2 sm:max-w-full sm:justify-normal
 					dark:text-black"
 	>
 		<SelectDownload {defaultStyle} {qrCode} />
 		<button
 			type="button"
-			class="bg-t-indigo flex sm:border-2 p-1 sm:p-2 items-center rounded-md text-sm
+			class="bg-t-indigo max-w-36 flex sm:border-2 p-2 sm:w-full sm:p-2 items-center rounded-md text-sm
 							dark:bg-t-ciel dark:border-t-ciel
+							sm:max-w-full
 							sm:mt-4
 							sm:text-base"
 			on:click={saveOptions}
