@@ -63,7 +63,7 @@
 </script>
 
 <div
-	class="w-full justify-center flex flex-col items-center text-t-indigo absolute top-52 sm:top-0 sm:right-0 sm:left-0 sm:bottom-0
+	class="w-full justify-center flex flex-col items-center text-t-indigo absolute top-0 right-0 left-0 bottom-0
 			dark:text-t-ciel"
 >
 	{#if result == ''}
