@@ -67,7 +67,7 @@ export type QrCodeData =
 	| QrCodeDataGeoloc;
 
 export type QrCodeDataType = {
-	type: string;
+	type?: string;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	icon: typeof SvelteComponentTyped<any>;
 	data?: QrCodeData;
@@ -75,7 +75,7 @@ export type QrCodeDataType = {
 };
 
 export type ColorOptions = {
-	type: string;
+	type?: string;
 	color?: string;
 	gradient?: GradientOptions;
 } | undefined;
