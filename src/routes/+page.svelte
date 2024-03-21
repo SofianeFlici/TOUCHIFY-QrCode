@@ -2,6 +2,19 @@
 	import { _ } from 'svelte-i18n';
 	import logo from '$assets/Elements_graphiques/Logo - light.svg';
 	import dots from '$assets/Elements_graphiques/dots.svg';
+
+	if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
+    });
+}
+
 </script>
 
 <div class="flex flex-col items-center w-full text-sm justify-center">
