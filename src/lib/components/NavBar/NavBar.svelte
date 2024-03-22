@@ -104,7 +104,3 @@
 		</div>
 	{/if}
 </nav>
-
-<style>
-	
-</style>

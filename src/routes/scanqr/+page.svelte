@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import jsQR from 'jsqr';
+	import { parseData, innerHtml } from '$lib/utils/parseQrData';
 
 	let videoElement: HTMLVideoElement;
 	let canvas: HTMLCanvasElement;
-	let ctx: CanvasRenderingContext2D;
+	let ctx: CanvasRenderingContext2D | null;
 	let result: string = '';
+	let renderedData:any = [];
 
 	function reset() {
 		result = '';
@@ -39,9 +41,10 @@
 				const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 				const code = jsQR(imageData.data, imageData.width, imageData.height);
 				if (code) {
-					console.log('Found QR code', code);
 					result = code.data;
-					videoElement.srcObject.getTracks().forEach((track:any) => track.stop());
+					renderedData = parseData(result);
+					console.log('QR code data', renderedData);
+					videoElement.srcObject?.getTracks().forEach((track) => track.stop());
 				}
 			}
 			if (!result) {
@@ -52,11 +55,12 @@
 	}
 
 	function stopVideo() {
-		if (videoElement.srcObject) {
-			videoElement.srcObject.getTracks().forEach((track:any) => track.stop());
+		if (videoElement?.srcObject) {
+			videoElement.srcObject.getTracks().forEach((track: any) => track.stop());
 			videoElement.srcObject = null;
 		}
 	}
+
 	onDestroy(() => {
 		stopVideo();
 	});
@@ -69,8 +73,10 @@
 	{#if result == ''}
 		<video bind:this={videoElement} width="700" height="700" aria-label="Flux vidéo pour la lecture de codes QR" class="-z-1 absolute"></video>
 		<canvas bind:this={canvas} width="400" height="400" style="display: none;"></canvas>
-		<div class="relative w-20 h-20 flex justify-center items-center
-		sm:w-52 sm:h-52">
+		<div
+			class="relative w-20 h-20 flex justify-center items-center
+		sm:w-52 sm:h-52"
+		>
 			<div
 				class="absolute top-0 left-0 w-[32%] h-[32%] border-t-4 border-l-4 border-current rounded-tl-xl"
 			></div>
@@ -86,16 +92,19 @@
 		</div>
 		<p class="text-xs font-semibold mt-4 z-10 sm:text-md">Scannez le QR code</p>
 	{:else}
-	<div class="w-full flex flex-col justify-center items-center">
-		<p>{result}</p>
-		<button
-			class="text-xs border border-t-indigo bg-white rounded-md p-2 dark:bg-t-black dark:text-white dark:border-white
+		{#each renderedData as { key, value }}
+			{@html innerHtml(key, value)}
+		{/each}
+
+		<div class="w-full flex flex-col justify-center items-center">
+			<button
+				class="text-xs border border-t-indigo bg-white rounded-md p-2 dark:bg-t-black dark:text-white dark:border-white
 			sm:text-sm"
-			on:click={reset}
-		>
-			Scanner un autre QrCode
-		</button>
-	</div>
+				on:click={reset}
+			>
+				Scanner un autre QrCode
+			</button>
+		</div>
 	{/if}
 </div>
 
