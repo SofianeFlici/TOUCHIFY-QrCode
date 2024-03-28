@@ -41,7 +41,7 @@
 {/if}
 
 {#if isOpen}
-	<div class="flex flex-col fixed top-14 bg-white border-2 border-t-indigo text-t-dark-gray right-4 justify-between w-36 rounded-md
+	<div class="flex flex-col z-50 fixed top-14 bg-white border-2 border-t-indigo text-t-dark-gray right-4 justify-between w-36 rounded-md
 				dark:bg-t-black dark:border-t-ciel dark:text-t-ciel">
 		{#each lang as { id, name, img }}
 			<div class="flex row w-4/6">

@@ -10,7 +10,8 @@
 		generateWifi,
 		generateUrl,
 		generateGeo,
-		generateEvent
+		generateEvent,
+		generateWhatsapp
 	} from '../qrcode.data';
 	import InputContent from '$lib/components/inputContent.svelte';
 
@@ -60,6 +61,9 @@
 			break;
 		case 'Phone':
 			options.data = generatePhone(data);
+			break;
+		case 'Whatshapp':
+			options.data = generateWhatsapp(data);
 			break;
 		case 'Wifi':
 			options.data = generateWifi(data);
@@ -122,6 +126,10 @@
 				{/if}
 				{#if defaultContent == 'Phone'}
 					<InputContent bind:value={data.number} />
+				{/if}
+				{#if defaultContent == 'Whatsapp'}
+					<InputContent bind:value={data.number}  />
+					<InputContent bind:value={data.message}  />
 				{/if}
 				{#if defaultContent == 'Wifi'}
 					<InputContent bind:value={data.ssid} />

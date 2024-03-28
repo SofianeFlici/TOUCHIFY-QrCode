@@ -6,9 +6,11 @@ import {
 	IconMessage,
 	IconPhone,
 	IconWifi,
-	IconGlobe
+	IconGlobe,
+	IconCall
 } from 'obra-icons-svelte';
 import type { SvelteComponentTyped } from 'svelte';
+
 
 export type QrCodeDataUrl = {
 	url: string;
@@ -26,6 +28,11 @@ export type QrCodeDataEmail = {
 
 export type QrCodeDataPhone = {
 	number: number;
+};
+
+export type QrCodeDataWhatsapp = {
+	number: number;
+	message?: string;
 };
 
 export type QrCodeDataContact = {
@@ -111,6 +118,14 @@ export function ListQrCodeDataType(): QrCodeDataType[] {
 			}
 		},
 		{
+			type: 'Whatsapp',
+			icon: IconCall,
+			data: {
+				number: 123456789,
+				message: 'Hello World'
+			}
+		},
+		{
 			type: 'Contact',
 			icon: IconContactBook,
 			data: {
@@ -173,7 +188,8 @@ export function generateVCard({
 	phone,
 	url
 }: QrCodeDataContact) {
-	return `BEGIN:VCARD\nVERSION:3.0\nFN:${firstname} ${lastname}\nORG:${company}\nTITLE:${jobTitle}\nEMAIL:${email}\nTEL:${phone}\nURL:${url}\nEND:VCARD`;
+	return `BEGIN:VCARD\nVERSION:3.0\nN:${(firstname || '')};${lastname}\nORG:${(company || '')}\nTITLE:${jobTitle}\nEMAIL:${email}\nTEL:${phone}\nURL:${url}\nEND:VCARD`;
+
 }
 
 export function generateWifi({ ssid, password, typeWifi }: QrCodeDataWifi) {
@@ -189,11 +205,17 @@ export function generateGeo({ latitude, longitude }: QrCodeDataGeoloc) {
 }
 
 export function generateSms({ number, message }: QrCodeDataSms) {
-	return `SMSTO:${number}:${message}`;
+	if(message != '') return `SMSTO:${number}:${message}`;
+	else return `SMSTO:${number}`;
 }
 
 export function generatePhone({ number }: QrCodeDataPhone) {
 	return `tel:${number}`;
+}
+
+export function generateWhatsapp({ number , message }: QrCodeDataWhatsapp) {
+	if(message != '') return `WHATSAPP:${number}:${message}`;
+	else return `WHATSAPP:${number}`;
 }
 
 export function generateEmail({ email, subject }: QrCodeDataEmail) {
@@ -233,8 +255,21 @@ export const displayConfig: Record<string, { key: string; label: string }[]> = {
 	Phone: [
 		{ key: 'number', label: 'number' }
 	],
+	Whatsapp: [
+		{ key: 'number', label: 'number' },
+		{ key: 'message', label: 'Message' }
+	],
 	Email: [
 		{ key: 'email', label: 'Email' },
 		{ key: 'subject', label: 'Subjet' }
+	],
+	BEGIN: [
+		{ key: 'firstname', label: 'firstname' },
+		{ key: 'lastname', label: 'lastname' },
+		{ key: 'company', label: 'company' },
+		{ key: 'jobTitle', label: 'jobTitle' },
+		{ key: 'phone', label: 'phone' },
+		{ key: 'email', label: 'email' },
+		{ key: 'url', label: 'website' }
 	]
 };
