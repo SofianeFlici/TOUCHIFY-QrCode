@@ -1,29 +1,35 @@
-import { number } from 'svelte-i18n';
 import {
 	IconCalendarCheck,
 	IconContactBook,
 	IconEmail,
 	IconLocationMarker,
 	IconMessage,
-	IconPhone,
+	// IconPhone,
 	IconWifi,
 	IconGlobe,
 	IconCall
 } from 'obra-icons-svelte';
+import { _ } from 'svelte-i18n';
+import { get } from 'svelte/store';
+
+let tmp = get(_);
+const tt = tmp('phone.name');
+console.log('svelte --------- i18n', tt);
+
 
 interface QRDataItem {
 	key: string;
 	value: string;
 }
 
-const renderedData: QRDataItem[] = [];
 
 export function parseData(data: string): QRDataItem[] {
+	console.log('parseData--- data --- vcard test', data);
 	const lines = data.split('\n');
 	const dataValue: Array<{ key: string; value: string }> = [];
 	for (const line of lines) {
 		let [k, ...rest] = line.split(':');
-		const value = rest.join(':'); // Réassemblez le reste au cas où il y a des ':' dans la valeur
+		const value = rest.join(':');
 		if (k) {
 			const key = k.trim().toLowerCase();
 			if (key === 'wifi') {
@@ -40,19 +46,16 @@ export function parseData(data: string): QRDataItem[] {
 				const parts = value.split(':');
 				if (parts.length >= 2) {
 					const number = parts[0].trim();
-					const message = parts.slice(1).join(':').trim(); // Rejoignez le reste au cas où il y a des ':' dans le message
+					const message = parts.slice(1).join(':').trim();
 					dataValue.push({ key, value: `${number}?body=${message}` });
 				} else {
 					dataValue.push({ key, value: `${value.trim()}?body=` });
 				}
 			} else if (key.startsWith('begin') && value.trim().toLowerCase() === 'vcard') {
-				// Début du traitement de vCard
-				const vCardData = lines.join('\n'); // Rejoindre toutes les lignes pour obtenir les données complètes de vCard
-				// Ici, vous pouvez soit retourner les données vCard brutes, soit les parser davantage pour extraire des champs spécifiques
+				const vCardData = lines.join('\n');
 				dataValue.push({ key: 'vcard', value: vCardData });
-				break; // Supposer que toute la vCard est contenue dans le QR code et qu'après son traitement, on peut sortir de la boucle
+				break;
 			} else {
-				// Traitement standard pour toutes les autres clés
 				dataValue.push({ key, value: value.trim() });
 			}
 		}
@@ -61,25 +64,94 @@ export function parseData(data: string): QRDataItem[] {
 	return dataValue;
 }
 
-export function formatVcardToVcf({
-	firstname,
-	lastname,
-	company,
-	jobTitle,
-	email,
-	phone,
-	url
-}: {
-	firstname: string;
-	lastname: string;
-	company: string;
-	jobTitle: string;
-	email: string;
-	phone: string;
-	url: string;
-}) {
-	return `BEGIN:VCARD\nVERSION:3.0\nFN:${firstname} ${lastname}\nORG:${company}\nTITLE:${jobTitle}\nEMAIL:${email}\nTEL:${phone}\nURL:${url}\nEND:VCARD`;
+interface QRDataItem {
+    key: string;
+    value: string;
 }
+
+// interface BuiltData {
+//     type: string;
+//     content: any;
+// }
+
+export function buildData(data) {
+    console.log('buildData--- data', data);
+    if (data.length === 0) {
+        return { type: '', content: {}, action: {} };
+    }
+
+    const resultData = { type: '', content: {}, action: {} };
+    const firstRow = data[0];
+
+    switch (firstRow.key) {
+        case 'wifi':
+            const partsWifi = firstRow.value.split(';').reduce((acc, curr) => {
+                const [key, value] = curr.split(':');
+                if (key && value) acc[key.trim()] = value.trim();
+                return acc;
+            }, {});
+            resultData.type = 'wifi';
+            resultData.content = partsWifi;
+			// console.log('buildData--- partsWifi', resultData.content['S']);
+            resultData.action = { href: `WIFI://${resultData.content['S']}:${resultData.content['P']}@ssid`, text: [`scan.open.wifi`], icon: IconWifi };
+            break;
+        case 'smsto':
+            const [number, message] = firstRow.value.split('?body=');
+            resultData.type = 'sms';
+            resultData.content = { number, message };
+            resultData.action = { href: `sms:${number}?body=${message || ''}`, text: [`scan.open.sms`], icon: IconMessage };
+            break;
+        case 'mailto':
+            const [email, subject] = firstRow.value.split('?subject=');
+            resultData.type = 'email';
+            resultData.content = { email, subject };
+			resultData.action = { href: `mailto:${email}?subject=${subject || ''}`, text: [`scan.open.email`], icon: IconEmail };
+            break;
+        case 'tel':
+            resultData.type = 'phone';
+            resultData.content = data.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
+            resultData.action = { href: `tel:${firstRow.value}`, text: [`scan.open.phone`], icon: IconCall };
+            break;
+        case 'http':
+        case 'https':
+            resultData.type = 'link';
+            resultData.content = data.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
+            resultData.action = { href: firstRow.value, text: [`scan.open.url`,`https:${firstRow.value}`], icon: IconGlobe };
+            break;
+        case 'geo':
+            const [latitude, longitude] = firstRow.value.split(',');
+            resultData.type = 'geo';
+            resultData.content = { latitude, longitude };
+            resultData.action = { href: `geo:${latitude},${longitude}`, text: [`scan.open.geo`], icon: IconLocationMarker };
+            break;
+        case 'vcard':
+			let lines = firstRow.value.split('\n');
+			const vCardObject = {};
+		
+			lines.forEach(line => {
+				let [key, value] = line.split(':');
+				if (key && value) {
+					key = key.toLowerCase().trim();
+					value = value.trim();
+					vCardObject[key] = value;
+				}
+			});
+            resultData.type = 'vcard';
+            resultData.content = vCardObject;
+            resultData.action = { text: ['scan.open.vcard'], icon: IconContactBook };
+            break;
+        case 'begin':
+            resultData.type = 'event';
+            resultData.content = data.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
+            resultData.action = { text: ["scan.open.event"], icon: IconCalendarCheck };
+            break;
+        default:
+            console.log('Type de QR code non reconnu.');
+    }
+
+    return resultData;
+}
+
 
 export function formatEventToIcs({
 	summary,
@@ -105,114 +177,26 @@ export function formatEventToIcs({
 	].join('\r\n');
 }
 
-// export function downloadVcfFile(vcfData: string, fileName: string) {
-// 	const blob = new Blob([vcfData], { type: 'text/vcard' });
-// 	const url = URL.createObjectURL(blob);
-// 	const link = document.createElement('a');
-// 	link.href = url;
-// 	link.download = `${fileName}.vcf`;
-// 	document.body.appendChild(link);
-// 	link.click();
-// 	document.body.removeChild(link);
-// 	URL.revokeObjectURL(url);
-// }
+export function downloadVcfFile(vcfData: string, fileName: string) {
+	const blob = new Blob([vcfData], { type: 'text/vcard' });
+	const url = URL.createObjectURL(blob);
+	const link = document.createElement('a');
+	link.href = url;
+	link.download = `${fileName}.vcf`;
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+	URL.revokeObjectURL(url);
+}
 
-// export function downloadIcsFile(icsData: string, fileName: string) {
-// 	const blob = new Blob([icsData], { type: 'text/calendar' });
-// 	const url = URL.createObjectURL(blob);
-// 	const link = document.createElement('a');
-// 	link.href = url;
-// 	link.download = `${fileName}.ics`;
-// 	document.body.appendChild(link);
-// 	link.click();
-// 	document.body.removeChild(link);
-// 	URL.revokeObjectURL(url);
-// }
-
-// export function handleDownloadEvent() {
-// 	const summaryItem = renderedData.find((item) => item.key === 'summary');
-// 	const dtstartItem = renderedData.find((item) => item.key === 'dtstart');
-// 	const dtendItem = renderedData.find((item) => item.key === 'dtend');
-
-// 	if (summaryItem && dtstartItem && dtendItem) {
-// 		const eventData = {
-// 			summary: summaryItem.value,
-// 			dtstart: dtstartItem.value,
-// 			dtend: dtendItem.value
-// 		};
-
-// 		const icsData = formatEventToIcs(eventData);
-// 		const fileName = eventData.summary || 'Event';
-// 		downloadIcsFile(icsData, fileName);
-// 	} else {
-// 		console.error('Incomplete event data.');
-// 	}
-// }
-
-export function getLinkData(key: string, value: string) {
-	let parts, number, message, email, subject;
-
-	console.log('getLinkData--- key', key);
-	switch (key) {
-		case 'tel':
-			return { type: 'phone', href: `tel:${value}`, text: `Appeler le ${value}`, icon: IconCall };
-		case 'smsto':
-			console.log('getLinkData--- smsto', value);
-			parts = value.split('?body=');
-			number = parts[0];
-			message = parts[1];
-			console.log('getLinkData--- number', number);
-			console.log('getLinkData--- message', message);
-			return {
-				type: 'sms',
-				action: () => {},
-				text: `Envoyer SMS`,
-				href: `sms:${number}?body=${message}`,
-				number: `${number}`,
-				message: ` ${message}`,
-				icon: IconMessage
-			};
-		case 'mailto':
-			parts = value.split('?subject=');
-			email = parts[0];
-			subject = parts[1];
-			return {
-				type: 'email',
-				href: `mailto:${value}`,
-				email: `Envoyer un email à ${email}`,
-				subject: `${subject}`,
-				text: `Envoyer un email`,
-				icon: IconEmail
-			};
-		case 'https':
-			return { type: 'link', href: `https://${value}`, text: `Visiter ${value}`, icon: IconGlobe };
-		case 'geo':
-			return {
-				type: 'link',
-				href: `geo:${value}`,
-				text: `Ouvrir la carte`,
-				icon: IconLocationMarker
-			};
-		case 'wifi':
-			return { type: 'wifi', href: `wifi:${value}`, text: `Connecter au WiFi`, icon: IconWifi };
-		case 'begin':
-			if (key === 'begin' || key === 'summary') {
-				return {
-					type: 'event',
-					Text: "Ajouter à l'agenda",
-					icon: IconCalendarCheck
-				};
-			} else if (key === 'vcard') {
-				return {
-					type: 'action',
-					action: () => downloadVcfFile(value, 'contact'),
-					text: `Télécharger vCard`,
-					icon: IconContactBook
-				};
-			}
-
-			break;
-		default:
-			return { type: 'text', text: value };
-	}
+export function downloadIcsFile(icsData: string, fileName: string) {
+	const blob = new Blob([icsData], { type: 'text/calendar' });
+	const url = URL.createObjectURL(blob);
+	const link = document.createElement('a');
+	link.href = url;
+	link.download = `${fileName}.ics`;
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+	URL.revokeObjectURL(url);
 }

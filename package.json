@@ -35,7 +35,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@zxing/browser": "^0.1.4",
+		"@zxing/library": "^0.20.0",
 		"dexie": "^3.2.4",
+		"html5-qrcode": "^2.3.8",
 		"jsqr": "^1.4.0",
 		"obra-icons-svelte": "^1.10.0",
 		"qr-code-styling": "^1.6.0-rc.1",

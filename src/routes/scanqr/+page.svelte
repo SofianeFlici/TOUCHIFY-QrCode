@@ -1,290 +1,298 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import jsQR from 'jsqr';
+	import { Html5Qrcode } from 'html5-qrcode';
 	import {
 		parseData,
-		getLinkData,
+		buildData,
 		formatEventToIcs,
-		// downloadIcsFile,
-		formatVcardToVcf,
-		// downloadVcfFile,
-		// handleDownloadEvent
+		downloadIcsFile,
+		downloadVcfFile
 	} from '$lib/utils/parseQrData';
+	import { _ } from 'svelte-i18n';
+	let isScanning = false;
 
-	let isEventAvailable = false;
+	// console.log('Scan QR code page ---- trad', $_);
+	let renderedData: any = null;
 
-	let videoElement: HTMLVideoElement;
-	let canvas: HTMLCanvasElement;
-	let ctx: CanvasRenderingContext2D | null;
-	let result: string = '';
-	// let renderedData: any = [];
+	let html5QrCode: any;
 
-	let isVCardAvailable = false;
+	$: console.log('Rendered data:', renderedData);
 
-	let renderedData: any = [
-		{ key: 'tel', value: '1234567890' },
-		{ key: 'smsto', value: '1234567890?body=Hello World' },
-		{ key: 'mailto', value: 'example@example.com' },
-		{ key: 'https', value: 'www.example.com' },
-		{ key: 'geo', value: '40.689247,-74.044502' },
-		{ key: 'wifi', value: 'S:MySSID;T:WPA;P:MyPassword;;' },
-		{
-			key: 'vcard',
-			value:
-				'BEGIN:VCARD\nVERSION:3.0\nFN:John Doe\nTEL;TYPE=WORK,VOICE:(111) 555-1212\nEMAIL:john.doe@example.com\nEND:VCARD'
-		}
-	];
+	onMount(() => {
+		html5QrCode = new Html5Qrcode('reader');
 
-	export function downloadIcsFile(icsData: string, fileName: string) {
-	const blob = new Blob([icsData], { type: 'text/calendar' });
-	const url = URL.createObjectURL(blob);
-	const link = document.createElement('a');
-	link.href = url;
-	link.download = `${fileName}.ics`;
-	document.body.appendChild(link);
-	link.click();
-	document.body.removeChild(link);
-	URL.revokeObjectURL(url);
-}
-// function downloadVcfFile(vcfData: string, fileName: string) {
-// 	const blob = new Blob([vcfData], { type: 'text/vcard' });
-// 	const url = URL.createObjectURL(blob);
-// 	const link = document.createElement('a');
-// 	link.href = url;
-// 	link.download = `${fileName}.vcf`;
-// 	document.body.appendChild(link);
-// 	link.click();
-// 	document.body.removeChild(link);
-// 	URL.revokeObjectURL(url);
-// }
+		Html5Qrcode.getCameras()
+			.then((devices) => {
+				if (devices && devices.length) {
+					const backCamera = devices.find((device) => /back|rear/i.test(device.label));
+					const cameraId = backCamera ? backCamera.id : devices[0].id;
 
-export function handleDownloadEvent() {
-	const summaryItem = renderedData.find((item) => item.key === 'summary');
-	const dtstartItem = renderedData.find((item) => item.key === 'dtstart');
-	const dtendItem = renderedData.find((item) => item.key === 'dtend');
+					const config = {
+						fps: 10,
+						qrbox: 250,
+						cameraId: cameraId
+					};
 
-	if (summaryItem && dtstartItem && dtendItem) {
-		const eventData = {
-			summary: summaryItem.value,
-			dtstart: dtstartItem.value,
-			dtend: dtendItem.value
-		};
+					html5QrCode
+						.start(
+							{ facingMode: 'environment' }, // Préfère la caméra arrière sans utiliser l'ID
+							config,
+							(decodedText: string) => {
+								console.log('Scan started ------------------');
+								let result = parseData(decodedText);
+								console.log('Parsed data:', result); // Affiche correctement l'objet
+								renderedData = buildData(result);
+								console.log('Built data:', renderedData);
+								stopScanner();
+							},
 
-		const icsData = formatEventToIcs(eventData);
-		const fileName = eventData.summary || 'Event';
-		downloadIcsFile(icsData, fileName);
-	} else {
-		console.error('Incomplete event data.');
+							(errorMessage: string) => {
+								// console.error('Error scanning QR code', errorMessage);
+							}
+						)
+						.then(() => {
+							isScanning = true;
+							// console.log('Scanner started');
+						})
+						.catch((err: string) => {
+							// console.error('Unable to start the QR scanner', err);
+						});
+				}
+			})
+			.catch((err) => {
+				// console.error('Error getting cameras', err);
+			});
+	});
+
+	onDestroy(() => {
+		stopScanner();
+	});
+
+	function stopScanner(): Promise<void> {
+		return new Promise((resolve, reject) => {
+			if (isScanning) {
+				html5QrCode
+					.stop()
+					.then(() => {
+						console.log('Scanner stopped');
+						isScanning = false;
+						resolve(); // Résout la promesse si le scanner s'arrête avec succès
+					})
+					.catch((err) => {
+						console.error('Failed to stop the scanner', err);
+						reject(err); // Rejette la promesse en cas d'erreur
+					});
+			} else {
+				console.log('Scanner is not running or already stopped');
+				resolve(); // Résout la promesse car il n'est pas nécessaire d'arrêter le scanner
+			}
+		});
 	}
-}
 
-// export function handleDownloadVCard() {
-// 	const fnItem = renderedData.find((item) => item.key === 'fn');
-// 	const orgItem = renderedData.find((item) => item.key === 'org');
-// 	const telItem = renderedData.find((item) => item.key === 'tel');
-// 	const emailItem = renderedData.find((item) => item.key === 'email');
-// 	const adrItem = renderedData.find((item) => item.key === 'adr');
-// 	const urlItem = renderedData.find((item) => item.key === 'url');
-
-// 	if (fnItem) {
-// 		const vCardData = {
-// 			fn: fnItem.value,
-// 			org: orgItem?.value,
-// 			tel: telItem?.value,
-// 			email: emailItem?.value,
-// 			adr: adrItem?.value,
-// 			url: urlItem?.value
-// 		};
-
-// 		const vcfData = formatVcardToVcf(vCardData);
-// 		downloadVcfFile(vcfData);
-// 	} else {
-// 		console.error('Incomplete vCard data.');
-// 	}
-// }
-
-	$: isEventAvailable = renderedData.some(
-		(item: any) => item.key === 'summary' || item.key === 'dtstart' || item.key === 'dtend'
-	);
-
-	$: isVCardAvailable = renderedData.some(
-		(item) =>
-			item.key === 'fn' ||
-			item.key === 'org' ||
-			item.key === 'tel' ||
-			item.key === 'email' ||
-			item.key === 'adr' ||
-			item.key === 'url'
-	);
+	export function handleDownloadEvent() {
+		if (renderedData.type === 'event') {
+			const eventData = renderedData.content;
+			if (eventData.summary && eventData.dtstart && eventData.dtend) {
+				const icsData = formatEventToIcs(eventData);
+				const fileName = eventData.summary || 'Event';
+				downloadIcsFile(icsData, fileName);
+			} else {
+				console.error('Incomplete event data.');
+			}
+		}
+	}
 
 	function reset() {
-		result = '';
-		startVideo();
-	}
-
-	function startVideo() {
-		navigator.mediaDevices
-			.getUserMedia({ video: { facingMode: 'environment' } })
-			.then((stream) => {
-				videoElement.srcObject = stream;
-				videoElement.play();
-				scanQRCode();
+		renderedData = null;
+		stopScanner()
+			.then(() => {
+				console.log('Scanner stopped, restarting...');
+				startScanner();
 			})
 			.catch((error) => {
-				console.error('Error accessing the camera', error);
+				console.error("Erreur lors de l'arrêt du scanner avant le redémarrage", error);
+				startScanner(); // Essaie de redémarrer le scanner même en cas d'erreur
 			});
 	}
 
-	onMount(() => {
-		ctx = canvas.getContext('2d');
-		startVideo();
-	});
+	function startScanner() {
+		Html5Qrcode.getCameras()
+			.then((devices) => {
+				if (devices && devices.length) {
+					const backCamera = devices.find((device) => /back|rear/i.test(device.label));
+					const cameraId = backCamera ? backCamera.id : devices[0].id;
 
-	function scanQRCode() {
-		const scan = () => {
-			if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
-				canvas.height = videoElement.videoHeight;
-				canvas.width = videoElement.videoWidth;
-				ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-				const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-				const code = jsQR(imageData.data, imageData.width, imageData.height);
-				// console.log('----- QR code test ------', code);
-				if (code) {
-					console.log('QR code test ', imageData.data);
-					result = decodeURIComponent(code.data);
-					// console.log('QR code detected', result);
-					renderedData = parseData(result);
-					console.log('QR code data', renderedData);
-					videoElement.srcObject?.getTracks().forEach((track) => track.stop());
+					const config = {
+						fps: 10,
+						qrbox: { width: 250, height: 250 },
+						cameraId: cameraId
+					};
+
+					return html5QrCode.start(cameraId, config, (decodedText: any) => {
+						console.log('Scan started ------------------');
+						let result = parseData(decodedText);
+						console.log('Parsed data:', result);
+						renderedData = buildData(result);
+						console.log('Built data:', renderedData);
+						stopScanner();
+					});
+				} else {
+					throw new Error('Aucune caméra trouvée.');
 				}
-			}
-			if (!result) {
-				requestAnimationFrame(scan);
-			}
-		};
-		scan();
+			})
+			.then(() => {
+				isScanning = true;
+				console.log('Scanner started');
+			})
+			.catch((err) => {
+				console.error('Unable to start/restart the QR scanner', err);
+			});
 	}
 
-	function stopVideo() {
-		if (videoElement?.srcObject) {
-			videoElement.srcObject.getTracks().forEach((track: any) => track.stop());
-			videoElement.srcObject = null;
+	export function handleDownloadVCard() {
+		if (renderedData.type === 'vcard' && renderedData.content) {
+			// Initialisation d'une chaîne vCard
+			let vcfData = 'BEGIN:VCARD\nVERSION:3.0\n';
+
+			// Ajout des champs vCard à partir de l'objet content
+			if (renderedData.content.n) vcfData += `N:${renderedData.content.n}\n`;
+			if (renderedData.content.email) vcfData += `EMAIL:${renderedData.content.email}\n`;
+			if (renderedData.content.tel) vcfData += `TEL:${renderedData.content.tel}\n`;
+			if (renderedData.content.org) vcfData += `ORG:${renderedData.content.org}\n`;
+			if (renderedData.content.title) vcfData += `TITLE:${renderedData.content.title}\n`;
+			if (renderedData.content.url) vcfData += `URL:${renderedData.content.url}\n`;
+
+			// Finalisation de la chaîne vCard
+			vcfData += 'END:VCARD';
+
+			// Nom du fichier à télécharger
+			const filename = 'contact.vcf';
+
+			// Appel de la fonction de téléchargement avec la chaîne vCard générée
+			downloadVcfFile(vcfData, filename);
+		} else {
+			console.error('Incomplete vCard data.');
 		}
 	}
-
-	onDestroy(() => {
-		stopVideo();
-	});
-
-	
 </script>
 
-<div
-	class="w-full justify-center flex flex-col items-center text-t-indigo absolute top-0 right-0 left-0 bottom-0
-			dark:text-t-ciel"
->
-	{#if result == ''}
-		<!-- svelte-ignore a11y-media-has-caption -->
-		<video
-			bind:this={videoElement}
-			width="700"
-			height="700"
-			aria-label="Flux vidéo pour la lecture de codes QR"
-			class="-z-1 absolute"
-		></video>
-		<canvas bind:this={canvas} width="400" height="400" style="display: none;"></canvas>
+{#if renderedData}
+	<div class="flex flex-col p-6 w-full sm:px-16">
 		<div
-			class="relative w-32 h-32 flex justify-center items-center
-		sm:w-52 sm:h-52"
-		>
-			<div
-				class="absolute top-0 left-0 w-[32%] h-[32%] border-t-4 border-l-4 border-current rounded-tl-xl"
-			></div>
-			<div
-				class="absolute top-0 right-0 w-[32%] h-[32%] border-t-4 border-r-4 border-current rounded-tr-xl"
-			></div>
-			<div
-				class="absolute bottom-0 left-0 w-[32%] h-[32%] border-b-4 border-l-4 border-current rounded-bl-xl"
-			></div>
-			<div
-				class="absolute bottom-0 right-0 w-[32%] h-[32%] border-b-4 border-r-4 border-current rounded-br-xl"
-			></div>
-		</div>
-		<p class="tetx-xs font-semibold mt-4 z-10 sm:text-md">Scannez le QR code</p>
-	{:else}
-		<div
-			class="rounded-md max-w-[80vw] mb-4 flex flex-col justify-center items-center bg-white border border-t-indigo
-					dark:bg-t-black dark:text-white dark:border-white"
+			class="w-full bg-white mb-4 rounded-md
+		dark:bg-t-black dark:text-white"
 		>
 			<div class="flex flex-col justify-center items-center w-full p-4">
-				{#each renderedData as { key, value }}
-					{#if  getLinkData(key, value).type === 'event'}
-						<button on:click={handleDownloadEvent}
-							><svelte:component this={getLinkData(key, value).icon} />Télécharger l'événement</button
-						>
-					{:else if getLinkData(key, value).type === 'vcard'}
-						<button on:click={handleDownloadVCard}
-							><svelte:component this={getLinkData(key, value).icon} />Télécharger le contact</button>
-					{:else if getLinkData(key, value).type === 'link' && isEventAvailable === false}
-						<a
-							href={getLinkData(key, value).href}
-							class="p-1 text-sm border rounded-md border-t-indigo flex self-center"
-							download={getLinkData(key, value).download
-								? getLinkData(key, value).download
-								: undefined}
-						>
-							<span><svelte:component this={getLinkData(key, value).icon} /></span>
-							<span class="ml-2">{getLinkData(key, value).text}</span>
-						</a>
-					{:else if getLinkData(key, value).type === 'link' && isEventAvailable === false}
-						<a
-							href={getLinkData(key, value).href}
-							class="p-1 text-sm border rounded-md border-t-indigo flex self-center"
-						>
-							<span><svelte:component this={getLinkData(key, value).icon} /></span>
-							<span class="ml-2">{getLinkData(key, value).text}</span>
-						</a>
-					{:else if getLinkData(key, value).type === 'sms'}
-						<span>destinataire : {getLinkData(key, value).number}</span>
-						<span>message : {getLinkData(key, value).message}</span>
-						<a
-							href={getLinkData(key, value).href}
-							class="p-1 text-sm border rounded-md border-t-indigo flex self-center"
-						>
-							<span><svelte:component this={getLinkData(key, value).icon} /></span>
-							<span class="ml-2">{getLinkData(key, value).text}</span>
-						</a>
-					{:else if getLinkData(key, value).type === 'email'}
-						<span>destinataire : {getLinkData(key, value).email}</span>
-						<span>sujet : {getLinkData(key, value).subject}</span>
-						<a
-							href={getLinkData(key, value).href}
-							class="p-1 text-sm border rounded-md border-t-indigo flex self-center"
-						>
-							<span><svelte:component this={getLinkData(key, value).icon} /></span>
-							<span class="ml-2">{getLinkData(key, value).text}</span>
-						</a>
-					{:else if getLinkData(key, value).type === 'phone'}
-						<a href={getLinkData(key, value).href} class="p-1 text-sm border rounded-md border-t-indigo flex self-center">
-							<span><svelte:component this={getLinkData(key, value).icon} /></span>
-							<span class="ml-2">{getLinkData(key, value).text}</span>
-						</a>
+				<h1 class="mb- text-t-indigo font-semibold dark:text-white">Contenu du Qr Code</h1>
+				<p class=" text-t-indigo dark:text-white">{renderedData.type}</p>
+				<div
+					class="border flex flex-col justify-center items-center border-t-indigo rounded-md p-4 w-full my-4 text-t-indigo dark:text-white
+			dark:border-white"
+				>
+					{#if renderedData.type !== 'event' && renderedData.type !== 'vcard' && renderedData.type !== 'wifi'}
+						<div class="flex flex-col items-center p-1">
+							{#each Object.keys(renderedData.content) as key}
+								<span class="text-sm">
+									{$_(`scan.${renderedData.type}.${key}`)} :
+									<span class="font-semibold">{renderedData.content[key]}&nbsp;</span>
+								</span>
+							{/each}
+						</div>
+					{:else if renderedData.type === 'event'}
+						<div class="flex flex-col items-center p-1">
+							{#each Object.keys(renderedData.content) as key}
+								{#if key !== 'begin' && key !== 'end'}
+									{#if key === 'dtstart' || key === 'dtend'}
+										<span class="text-sm">
+											{$_(`scan.event.${key}`)} :
+											<span class="font-semibold"
+												>{new Date(renderedData.content[key]).toLocaleString()}&nbsp;</span
+											>
+										</span>
+									{:else}
+										<span class="text-sm">
+											{$_(`scan.event.${key}`)} :
+											<span class="font-semibold">{renderedData.content[key]}&nbsp;</span>
+										</span>
+									{/if}
+								{/if}
+							{/each}
+						</div>
+					{:else if renderedData.type === 'vcard'}
+						<div class="flex flex-col items-center p-1">
+							{#if renderedData.type === 'vcard'}
+								{#each Object.keys(renderedData.content) as key}
+									{#if key !== 'begin' && key !== 'end' && key !== 'version'}
+										<span class="text-sm">
+											{$_(`scan.vcard.${key}`)} :
+											<span class="font-semibold">{renderedData.content[key]}&nbsp;</span>
+										</span>
+									{/if}
+								{/each}
+							{:else}
+								<p class="text-sm">Aucune information de contact trouvée.</p>
+							{/if}
+						</div>
+					{:else if renderedData.type === 'wifi'}
+						<div class="flex flex-col items-center p-1">
+							<form id="wifiform" action="" method="POST">
+								<input type="hidden" name="ssid" value={renderedData.content.ssid} />
+								<input type="hidden" name="password" value={renderedData.content.password} />
+								<input type="hidden" name="security" value={renderedData.content.security} />
+								<button
+									on:click={() => {
+										document.getElementById('wifiform').submit();
+									}}
+									class="w-full flex justify-center items-center rounded-md border p-3 border-t-indigo text-white text-sm font-semibold bg-t-indigo
+					dark:bg-t-ciel dark:border-t-ciel dark:text-black dark:font-normal"
+									type="submit"
+									><svelte:component this={renderedData.action.icon} />Se connecter au réseau</button
+								>
+							</form>
+						</div>
 					{/if}
-				{/each}
+				</div>
+				{#if renderedData.type === 'event'}
+					<button
+						on:click={handleDownloadEvent}
+						class="w-full flex justify-center items-center rounded-md border p-3 border-t-indigo text-white text-sm font-semibold bg-t-indigo
+		dark:bg-t-ciel dark:border-t-ciel dark:text-black dark:font-normal"
+						><svelte:component this={renderedData.action.icon} />Télécharger l'événement</button
+					>
+				{:else if renderedData.type === 'vcard'}
+					<button
+						on:click={handleDownloadVCard}
+						class="w-full flex justify-center items-center rounded-md border p-3 border-t-indigo text-white text-sm font-semibold bg-t-indigo
+		dark:bg-t-ciel dark:border-t-ciel dark:text-black dark:font-normal"
+						><svelte:component this={renderedData.action.icon} />Télécharger le contact</button
+					>
+				{:else}
+					<a
+						href={renderedData.action.href}
+						class="w-full flex justify-center items-center rounded-md border p-3 border-t-indigo text-white text-sm font-semibold bg-t-indigo
+  					dark:bg-t-ciel dark:border-t-ciel dark:text-black dark:font-normal"
+					>
+						<svelte:component this={renderedData.action.icon} />
+						<span class="ml-2">{$_(renderedData.action.text[0])}</span>
+						{#if renderedData.action.text.length > 1}
+							<span>{$_(renderedData.action.text[1])}</span>
+						{/if}
+					</a>
+				{/if}
+
+				<button
+					on:click={reset}
+					class="w-full p-3 mt-4 bg-white border border-t-indigo rounded-md text-t-indigo text-sm font-semibold dark:bg-t-black dark:border-white dark:text-white"
+					>{$_('scan.new')}</button
+				>
 			</div>
 		</div>
-
-		<div class="w-full flex flex-col justify-center items-center">
-			<button
-				class="text-xs border border-t-indigo bg-white rounded-md p-2 dark:bg-t-black dark:text-white dark:border-white
-			sm:text-sm"
-				on:click={reset}
-			>
-				Scanner un autre QrCode
-			</button>
-		</div>
-	{/if}
-</div>
+	</div>
+{:else}
+	<div class="test relative w-full h-full mt-10 border-2">
+		<div id="reader" class="-z-10 border-current"></div>
+	</div>
+{/if}
 
 <style>
 </style>

@@ -21,7 +21,6 @@
 
 			qrCodeData = items;
 			console.log('test ---- QrCodeData ------------', qrCodeData);
-			console.log('test ----------------', qrCodeData);
 		} catch (error) {
 			console.error('Failed to load options:', error);
 		}

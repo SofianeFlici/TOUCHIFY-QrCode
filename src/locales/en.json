@@ -169,7 +169,57 @@
       }
     }
   },
-  "scan": "SCAN QR CODE",
+  "scan": {
+    "new": "Scan a new QR Code",
+    "title" : "SCANNER",
+    "open": {
+      "url": "Open link",
+      "email": "Send an email",
+      "phone": "Call the number",
+      "sms": "Send an SMS",
+      "wifi": "Connect to Wi-Fi network",
+      "geo": "Open map",
+      "event": "Add to calendar",
+      "contact": "Add to contacts"
+    },
+    "sms": {
+      "number": "Number",
+      "message": "Message"
+    },
+    "geo": {
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "wifi": {
+      "S": "Network name",
+      "P": "Password",
+      "H": "Hidden network",
+      "T": "Network type"
+    },
+    "vcard": {
+      "n": "Last name, First name",
+      "org": "Company",
+      "title": "Position",
+      "tel": "Phone",
+      "email": "Email",
+      "url": "Website"
+    },
+    "phone": {
+      "tel": "Phone number"
+    },
+    "email": {
+      "email": "Email",
+      "subject": "Subject"
+    },
+    "link": {
+      "https": "links"
+    },
+    "event": {
+      "summary": "Title",
+      "dtstart": "Start",
+      "dtend": "End"
+    }
+  },  
   "model": {
     "title": "Qr Code Model",
     "undefined": "None"

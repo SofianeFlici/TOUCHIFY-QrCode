@@ -75,10 +75,8 @@ export type QrCodeData =
 
 export type QrCodeDataType = {
 	type?: string;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	icon: typeof SvelteComponentTyped<any>;
 	data?: QrCodeData;
-	// options: Partial<Options>;
 };
 
 export type ColorOptions = {
@@ -188,6 +186,7 @@ export function generateVCard({
 	phone,
 	url
 }: QrCodeDataContact) {
+	console.log('gereation Vcard on QrCodeData.ts --- firstname', firstname);
 	return `BEGIN:VCARD\nVERSION:3.0\nN:${(firstname || '')};${lastname}\nORG:${(company || '')}\nTITLE:${jobTitle}\nEMAIL:${email}\nTEL:${phone}\nURL:${url}\nEND:VCARD`;
 
 }
@@ -263,13 +262,4 @@ export const displayConfig: Record<string, { key: string; label: string }[]> = {
 		{ key: 'email', label: 'Email' },
 		{ key: 'subject', label: 'Subjet' }
 	],
-	BEGIN: [
-		{ key: 'firstname', label: 'firstname' },
-		{ key: 'lastname', label: 'lastname' },
-		{ key: 'company', label: 'company' },
-		{ key: 'jobTitle', label: 'jobTitle' },
-		{ key: 'phone', label: 'phone' },
-		{ key: 'email', label: 'email' },
-		{ key: 'url', label: 'website' }
-	]
 };

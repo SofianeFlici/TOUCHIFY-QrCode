@@ -20,7 +20,7 @@ export function NavbarMenu(): menuType[] {
         {
             name: "ScanQr",
             href: "/scanqr",
-            trad: "scan"
+            trad: "scan.title"
         },
     ];
 }
