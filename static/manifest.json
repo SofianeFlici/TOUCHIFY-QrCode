@@ -1,0 +1,17 @@
+{
+	"name": "Touchify QrCode",
+	"start_url": "/",
+	"version": "1.0.0",
+	"description": "Touchify QrCode",
+	"author": "Touchify",
+	"orientation": "portrait-primary",
+	"display": "standalone",
+	"license": "MIT",
+	"icons": [
+		{
+			"src": "./favicon.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		}
+	]
+}

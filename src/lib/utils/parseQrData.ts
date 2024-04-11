@@ -12,28 +12,25 @@ import {
 import { _ } from 'svelte-i18n';
 import { get } from 'svelte/store';
 
-let tmp = get(_);
+const tmp = get(_);
 const tt = tmp('phone.name');
 console.log('svelte --------- i18n', tt);
-
 
 interface QRDataItem {
 	key: string;
 	value: string;
 }
 
-
 export function parseData(data: string): QRDataItem[] {
 	console.log('parseData--- data --- vcard test', data);
 	const lines = data.split('\n');
 	const dataValue: Array<{ key: string; value: string }> = [];
 	for (const line of lines) {
-		let [k, ...rest] = line.split(':');
+		const [k, ...rest] = line.split(':');
 		const value = rest.join(':');
 		if (k) {
 			const key = k.trim().toLowerCase();
 			if (key === 'wifi') {
-				// Traiter les données WiFi
 				const wifiData = value.split(';').reduce((acc, curr) => {
 					const [field, fieldValue] = curr.split(':');
 					if (field && fieldValue) acc[field.trim()] = fieldValue.trim();
@@ -42,7 +39,6 @@ export function parseData(data: string): QRDataItem[] {
 				const formattedValue: string = `S:${wifiData.S};T:${wifiData.T};P:${wifiData.P};H:false;`;
 				dataValue.push({ key, value: formattedValue });
 			} else if (key === 'smsto') {
-				// Traiter les données SMSTO
 				const parts = value.split(':');
 				if (parts.length >= 2) {
 					const number = parts[0].trim();
@@ -65,93 +61,141 @@ export function parseData(data: string): QRDataItem[] {
 }
 
 interface QRDataItem {
-    key: string;
-    value: string;
+	key: string;
+	value: string;
 }
 
-// interface BuiltData {
-//     type: string;
-//     content: any;
-// }
+interface FirstRow {
+	key: string;
+	value: string;
+}
+interface ResultData {
+	type: string;
+	content: { [key: string]: string };
+	action: {
+		text: string[];
+		icon: unknown;
+		href?: string;
+	};
+}
+export function buildData(data: FirstRow[]): ResultData {
+	console.log('buildData--- data', data);
+	if (data.length === 0) {
+		return { type: '', content: {}, action: { text: [], icon: null } };
+	}
 
-export function buildData(data) {
-    console.log('buildData--- data', data);
-    if (data.length === 0) {
-        return { type: '', content: {}, action: {} };
-    }
+	const resultData = { type: '', content: {}, action: {} };
+	const firstRow = data[0];
 
-    const resultData = { type: '', content: {}, action: {} };
-    const firstRow = data[0];
-
-    switch (firstRow.key) {
-        case 'wifi':
-            const partsWifi = firstRow.value.split(';').reduce((acc, curr) => {
-                const [key, value] = curr.split(':');
-                if (key && value) acc[key.trim()] = value.trim();
-                return acc;
-            }, {});
-            resultData.type = 'wifi';
-            resultData.content = partsWifi;
-			// console.log('buildData--- partsWifi', resultData.content['S']);
-            resultData.action = { href: `WIFI://${resultData.content['S']}:${resultData.content['P']}@ssid`, text: [`scan.open.wifi`], icon: IconWifi };
-            break;
-        case 'smsto':
-            const [number, message] = firstRow.value.split('?body=');
-            resultData.type = 'sms';
-            resultData.content = { number, message };
-            resultData.action = { href: `sms:${number}?body=${message || ''}`, text: [`scan.open.sms`], icon: IconMessage };
-            break;
-        case 'mailto':
-            const [email, subject] = firstRow.value.split('?subject=');
-            resultData.type = 'email';
-            resultData.content = { email, subject };
-			resultData.action = { href: `mailto:${email}?subject=${subject || ''}`, text: [`scan.open.email`], icon: IconEmail };
-            break;
-        case 'tel':
-            resultData.type = 'phone';
-            resultData.content = data.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
-            resultData.action = { href: `tel:${firstRow.value}`, text: [`scan.open.phone`], icon: IconCall };
-            break;
-        case 'http':
-        case 'https':
-            resultData.type = 'link';
-            resultData.content = data.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
-            resultData.action = { href: firstRow.value, text: [`scan.open.url`,`https:${firstRow.value}`], icon: IconGlobe };
-            break;
-        case 'geo':
-            const [latitude, longitude] = firstRow.value.split(',');
-            resultData.type = 'geo';
-            resultData.content = { latitude, longitude };
-            resultData.action = { href: `geo:${latitude},${longitude}`, text: [`scan.open.geo`], icon: IconLocationMarker };
-            break;
-        case 'vcard':
-			let lines = firstRow.value.split('\n');
-			const vCardObject = {};
-		
-			lines.forEach(line => {
-				let [key, value] = line.split(':');
-				if (key && value) {
-					key = key.toLowerCase().trim();
-					value = value.trim();
-					vCardObject[key] = value;
+	switch (firstRow.key) {
+		case 'wifi': {
+			const wifiInfo = firstRow.value;
+			const infoParts: { [key: string]: string } = wifiInfo.split(';').reduce((acc, curr) => {
+				const [k, v] = curr.split(':');
+				if (k && v) {
+					acc[k] = v;
 				}
-			});
-            resultData.type = 'vcard';
-            resultData.content = vCardObject;
-            resultData.action = { text: ['scan.open.vcard'], icon: IconContactBook };
-            break;
-        case 'begin':
-            resultData.type = 'event';
-            resultData.content = data.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
-            resultData.action = { text: ["scan.open.event"], icon: IconCalendarCheck };
-            break;
-        default:
-            console.log('Type de QR code non reconnu.');
-    }
+				return acc;
+			}, {} as { [key: string]: string });
 
-    return resultData;
+			const ssid: string = infoParts['S'];
+			const password: string = infoParts['P'];
+			const typeWifi: string = infoParts['T'];
+			const hidden: boolean = infoParts['H'] === 'true';
+
+			const partsWifi = { ssid, password, typeWifi, hidden };
+			resultData.type = 'wifi';
+			resultData.content = partsWifi;
+			console.log('buildData--- partsWifi', partsWifi);
+			resultData.action = { text: [`scan.open.wifi`], icon: IconWifi };
+			break;
+		}
+		case 'smsto':
+			{
+				const [number, message] = firstRow.value.split('?body=');
+				resultData.type = 'sms';
+				resultData.content = { number, message };
+				resultData.action = {
+					href: `sms:${number}?body=${message || ''}`,
+					text: [`scan.open.sms`],
+					icon: IconMessage
+				};
+			}
+			break;
+		case 'mailto':
+			{
+				const [email, subject] = firstRow.value.split('?subject=');
+				resultData.type = 'email';
+				resultData.content = { email, subject };
+				resultData.action = {
+					href: `mailto:${email}?subject=${subject || ''}`,
+					text: [`scan.open.email`],
+					icon: IconEmail
+				};
+			}
+			break;
+		case 'tel':
+			resultData.type = 'phone';
+			resultData.content = data.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
+			resultData.action = {
+				href: `tel:${firstRow.value}`,
+				text: [`scan.open.phone`],
+				icon: IconCall
+			};
+			break;
+		case 'http':
+		case 'https':
+			resultData.type = 'link';
+			resultData.content = data.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
+			resultData.action = {
+				href: firstRow.value,
+				text: [`scan.open.url`, `https:${firstRow.value}`],
+				icon: IconGlobe
+			};
+			break;
+		case 'geo':
+			{
+				const [latitude, longitude] = firstRow.value.split(',');
+				resultData.type = 'geo';
+				resultData.content = { latitude, longitude };
+				resultData.action = {
+					href: `geo:${latitude},${longitude}`,
+					text: [`scan.open.geo`],
+					icon: IconLocationMarker
+				};
+			}
+			break;
+		case 'vcard':
+			{
+				const lines: string[] = firstRow.value.split('\n');
+				const vCardObject: { [key: string]: string } = {};
+
+				lines.forEach((line) => {
+					let [key, value] = line.split(':');
+					if (key && value) {
+						key = key.toLowerCase().trim();
+						value = value.trim();
+						vCardObject[key] = value;
+					}
+				});
+				resultData.type = 'vcard';
+				resultData.content = vCardObject;
+				resultData.action = { text: ['scan.open.vcard'], icon: IconContactBook };
+			}
+			break;
+		case 'begin':
+			{
+				resultData.type = 'event';
+				resultData.content = data.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
+				resultData.action = { text: ['scan.open.event'], icon: IconCalendarCheck };
+			}
+			break;
+		default:
+			console.log('Type de QR code non reconnu.');
+	}
+
+	return resultData;
 }
-
 
 export function formatEventToIcs({
 	summary,

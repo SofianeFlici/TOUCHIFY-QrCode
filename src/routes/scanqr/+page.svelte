@@ -9,6 +9,8 @@
 		downloadVcfFile
 	} from '$lib/utils/parseQrData';
 	import { _ } from 'svelte-i18n';
+	import { IconCopy } from 'obra-icons-svelte'
+
 	let isScanning = false;
 
 	// console.log('Scan QR code page ---- trad', $_);
@@ -60,7 +62,7 @@
 				}
 			})
 			.catch((err) => {
-				// console.error('Error getting cameras', err);
+				console.error('Error getting cameras', err);
 			});
 	});
 
@@ -78,7 +80,7 @@
 						isScanning = false;
 						resolve(); // Résout la promesse si le scanner s'arrête avec succès
 					})
-					.catch((err) => {
+					.catch((err:any) => {
 						console.error('Failed to stop the scanner', err);
 						reject(err); // Rejette la promesse en cas d'erreur
 					});
@@ -174,6 +176,17 @@
 			console.error('Incomplete vCard data.');
 		}
 	}
+
+	function copyTextToClipboard(text: string) {
+		navigator.clipboard
+			.writeText(text)
+			.then(() => {
+				console.log('Texte copié avec succès');
+			})
+			.catch((err) => {
+				console.error('Erreur lors de la copie du texte: ', err);
+			});
+	}
 </script>
 
 {#if renderedData}
@@ -235,20 +248,14 @@
 						</div>
 					{:else if renderedData.type === 'wifi'}
 						<div class="flex flex-col items-center p-1">
-							<form id="wifiform" action="" method="POST">
-								<input type="hidden" name="ssid" value={renderedData.content.ssid} />
-								<input type="hidden" name="password" value={renderedData.content.password} />
-								<input type="hidden" name="security" value={renderedData.content.security} />
-								<button
-									on:click={() => {
-										document.getElementById('wifiform').submit();
-									}}
-									class="w-full flex justify-center items-center rounded-md border p-3 border-t-indigo text-white text-sm font-semibold bg-t-indigo
-					dark:bg-t-ciel dark:border-t-ciel dark:text-black dark:font-normal"
-									type="submit"
-									><svelte:component this={renderedData.action.icon} />Se connecter au réseau</button
-								>
-							</form>
+							{#each Object.entries(renderedData.content) as [key, value]}
+								<div class="text-sm cursor-pointer">
+									{key} : <span class="font-semibold">{value}&nbsp;</span>
+									<button on:click={() => typeof value === 'string' && copyTextToClipboard(value)} class="text-t-indigo dark:text-white">
+										<svelte:component this={IconCopy} size={16} />
+									</button>									
+								</div>
+							{/each}
 						</div>
 					{/if}
 				</div>
@@ -264,9 +271,8 @@
 						on:click={handleDownloadVCard}
 						class="w-full flex justify-center items-center rounded-md border p-3 border-t-indigo text-white text-sm font-semibold bg-t-indigo
 		dark:bg-t-ciel dark:border-t-ciel dark:text-black dark:font-normal"
-						><svelte:component this={renderedData.action.icon} />Télécharger le contact</button
-					>
-				{:else}
+						><svelte:component this={renderedData.action.icon} />Télécharger le contact</button>
+				{:else if renderedData.type !== 'wifi'}
 					<a
 						href={renderedData.action.href}
 						class="w-full flex justify-center items-center rounded-md border p-3 border-t-indigo text-white text-sm font-semibold bg-t-indigo
@@ -289,8 +295,8 @@
 		</div>
 	</div>
 {:else}
-	<div class="test relative w-full h-full mt-10 border-2">
-		<div id="reader" class="-z-10 border-current"></div>
+	<div class="test relative w-full h-full mt-10">
+		<div id="reader" class="-z-10"></div>
 	</div>
 {/if}
 

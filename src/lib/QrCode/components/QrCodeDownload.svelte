@@ -62,8 +62,8 @@
 </script>
 
 <div
-	class="fixed z-10 right-0 left-0 top-[94px] flex bg-t-medium-blue h-28 justify-center shadow-lg sm:shadow-none sm:top-16 dark:bg-t-black sm:left-auto sm:right-auto sm:h-full sm:bg-transparent sm:flex-col sm:fixed sm:mt-2 sm:max-w-72">
-	<div class="m-4 sm:mx-4 bg-white  p-2 rounded-md">
+	class="fixed z-10 right-0 left-0 top-[94px] flex bg-t-medium-blue h-28 justify-center shadow-lg sm:shadow-none sm:top-16 dark:bg-t-black sm:left-auto sm:right-auto sm:h-full sm:bg-transparent sm:flex-col sm:fixed sm:mt-6 sm:max-w-72">
+	<div class="m-4 sm:mx-4 bg-white p-2 rounded-md">
 		<div class="h-full qr-preview bg-white rounded-md sm:p-4" bind:this={qrCodeElement}></div>
 	</div>
 

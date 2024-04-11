@@ -9,7 +9,6 @@ import {
 	IconGlobe,
 	IconCall
 } from 'obra-icons-svelte';
-import type { SvelteComponentTyped } from 'svelte';
 
 
 export type QrCodeDataUrl = {
@@ -75,7 +74,7 @@ export type QrCodeData =
 
 export type QrCodeDataType = {
 	type?: string;
-	icon: typeof SvelteComponentTyped<any>;
+	icon: unknown;
 	data?: QrCodeData;
 };
 
